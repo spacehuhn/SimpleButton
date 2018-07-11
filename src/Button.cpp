@@ -1,87 +1,121 @@
-#include "Button.h"
+#include "SimpleButton.h"
 
-Button::Button() {
+namespace simpleButton {
+    void Button::enable() {
+        button_enabled = true;
+    }
 
+    void Button::disable() {
+        button_enabled = false;
+    }
+
+    void Button::push() {
+        if (!state) {
+            state = true;
+
+            prevPushTime    = pushTime;
+            prevReleaseTime = millis();
+            pushedFlag      = true;
+
+            pushTime = millis();
+            holdTime = millis();
+            holdFlag = false;
+        }
+    }
+
+    void Button::release() {
+        if (state) {
+            state = false;
+
+            releasedFlag = true;
+        }
+    }
+
+    void Button::click(uint32_t time) {
+        push();
+        pushTime = millis() - time;
+        release();
+    }
+
+    void Button::update() {
+        updateTime = millis();
+    }
+
+    bool Button::isEnabled() {
+        return button_enabled;
+    }
+
+    bool Button::getState() {
+        return state;
+    }
+
+    int Button::getClicks() {
+        return (int)clicks;
+    }
+
+    int Button::getPushTime() {
+        return (int)(millis() - pushTime);
+    }
+
+    bool Button::pushed() {
+        if (pushedFlag) {
+            pushedFlag = false;
+            return true;
+        }
+        return false;
+    }
+
+    bool Button::released() {
+        if (releasedFlag) {
+            releasedFlag = false;
+            return true;
+        }
+        return false;
+    }
+
+    bool Button::clicked() {
+        return clicked(DEFAULT_MIN_PUSH_TIME);
+    }
+
+    bool Button::clicked(uint32_t minPushTime) {
+        bool isReleased = released();
+        bool notHolding = !holdFlag;
+        bool minTime    = millis() - pushTime >= minPushTime;
+
+        if (isReleased && notHolding && minTime) {
+            clicks++;
+            return true;
+        }
+
+        return false;
+    }
+
+    bool Button::doubleClicked() {
+        return doubleClicked(DEFAULT_MIN_PUSH_TIME);
+    }
+
+    bool Button::doubleClicked(uint32_t minPushTime) {
+        return doubleClicked(minPushTime, DEFAULT_TIME_SPAN);
+    }
+
+    bool Button::doubleClicked(uint32_t minPushTime, uint32_t timeSpan) {
+        bool clicked     = clicked(minPushTime);
+        bool prevClicked = prevReleaseTime - prevPushTime >= minPushTime;
+        bool inTimeSpan  = millis() - prevPushTime <= timeSpan;
+
+        return clicked && prevClicked && inTimeSpan;
+    }
+
+    bool Button::holded() {
+        return holded(DEFAULT_HOLD_INTERVAL);
+    }
+
+    bool Button::holded(uint32_t interval) {
+        if (getState() && (millis() - holdTime >= interval)) {
+            holdTime = millis();
+            holdFlag = true;
+            return true;
+        }
+        return false;
+    }
 }
-
-Button::Button(uint8_t pin) {
-  Button::pin = pin;
-  pinMode(pin, INPUT_PULLUP);
-  enable();
-}
-
-Button::~Button() {
-
-}
-
-void Button::enable() {
-  enabled = true;
-}
-
-void Button::disable() {
-  enabled = false;
-}
-
-void Button::update() {
-  update(!digitalRead(pin));
-}
-
-void Button::update(bool state) {
-  if (!enabled) return;
-
-  uint32_t currentTime = millis();
-
-  if(currentTime - updateTime < 25) return;
-  updateTime = currentTime;
-
-  bool prevState = isPushed;
-  isPushed = state;
-  
-  if (isPushed && !prevState) {
-    pushBeginTime = currentTime;
-    holdTime = currentTime;
-    holdFlag = false;
-  }
-
-  if (!isPushed && prevState) {
-    if (currentTime - pushBeginTime > 40) clickedFlag = true;
-    else Serial.println(currentTime - pushBeginTime);
-  }
-}
-
-bool Button::pushed() {
-  return isPushed;
-}
-
-bool Button::clicked() {
-  if (clickedFlag) {
-    clickedFlag = false;
-    if(!holdFlag) return true;
-  }
-
-  return false;
-}
-
-bool Button::clicked(uint32_t time){
-  if (clickedFlag && millis() - pushBeginTime >= time) {
-    clickedFlag = false;
-    if(!holdFlag) return true;
-  }
-
-  return false;
-}
-
-bool Button::holded(uint32_t interval) {
-  if (isPushed && millis() - holdTime >= interval) {
-    holdTime = millis();
-    holdFlag = true;
-    return true;
-  }
-
-  return false;
-}
-
-bool Button::isEnabled() {
-  return enabled;
-}
-
