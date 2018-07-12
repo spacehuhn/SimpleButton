@@ -4,6 +4,8 @@
 #include "Button.h"
 #include "ButtonPullup.h"
 #include "ButtonI2C.h"
+#include "ButtonSwitch.h"
+#include "ButtonPulldown.h"
 
 using namespace simpleButton;
 

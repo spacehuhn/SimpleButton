@@ -1,14 +1,14 @@
-#ifndef ButtonPullup_h
-#define ButtonPullup_h
+#ifndef ButtonPulldown_h
+#define ButtonPulldown_h
 
 #include "Button.h"
 
 namespace simpleButton {
-    class ButtonPullup : public Button {
+    class ButtonPulldown : public Button {
         public:
-            ButtonPullup();
-            ButtonPullup(uint8_t pin);
-            ~ButtonPullup();
+            ButtonPulldown();
+            ButtonPulldown(uint8_t pin);
+            ~ButtonPulldown();
 
             void enable();
             void update();
@@ -21,4 +21,4 @@ namespace simpleButton {
     };
 }
 
-#endif // ifndef ButtonPullup_h
+#endif // ifndef ButtonPulldown_h

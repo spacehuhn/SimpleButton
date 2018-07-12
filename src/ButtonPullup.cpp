@@ -11,9 +11,13 @@ namespace simpleButton {
     ButtonPullup::~ButtonPullup() {}
 
     void ButtonPullup::enable() {
-        if (pin != 255) {
+        if ((pin != 255)) {
             Button::enable();
-            pinMode(pin, INPUT_PULLUP);
+
+            if (!is_setup) {
+                pinMode(pin, INPUT_PULLUP);
+                is_setup = true;
+            }
         }
     }
 
@@ -27,6 +31,6 @@ namespace simpleButton {
     }
 
     bool ButtonPullup::isEnabled() {
-        return Button::isEnabled() && pin != 255;
+        return Button::isEnabled() && is_setup;
     }
 }

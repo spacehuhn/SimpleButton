@@ -30,6 +30,10 @@ namespace simpleButton {
         }
     }
 
+    void Button::click() {
+        click(DEFAULT_MIN_PUSH_TIME);
+    }
+
     void Button::click(uint32_t time) {
         push();
         pushTime = millis() - time;
