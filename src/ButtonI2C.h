@@ -9,7 +9,7 @@ namespace simpleButton {
         public:
             ButtonI2C();
             ButtonI2C(uint8_t i2cAddress, uint8_t buttonAddress);
-            ~ButtonPullup();
+            ~ButtonI2C();
 
             void update();
 

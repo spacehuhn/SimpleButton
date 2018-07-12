@@ -99,11 +99,11 @@ namespace simpleButton {
     }
 
     bool Button::doubleClicked(uint32_t minPushTime, uint32_t timeSpan) {
-        bool clicked     = clicked(minPushTime);
+        bool wasClicked  = clicked(minPushTime);
         bool prevClicked = prevReleaseTime - prevPushTime >= minPushTime;
         bool inTimeSpan  = millis() - prevPushTime <= timeSpan;
 
-        return clicked && prevClicked && inTimeSpan;
+        return wasClicked && prevClicked && inTimeSpan;
     }
 
     bool Button::holded() {
@@ -117,5 +117,21 @@ namespace simpleButton {
             return true;
         }
         return false;
+    }
+
+    void  Button::setUpdateInterval(uint32_t time) {
+        UPDATE_INTERVAL = time;
+    }
+
+    void  Button::setMinPushTime(uint32_t minPushTime) {
+        DEFAULT_MIN_PUSH_TIME = minPushTime;
+    }
+
+    void  Button::setTimeSpan(uint32_t timeSpan) {
+        DEFAULT_TIME_SPAN = timeSpan;
+    }
+
+    void  Button::setHoldInterval(uint32_t interval) {
+        DEFAULT_HOLD_INTERVAL = interval;
     }
 }

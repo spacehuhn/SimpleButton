@@ -2,12 +2,10 @@
 #define Button_h
 
 #include "Arduino.h"
-#include "globals.h"
 
 namespace simpleButton {
     class Button {
         public:
-            virtual Button()  = default;
             virtual ~Button() = default;
 
             void enable();
@@ -34,6 +32,11 @@ namespace simpleButton {
             bool holded();
             bool holded(uint32_t interval);
 
+            void setUpdateInterval(uint32_t time);
+            void setMinPushTime(uint32_t minPushTime);
+            void setTimeSpan(uint32_t timeSpan);
+            void setHoldInterval(uint32_t interval);
+
         private:
             bool button_enabled      = false;
             bool state               = false;
@@ -48,6 +51,11 @@ namespace simpleButton {
 
         protected:
             uint32_t updateTime = 0;
+
+            uint32_t UPDATE_INTERVAL       = 25;
+            uint32_t DEFAULT_MIN_PUSH_TIME = 40;
+            uint32_t DEFAULT_TIME_SPAN     = 800;
+            uint32_t DEFAULT_HOLD_INTERVAL = 600;
     };
 }
 

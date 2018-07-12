@@ -3,7 +3,7 @@
 namespace simpleButton {
     ButtonPullup::ButtonPullup() {}
 
-    BButtonPullup::uttonPullup(uint8_t pin) {
+    ButtonPullup::ButtonPullup(uint8_t pin) {
         ButtonPullup::pin = pin;
         enable();
     }

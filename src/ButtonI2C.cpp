@@ -9,7 +9,7 @@ namespace simpleButton {
         Button::enable();
     }
 
-    ButtonI2C::~ButtonPullup() {}
+    ButtonI2C::~ButtonI2C() {}
 
     void ButtonI2C::update() {
         if (isEnabled() && (millis() - updateTime >= UPDATE_INTERVAL)) {
@@ -17,7 +17,7 @@ namespace simpleButton {
 
             Wire.requestFrom((int)i2cAddress, 1);
             byte data  = Wire.read();
-            bool state = (~data & address) > 0;
+            bool state = (~data & buttonAddress) > 0;
 
             if (state) push();
             else release();
