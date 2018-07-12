@@ -21,12 +21,18 @@ namespace simpleButton {
         }
     }
 
+    bool ButtonPullup::read() {
+        if (isEnabled()) {
+            return digitalRead(pin);
+        }
+        return false;
+    }
+
     void ButtonPullup::update() {
-        if (isEnabled() && (millis() - updateTime >= UPDATE_INTERVAL)) {
+        if (millis() - updateTime >= UPDATE_INTERVAL) {
             Button::update();
 
-            if (digitalRead(pin)) release();
-            else push();
+            read() ? release() : push();
         }
     }
 

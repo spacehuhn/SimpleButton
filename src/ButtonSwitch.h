@@ -11,6 +11,8 @@ namespace simpleButton {
             ~ButtonSwitch();
 
             void enable();
+
+            bool read();
             void update();
 
             bool isEnabled();

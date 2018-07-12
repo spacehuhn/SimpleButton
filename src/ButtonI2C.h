@@ -11,6 +11,7 @@ namespace simpleButton {
             ButtonI2C(uint8_t i2cAddress, uint8_t buttonAddress);
             ~ButtonI2C();
 
+            bool read();
             void update();
 
         private:

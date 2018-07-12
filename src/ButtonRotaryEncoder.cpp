@@ -9,7 +9,7 @@ namespace simpleButton {
     }
 
     ButtonRotaryEncoder::ButtonRotaryEncoder(uint8_t pin, Button* button) {
-        ButtonRotaryEncoder::buttonA = static_cast<ButtonRotaryEncoder*>(button);
+        ButtonRotaryEncoder::buttonA = button;
         ButtonRotaryEncoder::pin     = pin;
         enable();
     }
@@ -27,12 +27,19 @@ namespace simpleButton {
         }
     }
 
+    bool ButtonRotaryEncoder::read() {
+        if (isEnabled()) {
+            return digitalRead(pin);
+        }
+        return false;
+    }
+
     void ButtonRotaryEncoder::update() {
-        if (buttonA && isEnabled()) {
+        if (buttonA && (millis() - updateTime >= UPDATE_INTERVAL)) {
             Button::update();
 
-            bool curA = digitalRead(buttonA->getPin());
-            bool curB = digitalRead(pin);
+            bool curA = buttonA->read();
+            bool curB = read();
 
             if ((prevA == LOW) && (curA == HIGH)) {
                 if (curB == LOW) {
@@ -47,10 +54,6 @@ namespace simpleButton {
     }
 
     bool ButtonRotaryEncoder::isEnabled() {
-        return Button::isEnabled() && is_setup && buttonA;
-    }
-
-    uint8_t ButtonRotaryEncoder::getPin() {
-        return pin;
+        return Button::isEnabled() && is_setup;
     }
 }

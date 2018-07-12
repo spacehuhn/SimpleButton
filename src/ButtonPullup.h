@@ -11,6 +11,8 @@ namespace simpleButton {
             ~ButtonPullup();
 
             void enable();
+
+            bool read();
             void update();
 
             bool isEnabled();

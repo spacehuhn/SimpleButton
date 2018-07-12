@@ -21,12 +21,19 @@ namespace simpleButton {
         }
     }
 
+    bool ButtonSwitch::read() {
+        if (isEnabled()) {
+            return digitalRead(pin);
+        }
+        return false;
+    }
+
     void ButtonSwitch::update() {
         if (isEnabled() && (millis() - updateTime >= UPDATE_INTERVAL)) {
             Button::update();
 
             bool prevState = tmpState;
-            tmpState = digitalRead(pin);
+            tmpState = read();
 
             if (prevState != tmpState) click();
         }

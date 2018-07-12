@@ -11,16 +11,20 @@ namespace simpleButton {
 
     ButtonI2C::~ButtonI2C() {}
 
+    bool ButtonI2C::read() {
+        if (isEnabled()) {
+            Wire.requestFrom((int)i2cAddress, 1);
+            byte data = Wire.read();
+            return (~data & buttonAddress) > 0;
+        }
+        return false;
+    }
+
     void ButtonI2C::update() {
-        if (isEnabled() && (millis() - updateTime >= UPDATE_INTERVAL)) {
+        if (millis() - updateTime >= UPDATE_INTERVAL) {
             Button::update();
 
-            Wire.requestFrom((int)i2cAddress, 1);
-            byte data  = Wire.read();
-            bool state = (~data & buttonAddress) > 0;
-
-            if (state) push();
-            else release();
+            read() ? push() : release();
         }
     }
 }

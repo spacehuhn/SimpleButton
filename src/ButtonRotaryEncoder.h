@@ -12,17 +12,20 @@ namespace simpleButton {
             ~ButtonRotaryEncoder();
 
             void enable();
+
+            bool read();
             void update();
 
             bool isEnabled();
 
-            uint8_t getPin();
+        protected:
+            uint32_t UPDATE_INTERVAL = 1;
 
         private:
-            bool is_setup                = false;
-            uint8_t pin                  = 255;
-            ButtonRotaryEncoder* buttonA = NULL;
-            bool prevA                   = false;
+            bool is_setup   = false;
+            uint8_t pin     = 255;
+            Button* buttonA = NULL;
+            bool prevA      = false;
     };
 }
 

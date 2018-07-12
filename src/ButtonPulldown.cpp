@@ -21,12 +21,18 @@ namespace simpleButton {
         }
     }
 
+    bool ButtonPulldown::read() {
+        if (isEnabled()) {
+            return digitalRead(pin);
+        }
+        return false;
+    }
+
     void ButtonPulldown::update() {
-        if (isEnabled() && (millis() - updateTime >= UPDATE_INTERVAL)) {
+        if (millis() - updateTime >= UPDATE_INTERVAL) {
             Button::update();
 
-            if (digitalRead(pin)) push();
-            else release();
+            read() ? push() : release();
         }
     }
 

@@ -15,6 +15,7 @@ namespace simpleButton {
             virtual void click();
             virtual void click(uint32_t time);
 
+            virtual bool read() = 0;
             virtual void update();
 
             virtual bool isEnabled();

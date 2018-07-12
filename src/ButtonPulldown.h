@@ -11,6 +11,8 @@ namespace simpleButton {
             ~ButtonPulldown();
 
             void enable();
+
+            bool read();
             void update();
 
             bool isEnabled();
