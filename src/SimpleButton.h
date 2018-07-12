@@ -6,6 +6,7 @@
 #include "ButtonI2C.h"
 #include "ButtonSwitch.h"
 #include "ButtonPulldown.h"
+#include "ButtonRotaryEncoder.h"
 
 using namespace simpleButton;
 
