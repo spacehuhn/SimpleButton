@@ -8,34 +8,34 @@ namespace simpleButton {
         public:
             virtual ~Button() = default;
 
-            void enable();
-            void disable();
-            void push();
-            void release();
-            void click(uint32_t time);
+            virtual void enable();
+            virtual void disable();
+            virtual void push();
+            virtual void release();
+            virtual void click(uint32_t time);
 
-            void update();
+            virtual void update();
 
-            bool isEnabled();
-            bool getState();
-            int getClicks();
-            int getPushTime();
+            virtual bool isEnabled();
+            virtual bool getState();
+            virtual int getClicks();
+            virtual int getPushTime();
 
-            bool pushed();
-            bool released();
+            virtual bool pushed();
+            virtual bool released();
 
-            bool clicked();
-            bool clicked(uint32_t minPushTime);
-            bool doubleClicked();
-            bool doubleClicked(uint32_t minPushTime);
-            bool doubleClicked(uint32_t minPushTime, uint32_t timeSpan);
-            bool holded();
-            bool holded(uint32_t interval);
+            virtual bool clicked();
+            virtual bool clicked(uint32_t minPushTime);
+            virtual bool doubleClicked();
+            virtual bool doubleClicked(uint32_t minPushTime);
+            virtual bool doubleClicked(uint32_t minPushTime, uint32_t timeSpan);
+            virtual bool holded();
+            virtual bool holded(uint32_t interval);
 
-            void setUpdateInterval(uint32_t time);
-            void setMinPushTime(uint32_t minPushTime);
-            void setTimeSpan(uint32_t timeSpan);
-            void setHoldInterval(uint32_t interval);
+            virtual void setUpdateInterval(uint32_t time);
+            virtual void setMinPushTime(uint32_t minPushTime);
+            virtual void setTimeSpan(uint32_t timeSpan);
+            virtual void setHoldInterval(uint32_t interval);
 
         private:
             bool button_enabled      = false;
