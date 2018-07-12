@@ -53,9 +53,9 @@ namespace simpleButton {
             uint32_t updateTime = 0;
 
             uint32_t UPDATE_INTERVAL       = 25;
-            uint32_t DEFAULT_MIN_PUSH_TIME = 40;
-            uint32_t DEFAULT_TIME_SPAN     = 800;
-            uint32_t DEFAULT_HOLD_INTERVAL = 600;
+            uint32_t DEFAULT_MIN_PUSH_TIME = 20;
+            uint32_t DEFAULT_TIME_SPAN     = 650;
+            uint32_t DEFAULT_HOLD_INTERVAL = 250;
     };
 }
 

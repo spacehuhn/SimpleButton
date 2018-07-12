@@ -25,8 +25,7 @@ namespace simpleButton {
 
     void Button::release() {
         if (state) {
-            state = false;
-
+            state        = false;
             releasedFlag = true;
         }
     }
@@ -99,11 +98,17 @@ namespace simpleButton {
     }
 
     bool Button::doubleClicked(uint32_t minPushTime, uint32_t timeSpan) {
-        bool wasClicked  = clicked(minPushTime);
-        bool prevClicked = prevReleaseTime - prevPushTime >= minPushTime;
-        bool inTimeSpan  = millis() - prevPushTime <= timeSpan;
+        bool wasClicked     = clicked(minPushTime);
+        bool wasPrevClicked = prevReleaseTime - prevPushTime >= minPushTime;
+        bool inTimeSpan     = millis() - prevPushTime <= timeSpan;
 
-        return wasClicked && prevClicked && inTimeSpan;
+        bool res = wasClicked && wasPrevClicked && inTimeSpan;
+
+        if (!res && wasClicked) releasedFlag = true;
+
+        if (res) pushTime = 0;
+
+        return res;
     }
 
     bool Button::holded() {
