@@ -15,7 +15,7 @@ namespace simpleButton {
             Button::enable();
 
             if (!is_setup) {
-                inMode(pin, INPUT);
+                pinMode(pin, INPUT);
                 is_setup = true;
             }
         }
