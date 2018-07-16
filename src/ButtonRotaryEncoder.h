@@ -6,24 +6,22 @@
 namespace simpleButton {
     class ButtonRotaryEncoder : public Button {
         public:
+            uint32_t UPDATE_INTERVAL       = 5;
+            uint32_t DEFAULT_MIN_PUSH_TIME = 40;
+            uint32_t DEFAULT_TIME_SPAN     = 650;
+            uint32_t DEFAULT_HOLD_INTERVAL = 250;
+
             ButtonRotaryEncoder();
             ButtonRotaryEncoder(uint8_t pin);
+            ButtonRotaryEncoder(Button* button);
             ButtonRotaryEncoder(uint8_t pin, Button* button);
             ~ButtonRotaryEncoder();
 
-            void enable();
-
-            bool read();
             void update();
-
-            bool isEnabled();
-
-        protected:
-            uint32_t UPDATE_INTERVAL = 1;
+            void update(bool state);
+            void update(bool stateA, bool stateB);
 
         private:
-            bool is_setup   = false;
-            uint8_t pin     = 255;
             Button* buttonA = NULL;
             bool prevA      = false;
     };

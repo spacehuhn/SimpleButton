@@ -1,59 +1,56 @@
 #include "ButtonRotaryEncoder.h"
 
 namespace simpleButton {
-    ButtonRotaryEncoder::ButtonRotaryEncoder() {}
+    ButtonRotaryEncoder::ButtonRotaryEncoder() {
+        enable();
+    }
 
     ButtonRotaryEncoder::ButtonRotaryEncoder(uint8_t pin) {
-        ButtonRotaryEncoder::pin = pin;
+        this->button_pin = pin;
+        enable();
+    }
+
+    ButtonRotaryEncoder::ButtonRotaryEncoder(Button* button) {
+        this->buttonA = button;
         enable();
     }
 
     ButtonRotaryEncoder::ButtonRotaryEncoder(uint8_t pin, Button* button) {
-        ButtonRotaryEncoder::buttonA = button;
-        ButtonRotaryEncoder::pin     = pin;
+        this->button_pin = pin;
+        this->buttonA    = button;
         enable();
     }
 
     ButtonRotaryEncoder::~ButtonRotaryEncoder() {}
 
-    void ButtonRotaryEncoder::enable() {
-        if ((pin != 255)) {
-            Button::enable();
-
-            if (!is_setup) {
-                pinMode(pin, INPUT_PULLUP);
-                is_setup = true;
-            }
-        }
-    }
-
-    bool ButtonRotaryEncoder::read() {
-        if (isEnabled()) {
-            return digitalRead(pin);
-        }
-        return false;
-    }
-
     void ButtonRotaryEncoder::update() {
-        if (buttonA && (millis() - updateTime >= UPDATE_INTERVAL)) {
-            Button::update();
-
-            bool curA = buttonA->read();
-            bool curB = read();
-
-            if ((prevA == LOW) && (curA == HIGH)) {
-                if (curB == LOW) {
-                    click();
-                } else {
-                    buttonA->click();
-                }
-            }
-
-            prevA = curA;
+        if (button_enabled && button_setup && (millis() - updateTime >= UPDATE_INTERVAL)) {
+            update(read());
         }
     }
 
-    bool ButtonRotaryEncoder::isEnabled() {
-        return Button::isEnabled() && is_setup;
+    void ButtonRotaryEncoder::update(bool state) {
+        if (buttonA) {
+            update(buttonA->getState(), state);
+        } else {
+            state ? release() : push();
+        }
+    }
+
+    void ButtonRotaryEncoder::update(bool stateA, bool stateB) {
+        updateTime = millis();
+
+        bool curA = stateA;
+        bool curB = stateB;
+
+        if ((prevA == LOW) && (curA == HIGH)) {
+            if (curB == LOW) {
+                click();
+            } else {
+                buttonA->click();
+            }
+        }
+
+        prevA = curA;
     }
 }

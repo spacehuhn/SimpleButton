@@ -1,42 +1,25 @@
 #include "ButtonPullup.h"
 
 namespace simpleButton {
-    ButtonPullup::ButtonPullup() {}
+    ButtonPullup::ButtonPullup() {
+        this->button_inverted = true;
+        enable();
+    }
 
     ButtonPullup::ButtonPullup(uint8_t pin) {
-        ButtonPullup::pin = pin;
+        this->button_pin      = pin;
+        this->button_inverted = true;
         enable();
     }
 
     ButtonPullup::~ButtonPullup() {}
 
     void ButtonPullup::enable() {
-        if ((pin != 255)) {
-            Button::enable();
+        button_enabled = true;
 
-            if (!is_setup) {
-                pinMode(pin, INPUT_PULLUP);
-                is_setup = true;
-            }
+        if ((button_pin < 255) && !button_setup) {
+            pinMode(button_pin, INPUT_PULLUP);
+            button_setup = true;
         }
-    }
-
-    bool ButtonPullup::read() {
-        if (isEnabled()) {
-            return digitalRead(pin);
-        }
-        return false;
-    }
-
-    void ButtonPullup::update() {
-        if (millis() - updateTime >= UPDATE_INTERVAL) {
-            Button::update();
-
-            read() ? release() : push();
-        }
-    }
-
-    bool ButtonPullup::isEnabled() {
-        return Button::isEnabled() && is_setup;
     }
 }

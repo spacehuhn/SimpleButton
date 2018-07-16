@@ -10,18 +10,13 @@ namespace simpleButton {
             ButtonSwitch(uint8_t pin);
             ~ButtonSwitch();
 
-            void enable();
-
-            bool read();
             void update();
+            void update(bool state);
 
-            bool isEnabled();
             bool getState();
 
         private:
-            bool is_setup = false;
             bool tmpState = false;
-            uint8_t pin   = 255;
     };
 }
 

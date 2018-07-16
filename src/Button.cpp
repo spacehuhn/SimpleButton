@@ -1,8 +1,30 @@
 #include "SimpleButton.h"
 
 namespace simpleButton {
+    Button::Button() {
+        enable();
+    }
+
+    Button::Button(uint8_t pin) {
+        this->button_pin = pin;
+        enable();
+    }
+
+    Button::Button(uint8_t pin, bool inverted) {
+        this->button_pin      = pin;
+        this->button_inverted = inverted;
+        enable();
+    }
+
+    Button::~Button() {}
+
     void Button::enable() {
         button_enabled = true;
+
+        if ((button_pin < 255) && !button_setup) {
+            pinMode(button_pin, INPUT);
+            button_setup = true;
+        }
     }
 
     void Button::disable() {
@@ -40,12 +62,39 @@ namespace simpleButton {
         release();
     }
 
+    bool Button::read() {
+        bool currentState = false;
+
+        if (button_enabled && button_setup) {
+            currentState = digitalRead(button_pin);
+
+            if (button_inverted) currentState = !currentState;
+        }
+
+        return currentState;
+    }
+
     void Button::update() {
+        if (button_enabled && button_setup && (millis() - updateTime >= UPDATE_INTERVAL)) {
+            update(read());
+        }
+    }
+
+    void Button::update(bool state) {
         updateTime = millis();
+        state ? release() : push();
+    }
+
+    bool Button::isInverted() {
+        return button_inverted;
     }
 
     bool Button::isEnabled() {
         return button_enabled;
+    }
+
+    bool Button::isSetup() {
+        return button_setup;
     }
 
     bool Button::getState() {
@@ -126,21 +175,5 @@ namespace simpleButton {
             return true;
         }
         return false;
-    }
-
-    void  Button::setUpdateInterval(uint32_t time) {
-        UPDATE_INTERVAL = time;
-    }
-
-    void  Button::setMinPushTime(uint32_t minPushTime) {
-        DEFAULT_MIN_PUSH_TIME = minPushTime;
-    }
-
-    void  Button::setTimeSpan(uint32_t timeSpan) {
-        DEFAULT_TIME_SPAN = timeSpan;
-    }
-
-    void  Button::setHoldInterval(uint32_t interval) {
-        DEFAULT_HOLD_INTERVAL = interval;
     }
 }
