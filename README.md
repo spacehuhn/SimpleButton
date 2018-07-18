@@ -25,6 +25,7 @@ You can not only read out the current state of the button, but also if it's:
 ## Usage
 
 *Coming soon* :P
+In the meantime, look at the [examples](https://github.com/spacehuhn/SimpleButton/tree/master/examples).  
 
 ## License 
 
