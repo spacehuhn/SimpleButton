@@ -16,10 +16,12 @@ You can not only read out the current state of the button, but also if it's:
 - doubleclicked
 - holded
 
+It also works with buttons that are connected to a PCF8574 or PCF8575 GPIO expander!  
+For that my [PCF8574](https://github.com/spacehuhn/PCF8574) library is integrated, so you don't need to install any additional library.  
+
 ## To-Do:
 - Add support for [I2C Encoder](https://www.tindie.com/products/Saimon/i2c-encoder-connect-rotary-encoders-on-i2c-bus/)
 - Add support for analog inputs/sensors
-- Add support for PCF8575 
 - Add support for MCP23017
 
 ## Usage

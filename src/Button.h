@@ -18,6 +18,7 @@ namespace simpleButton {
 
             virtual void enable();
             virtual void disable();
+            virtual void reset();
 
             virtual void push();
             virtual void release();

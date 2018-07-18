@@ -2,17 +2,19 @@
 #define ButtonPCF_h
 
 #include "Button.h"
-#include <PCF8574.h>
+#include "PCF8574.h"
+#include "PCF8575.h"
 
 namespace simpleButton {
     class ButtonPCF : public Button {
         public:
             ButtonPCF();
-            ButtonPCF(Button* button, PCF8574* pcf, uint8_t pin);
+            ButtonPCF(Button* button, PCF857x* pcf, uint8_t pin);
             ~ButtonPCF();
 
             void enable();
             void disable();
+            void reset();
 
             void push();
             void release();
@@ -43,7 +45,7 @@ namespace simpleButton {
 
         private:
             Button* button = NULL;
-            PCF8574* pcf   = NULL;
+            PCF857x* pcf   = NULL;
     };
 }
 

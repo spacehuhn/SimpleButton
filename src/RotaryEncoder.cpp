@@ -50,11 +50,17 @@ namespace simpleButton {
 
     void RotaryEncoder::enable() {
         Button::enable();
+        update();
+        reset();
+    }
 
-        if (buttonA) {
-            prevA = buttonA->read();
-            prevB = read();
-        }
+    void RotaryEncoder::reset() {
+        Button::reset();
+
+        curState  = State::STILL;
+        prevState = State::STILL;
+
+        steps = 0;
     }
 
     void RotaryEncoder::update(bool state) {

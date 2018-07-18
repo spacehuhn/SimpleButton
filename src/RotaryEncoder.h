@@ -18,6 +18,7 @@ namespace simpleButton {
             ~RotaryEncoder();
 
             void enable();
+            void reset();
 
             void update();
             void update(bool state);

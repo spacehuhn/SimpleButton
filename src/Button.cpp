@@ -31,6 +31,12 @@ namespace simpleButton {
         button_enabled = false;
     }
 
+    void Button::reset() {
+        pushedFlag   = false;
+        releasedFlag = false;
+        holdFlag     = false;
+    }
+
     void Button::push() {
         if (!state) {
             state = true;
