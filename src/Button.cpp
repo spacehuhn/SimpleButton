@@ -53,7 +53,7 @@ namespace simpleButton {
     }
 
     void Button::click() {
-        click(DEFAULT_MIN_PUSH_TIME);
+        click(defaultMinPushTime);
     }
 
     void Button::click(uint32_t time) {
@@ -75,14 +75,16 @@ namespace simpleButton {
     }
 
     void Button::update() {
-        if (button_enabled && button_setup && (millis() - updateTime >= UPDATE_INTERVAL)) {
+        if (button_enabled && button_setup && (millis() - updateTime >= updateInterval)) {
             update(read());
         }
     }
 
     void Button::update(bool state) {
         updateTime = millis();
-        state ? release() : push();
+
+        if (state == HIGH) push();
+        else release();
     }
 
     bool Button::isInverted() {
@@ -126,7 +128,7 @@ namespace simpleButton {
     }
 
     bool Button::clicked() {
-        return clicked(DEFAULT_MIN_PUSH_TIME);
+        return clicked(defaultMinPushTime);
     }
 
     bool Button::clicked(uint32_t minPushTime) {
@@ -143,11 +145,11 @@ namespace simpleButton {
     }
 
     bool Button::doubleClicked() {
-        return doubleClicked(DEFAULT_MIN_PUSH_TIME);
+        return doubleClicked(defaultMinPushTime);
     }
 
     bool Button::doubleClicked(uint32_t minPushTime) {
-        return doubleClicked(minPushTime, DEFAULT_TIME_SPAN);
+        return doubleClicked(minPushTime, defaultTimeSpan);
     }
 
     bool Button::doubleClicked(uint32_t minPushTime, uint32_t timeSpan) {
@@ -165,7 +167,7 @@ namespace simpleButton {
     }
 
     bool Button::holded() {
-        return holded(DEFAULT_HOLD_INTERVAL);
+        return holded(defaultHoldInterval);
     }
 
     bool Button::holded(uint32_t interval) {

@@ -1,25 +1,25 @@
-#include "ButtonRotaryEncoder.h"
+#include "RotaryEncoder.h"
 
 namespace simpleButton {
-    ButtonRotaryEncoder::ButtonRotaryEncoder() {
+    RotaryEncoder::RotaryEncoder() {
         this->button_inverted = true;
         enable();
     }
 
-    ButtonRotaryEncoder::ButtonRotaryEncoder(uint8_t pin) {
+    RotaryEncoder::RotaryEncoder(uint8_t pin) {
         this->button_pin      = pin;
         this->button_inverted = true;
         enable();
     }
 
-    ButtonRotaryEncoder::ButtonRotaryEncoder(uint8_t pin, Button* button) {
+    RotaryEncoder::RotaryEncoder(uint8_t pin, Button* button) {
         this->button_pin      = pin;
         this->buttonA         = button;
         this->button_inverted = true;
         enable();
     }
 
-    ButtonRotaryEncoder::ButtonRotaryEncoder(uint8_t pin, Button* button, uint8_t button_steps) {
+    RotaryEncoder::RotaryEncoder(uint8_t pin, Button* button, uint8_t button_steps) {
         this->button_pin      = pin;
         this->buttonA         = button;
         this->button_steps    = button_steps;
@@ -27,15 +27,37 @@ namespace simpleButton {
         enable();
     }
 
-    ButtonRotaryEncoder::~ButtonRotaryEncoder() {}
+    RotaryEncoder::RotaryEncoder(Button* button) {
+        this->buttonA         = button;
+        this->button_inverted = true;
+        enable();
+    }
 
-    void ButtonRotaryEncoder::update() {
-        if (button_enabled && button_setup /*&& (millis() - updateTime >= UPDATE_INTERVAL)*/) {
+    RotaryEncoder::RotaryEncoder(Button* button, uint8_t button_steps) {
+        this->buttonA         = button;
+        this->button_steps    = button_steps;
+        this->button_inverted = true;
+        enable();
+    }
+
+    RotaryEncoder::~RotaryEncoder() {}
+
+    void RotaryEncoder::update() {
+        if (button_enabled && button_setup /*&& (millis() - updateTime >= updateInterval)*/) {
             update(read());
         }
     }
 
-    void ButtonRotaryEncoder::update(bool state) {
+    void RotaryEncoder::enable() {
+        Button::enable();
+
+        if (buttonA) {
+            prevA = buttonA->read();
+            prevB = read();
+        }
+    }
+
+    void RotaryEncoder::update(bool state) {
         if (buttonA) {
             this->state = state;
             update(buttonA->getState(), state);
@@ -44,7 +66,7 @@ namespace simpleButton {
         }
     }
 
-    void ButtonRotaryEncoder::update(bool curA, bool curB) {
+    void RotaryEncoder::update(bool curA, bool curB) {
         updateTime = millis();
 
         if (curState == State::STILL) {

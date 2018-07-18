@@ -44,7 +44,7 @@ namespace simpleButton {
     }
 
     void ButtonI2C::update() {
-        if (button_enabled && button_setup && (millis() - updateTime >= UPDATE_INTERVAL)) {
+        if (button_enabled && button_setup && (millis() - updateTime >= updateInterval)) {
             update(read());
         }
     }

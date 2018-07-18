@@ -6,10 +6,10 @@
 namespace simpleButton {
     class Button {
         public:
-            uint32_t UPDATE_INTERVAL       = 5;
-            uint32_t DEFAULT_MIN_PUSH_TIME = 40;
-            uint32_t DEFAULT_TIME_SPAN     = 650;
-            uint32_t DEFAULT_HOLD_INTERVAL = 250;
+            uint32_t updateInterval      = 5;
+            uint32_t defaultMinPushTime  = 40;
+            uint32_t defaultTimeSpan     = 650;
+            uint32_t defaultHoldInterval = 250;
 
             Button();
             Button(uint8_t pin);

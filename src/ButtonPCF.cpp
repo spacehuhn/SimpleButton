@@ -1,22 +1,22 @@
-#include "PCF8574Button.h"
+#include "ButtonPCF.h"
 
 namespace simpleButton {
-    PCF8574Button::PCF8574Button() {
+    ButtonPCF::ButtonPCF() {
         enable();
     }
 
-    PCF8574Button::PCF8574Button(Button* button, PCF8574* pcf, uint8_t pin) {
+    ButtonPCF::ButtonPCF(Button* button, PCF8574* pcf, uint8_t pin) {
         this->button     = button;
         this->pcf        = pcf;
         this->button_pin = pin;
         enable();
     }
 
-    PCF8574Button::~PCF8574Button() {
+    ButtonPCF::~ButtonPCF() {
         if (button) delete button;
     }
 
-    void PCF8574Button::enable() {
+    void ButtonPCF::enable() {
         button_enabled = true;
 
         if (button && pcf && (button_pin < 8)) {
@@ -27,102 +27,102 @@ namespace simpleButton {
         }
     }
 
-    void PCF8574Button::disable() {
+    void ButtonPCF::disable() {
         button_enabled = false;
 
         if (button) button->disable();
     }
 
-    void PCF8574Button::push() {
+    void ButtonPCF::push() {
         if (button) button->push();
     }
 
-    void PCF8574Button::release() {
+    void ButtonPCF::release() {
         if (button) button->release();
     }
 
-    void PCF8574Button::click() {
+    void ButtonPCF::click() {
         if (button) button->click();
     }
 
-    void PCF8574Button::click(uint32_t time) {
+    void ButtonPCF::click(uint32_t time) {
         if (button) button->click(time);
     }
 
-    bool PCF8574Button::read() {
+    bool ButtonPCF::read() {
         if (button_enabled && button_setup) {
-            return pcf->read(button_pin) == 0;
+            bool curState = pcf->read(button_pin) != 0;
+
+            if (button->isInverted()) curState = !curState;
+            return curState;
         }
 
         return false;
     }
 
-    void PCF8574Button::update() {
+    void ButtonPCF::update() {
         if (button_enabled && button_setup) {
-            bool newState = read();
-
-            if (button->isInverted()) newState = !newState;
-            update(newState);
+            update(read());
         }
     }
 
-    void PCF8574Button::update(bool state) {
+    void ButtonPCF::update(bool state) {
         if (button) button->update(state);
     }
 
-    bool PCF8574Button::isEnabled() {
+    bool ButtonPCF::isEnabled() {
         return button_enabled;
     }
 
-    bool PCF8574Button::isSetup() {
+    bool ButtonPCF::isSetup() {
         return button_setup;
     }
 
-    bool PCF8574Button::getState() {
+    bool ButtonPCF::getState() {
         return button ? button->getState() : false;
     }
 
-    int PCF8574Button::getClicks() {
+    int ButtonPCF::getClicks() {
         return button ? button->getClicks() : 0;
     }
 
-    int PCF8574Button::getPushTime() {
+    int ButtonPCF::getPushTime() {
         return button ? button->getPushTime() : 0;
     }
 
-    bool PCF8574Button::pushed() {
+    bool ButtonPCF::pushed() {
         return button ? button->pushed() : false;
     }
 
-    bool PCF8574Button::released() {
+    bool ButtonPCF::released() {
         return button ? button->released() : false;
     }
 
-    bool PCF8574Button::clicked() {
+    bool ButtonPCF::clicked() {
         return button ? button->clicked() : false;
     }
 
-    bool PCF8574Button::clicked(uint32_t minPushTime) {
+    bool ButtonPCF::clicked(uint32_t minPushTime) {
         return button ? button->clicked(minPushTime) : false;
     }
 
-    bool PCF8574Button::doubleClicked() {
+    bool ButtonPCF::doubleClicked() {
         return button ? button->doubleClicked() : false;
     }
 
-    bool PCF8574Button::doubleClicked(uint32_t minPushTime) {
+    bool ButtonPCF::doubleClicked(uint32_t minPushTime) {
         return button ? button->doubleClicked(minPushTime) : false;
     }
 
-    bool PCF8574Button::doubleClicked(uint32_t minPushTime, uint32_t timeSpan) {
+    bool ButtonPCF::doubleClicked(uint32_t minPushTime, uint32_t timeSpan) {
         return button ? button->doubleClicked(minPushTime, timeSpan) : false;
     }
 
-    bool PCF8574Button::holded() {
+    bool ButtonPCF::holded() {
         return button ? button->holded() : false;
     }
 
-    bool PCF8574Button::holded(uint32_t interval) {
+    bool ButtonPCF::holded(uint32_t interval) {
         return button ? button->holded(interval) : false;
     }
 }

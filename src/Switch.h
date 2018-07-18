@@ -1,14 +1,16 @@
-#ifndef ButtonSwitch_h
-#define ButtonSwitch_h
+#ifndef Switch_h
+#define Switch_h
 
 #include "Button.h"
 
 namespace simpleButton {
-    class ButtonSwitch : public Button {
+    class Switch : public Button {
         public:
-            ButtonSwitch();
-            ButtonSwitch(uint8_t pin);
-            ~ButtonSwitch();
+            Switch();
+            Switch(uint8_t pin);
+            ~Switch();
+
+            void enable();
 
             void update();
             void update(bool state);
@@ -20,4 +22,4 @@ namespace simpleButton {
     };
 }
 
-#endif // ifndef ButtonSwitch_h
+#endif // ifndef Switch_h

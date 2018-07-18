@@ -4,11 +4,8 @@
 #include "Button.h"
 #include "ButtonPullup.h"
 #include "ButtonI2C.h"
-#include "ButtonSwitch.h"
-#include "ButtonRotaryEncoder.h"
-
-#include "PCF8574Button.h"
-
-using namespace simpleButton;
+#include "Switch.h"
+#include "RotaryEncoder.h"
+#include "ButtonPCF.h"
 
 #endif // ifndef SimpleButton_h
