@@ -55,7 +55,7 @@ If you got any special kind of button that is HIGH on idle and goes to LOW when 
 Button* b = new Button(12, true);
 ```
 
-**Pullup button:**
+**Pullup button:**  
 This will use the internal resistor and you won't need to add an external one. Also descriped [here](https://www.arduino.cc/en/Tutorial/InputPullupSerial).  
 ```c++
 // creates pullup button on pin 12
