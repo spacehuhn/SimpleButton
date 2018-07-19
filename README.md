@@ -26,6 +26,13 @@ For that my [PCF8574](https://github.com/spacehuhn/PCF8574) library is integrate
 
 (Currently waiting on my orders from China to add those :D)
 
+## Installation
+
+1) [Download](https://github.com/spacehuhn/SimpleButton/archive/master.zip) the source code from GitHub.  
+2) Unzip and rename the Folder name to "SimpleButton".  
+3) Paste it in your Library folder (Usually located somewhere at documents/Arduino/libraries).  
+4) Restart the Arduino IDE.  
+
 ## Usage
 
 Also have a look at the [examples](https://github.com/spacehuhn/SimpleButton/tree/master/examples).  
