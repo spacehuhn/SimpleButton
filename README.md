@@ -96,20 +96,13 @@ Button* channelA = new ButtonPCF(new RotaryEncoder(), myPCF, 1);
 Button* channelB = new ButtonPCF(new RotaryEncoder(a), myPCF, 2);
 ```
 
-#### Using the Lameboy buttons
-```c++
-// 0x3C = i2c address (use a i2c scanner sketch to find the right address)
-// B00000100 = the bitmask of that button (for more see examples)
-Button* a = new ButtonLameboy(0x3C, B00000100);
-```
-
 ### Read out the events
-`b` is a pointer to a created button (see above). 
+`b` is a pointer to a created button (see above).
 ```c++
 // first update the button
 b->update();
 
-// react on double click 
+// react on double click
 if(b->doubleClicked()){ ... }
 
 // with minimum push time in ms (default = 40)
@@ -117,7 +110,7 @@ if(b->doubleClicked()){ ... }
 
 // with minimum push time in a given time span in ms (default = 650)
 // if(b->doubleClicked(uint32_t minPushTime, uint32_t timeSpan)) { ... }
-		
+
 // react on a click		
 if(b->clicked()){ ...}
 
@@ -141,6 +134,6 @@ bool currentButtonState = b->getState();
 ```
 
 
-## License 
+## License
 
 This software is licensed under the MIT License. See the [license file](LICENSE) for details.  
