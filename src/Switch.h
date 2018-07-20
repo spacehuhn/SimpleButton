@@ -13,7 +13,7 @@ namespace simpleButton {
             void enable();
 
             void update();
-            void update(bool state);
+            void update(uint16_t state);
 
             bool getState();
 

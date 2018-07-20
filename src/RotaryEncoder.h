@@ -21,8 +21,8 @@ namespace simpleButton {
             void reset();
 
             void update();
-            void update(bool state);
-            void update(bool curA, bool curB);
+            void update(uint16_t state);
+            void update(uint16_t curA, uint16_t curB);
 
         private:
             Button* buttonA = NULL;

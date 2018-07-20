@@ -68,13 +68,13 @@ namespace simpleButton {
         release();
     }
 
-    bool Button::read() {
-        bool currentState = false;
+    uint16_t Button::read() {
+        uint16_t currentState = 0;
 
         if (button_enabled && button_setup) {
             currentState = digitalRead(button_pin);
 
-            if (button_inverted) currentState = !currentState;
+            if (button_inverted) currentState = 1024 - currentState;
         }
 
         return currentState;
@@ -86,10 +86,10 @@ namespace simpleButton {
         }
     }
 
-    void Button::update(bool state) {
+    void Button::update(uint16_t state) {
         updateTime = millis();
 
-        if (state == HIGH) push();
+        if (state > 0) push();
         else release();
     }
 

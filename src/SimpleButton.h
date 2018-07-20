@@ -6,5 +6,6 @@
 #include "Switch.h"
 #include "RotaryEncoder.h"
 #include "ButtonPCF.h"
+#include "ButtonAnalog.h"
 
 #endif // ifndef SimpleButton_h

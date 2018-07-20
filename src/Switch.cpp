@@ -21,11 +21,11 @@ namespace simpleButton {
         if (button_enabled && button_setup && (millis() - updateTime >= updateInterval)) update(read());
     }
 
-    void Switch::update(bool state) {
+    void Switch::update(uint16_t state) {
         updateTime = millis();
 
         bool prevState = tmpState;
-        tmpState = state;
+        tmpState = state > 0;
 
         if (prevState != tmpState) click();
     }
