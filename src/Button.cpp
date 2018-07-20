@@ -64,7 +64,8 @@ namespace simpleButton {
 
     void Button::click(uint32_t time) {
         push();
-        pushTime = millis() - time;
+        pushTime        = millis() - time;
+        prevReleaseTime = millis() - defaultMinReleaseTime;
         release();
     }
 
@@ -138,13 +139,19 @@ namespace simpleButton {
     }
 
     bool Button::clicked(uint32_t minPushTime) {
-        bool isReleased = released();
-        bool notHolding = !holdFlag;
-        bool minTime    = millis() - pushTime >= minPushTime;
+        return clicked(minPushTime, defaultMinReleaseTime);
+    }
 
-        if (isReleased && notHolding && minTime) {
-            clicks++;
-            return true;
+    bool Button::clicked(uint32_t minPushTime, uint32_t minReleaseTime) {
+        bool notHolding     = !holdFlag;
+        bool minTime        = millis() - pushTime >= minPushTime;
+        bool releaseTimeout = millis() - prevReleaseTime >= minReleaseTime;
+
+        if (notHolding && minTime && releaseTimeout) {
+            if (released()) {
+                clicks++;
+                return true;
+            }
         }
 
         return false;
@@ -159,17 +166,22 @@ namespace simpleButton {
     }
 
     bool Button::doubleClicked(uint32_t minPushTime, uint32_t timeSpan) {
-        bool wasClicked     = clicked(minPushTime);
+        return doubleClicked(minPushTime, defaultMinReleaseTime, timeSpan);
+    }
+
+    bool Button::doubleClicked(uint32_t minPushTime, uint32_t minReleaseTime, uint32_t timeSpan) {
         bool wasPrevClicked = prevReleaseTime - prevPushTime >= minPushTime;
         bool inTimeSpan     = millis() - prevPushTime <= timeSpan;
+        bool releaseTimeout = millis() - prevReleaseTime >= minReleaseTime;
 
-        bool res = wasClicked && wasPrevClicked && inTimeSpan;
+        if (wasPrevClicked && inTimeSpan && releaseTimeout) {
+            if (clicked(minPushTime)) {
+                pushTime = 0;
+                return true;
+            }
+        }
 
-        if (!res && wasClicked) releasedFlag = true;
-
-        if (res) pushTime = 0;
-
-        return res;
+        return false;
     }
 
     bool Button::holded() {

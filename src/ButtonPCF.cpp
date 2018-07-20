@@ -111,6 +111,10 @@ namespace simpleButton {
         return button ? button->clicked(minPushTime) : false;
     }
 
+    bool ButtonPCF::clicked(uint32_t minPushTime, uint32_t minReleaseTime) {
+        return button ? button->clicked(minPushTime, minReleaseTime) : false;
+    }
+
     bool ButtonPCF::doubleClicked() {
         return button ? button->doubleClicked() : false;
     }
@@ -121,6 +125,10 @@ namespace simpleButton {
 
     bool ButtonPCF::doubleClicked(uint32_t minPushTime, uint32_t timeSpan) {
         return button ? button->doubleClicked(minPushTime, timeSpan) : false;
+    }
+
+    bool ButtonPCF::doubleClicked(uint32_t minPushTime, uint32_t minReleaseTime, uint32_t timeSpan) {
+        return button ? button->doubleClicked(minPushTime, minReleaseTime, timeSpan) : false;
     }
 
     bool ButtonPCF::holded() {
