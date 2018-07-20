@@ -54,15 +54,15 @@ namespace simpleButton {
     }
 
     uint16_t ButtonPCF::read() {
-        uint16_t currentState = 0;
+        bool currentState = false;
 
         if (button_enabled && button_setup) {
-            currentState = pcf->read(button_pin);
+            currentState = pcf->read(button_pin) > 0;
 
-            if (button->isInverted()) currentState = 1024 - currentState;
+            if (button->isInverted()) currentState = !currentState;
         }
 
-        return currentState;
+        return (uint16_t)currentState;
     }
 
     void ButtonPCF::update() {
