@@ -131,11 +131,11 @@ namespace simpleButton {
         return button ? button->doubleClicked(minPushTime, minReleaseTime, timeSpan) : false;
     }
 
-    bool ButtonPCF::holded() {
-        return button ? button->holded() : false;
+    bool ButtonPCF::held() {
+        return button ? button->held() : false;
     }
 
-    bool ButtonPCF::holded(uint32_t interval) {
-        return button ? button->holded(interval) : false;
+    bool ButtonPCF::held(uint32_t interval) {
+        return button ? button->held(interval) : false;
     }
 }

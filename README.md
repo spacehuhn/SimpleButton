@@ -8,21 +8,22 @@ This libary supports:
 - On/Off Switches
 - Rotary Encoders
 - The [Lameboy](https://hackaday.io/project/26823-lameboy-another-esp12-handheld) :D
+- Any Analog input (i.e. Joystick, ButtonMatrix...)
 
 You can not only read out the current state of the button, but also if it's:    
 - pushed
 - released
 - clicked
 - doubleclicked
-- holded
+- held
 
 It also works with buttons that are connected to a PCF8574 or PCF8575 GPIO expander!  
 For that my [PCF8574](https://github.com/spacehuhn/PCF8574) library is integrated, so you don't need to install any additional library.  
 
 ## To-Do:
 - Add support for [I2C Encoder](https://www.tindie.com/products/Saimon/i2c-encoder-connect-rotary-encoders-on-i2c-bus/)
-- Add support for analog inputs/sensors
 - Add support for MCP23017
+- Add support for ps2 controller
 
 (Currently waiting on my orders from China to add those :D)
 
@@ -125,10 +126,10 @@ if(b->clicked()){ ...}
 // if(b->clicked(uint32_t minPushTime)) { ... }
 
 // if button is beeing hold
-if(b->holded()){ ... }
+if(b->held()){ ... }
 
 // with custom time interval in ms (default = 250)
-// if(b->holded(uint32_t interval)){ ... };
+// if(b->held(uint32_t interval)){ ... };
 
 // when the button is beeing pushed
 if(b->pushed()) { ... }

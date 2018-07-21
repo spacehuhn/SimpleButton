@@ -48,29 +48,48 @@ void loop() {
     sd->update();
 
     if (up->doubleClicked()) Serial.println("up doubleclicked");
+
     if (up->clicked()) Serial.println("up clicked");
-    if (up->holded()) Serial.println("up holded");
+
+    if (up->held()) Serial.println("up held");
+
 
     if (down->doubleClicked()) Serial.println("down doubleclicked");
+
     if (down->clicked()) Serial.println("down clicked");
-    if (down->holded()) Serial.println("down holded");
-    
+
+    if (down->held()) Serial.println("down held");
+
+
     if (left->doubleClicked()) Serial.println("left doubleclicked");
+
     if (left->clicked()) Serial.println("left clicked");
-    if (left->holded()) Serial.println("left holded");
+
+    if (left->held()) Serial.println("left held");
+
 
     if (right->doubleClicked()) Serial.println("right doubleclicked");
+
     if (right->clicked()) Serial.println("right clicked");
-    if (right->holded()) Serial.println("right holded");
+
+    if (right->held()) Serial.println("right held");
+
 
     if (a->doubleClicked()) Serial.println("a doubleclicked");
+
     if (a->clicked()) Serial.println("a clicked");
-    if (a->holded()) Serial.println("a holded");
+
+    if (a->held()) Serial.println("a held");
+
 
     if (b->doubleClicked()) Serial.println("b doubleclicked");
+
     if (b->clicked()) Serial.println("b clicked");
-    if (b->holded()) Serial.println("b holded");
+
+    if (b->held()) Serial.println("b held");
+
 
     if (sd->pushed()) Serial.println("sd card inserted");
+
     if (sd->released()) Serial.println("sd card removed");
 }
