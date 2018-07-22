@@ -73,8 +73,8 @@ namespace simpleButton {
     }
 
     void RotaryEncoder::update(uint16_t stateA, uint16_t stateB) {
-        bool curA = a > 0;
-        bool curB = b > 0;
+        bool curA = stateA > 0;
+        bool curB = stateB > 0;
 
         updateTime = millis();
 
