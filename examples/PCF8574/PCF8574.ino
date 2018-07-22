@@ -37,14 +37,10 @@ void loop() {
     buttonB->update();
 
     if (buttonA->doubleClicked()) Serial.println("Button A doubleclicked");
-
     if (buttonA->clicked()) Serial.println("Button A clicked");
-
     if (buttonA->holding()) Serial.println("Button A holding");
 
     if (buttonB->doubleClicked()) Serial.println("Button B doubleclicked");
-
     if (buttonB->clicked()) Serial.println("Button B clicked");
-
     if (buttonB->holding()) Serial.println("Button B holding");
 }
