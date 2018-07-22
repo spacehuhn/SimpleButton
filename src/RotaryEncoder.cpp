@@ -63,7 +63,7 @@ namespace simpleButton {
         steps = 0;
     }
 
-    void RotaryEncoder::update(uint16_t state) {
+    void RotaryEncoder::update(uint16_t stateA) {
         if (buttonA) {
             this->state = state > 0;
             update(buttonA->getState(), state);
@@ -72,7 +72,7 @@ namespace simpleButton {
         }
     }
 
-    void RotaryEncoder::update(uint16_t a, uint16_t b) {
+    void RotaryEncoder::update(uint16_t stateA, uint16_t stateB) {
         bool curA = a > 0;
         bool curB = b > 0;
 
