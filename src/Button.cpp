@@ -184,11 +184,11 @@ namespace simpleButton {
         return false;
     }
 
-    bool Button::held() {
-        return held(defaultHoldInterval);
+    bool Button::holding() {
+        return holding(defaultHoldInterval);
     }
 
-    bool Button::held(uint32_t interval) {
+    bool Button::holding(uint32_t interval) {
         if (getState() && (millis() - holdTime >= interval)) {
             holdTime = millis();
             holdFlag = true;
