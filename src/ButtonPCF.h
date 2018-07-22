@@ -22,14 +22,14 @@ namespace simpleButton {
             void click();
             void click(uint32_t time);
 
-            uint16_t read();
+            int read();
             void update();
-            void update(uint16_t state);
+            void update(int state);
 
             bool isEnabled();
             bool isSetup();
 
-            uint16_t getState();
+            bool getState();
             int getClicks();
             int getPushTime();
 

@@ -7,5 +7,6 @@
 #include "RotaryEncoder.h"
 #include "ButtonPCF.h"
 #include "ButtonAnalog.h"
+#include "AnalogStick.h"
 
 #endif // ifndef SimpleButton_h

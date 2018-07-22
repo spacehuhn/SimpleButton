@@ -27,15 +27,15 @@ namespace simpleButton {
             virtual void click();
             virtual void click(uint32_t time);
 
-            virtual uint16_t read();
+            virtual int read();
             virtual void update();
-            virtual void update(uint16_t state);
+            virtual void update(int state);
 
             virtual bool isInverted();
             virtual bool isEnabled();
             virtual bool isSetup();
 
-            virtual uint16_t getState();
+            virtual bool getState();
             virtual int getClicks();
             virtual int getPushTime();
 

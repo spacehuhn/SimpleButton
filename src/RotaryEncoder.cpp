@@ -63,10 +63,10 @@ namespace simpleButton {
         steps = 0;
     }
 
-    void RotaryEncoder::update(uint16_t stateA) {
+    void RotaryEncoder::update(uint16_t stateB) {
         if (buttonA) {
             this->state = state > 0;
-            update(buttonA->getState(), state);
+            update(buttonA->getState(), stateB);
         } else {
             this->state = state > 0;
         }

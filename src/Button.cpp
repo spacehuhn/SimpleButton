@@ -70,7 +70,7 @@ namespace simpleButton {
         release();
     }
 
-    uint16_t Button::read() {
+    int Button::read() {
         bool currentState = false;
 
         if (button_enabled && button_setup) {
@@ -79,7 +79,7 @@ namespace simpleButton {
             if (button_inverted) currentState = !currentState;
         }
 
-        return (uint16_t)currentState;
+        return (int)currentState;
     }
 
     void Button::update() {
@@ -88,7 +88,7 @@ namespace simpleButton {
         }
     }
 
-    void Button::update(uint16_t state) {
+    void Button::update(int state) {
         updateTime = millis();
 
         if (state > 0) push();
@@ -107,7 +107,7 @@ namespace simpleButton {
         return button_setup;
     }
 
-    uint16_t Button::getState() {
+    bool Button::getState() {
         return state;
     }
 

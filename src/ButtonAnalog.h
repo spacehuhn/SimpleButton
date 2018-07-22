@@ -8,16 +8,16 @@ namespace simpleButton {
     class ButtonAnalog : public Button {
         public:
             ButtonAnalog();
+            ButtonAnalog(uint16_t minValue, uint16_t maxValue);
             ButtonAnalog(uint8_t pin, uint16_t minValue, uint16_t maxValue);
-            ButtonAnalog(uint8_t pin, uint16_t minValue, uint16_t maxValue, bool inverted);
             ~ButtonAnalog();
 
-            uint16_t read();
+            int read();
 
             void update();
-            void update(uint16_t state);
+            void update(int state);
 
-            uint16_t getState();
+            uint16_t getValue();
 
         private:
             uint16_t minValue = 0;

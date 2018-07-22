@@ -21,7 +21,7 @@ namespace simpleButton {
             void reset();
 
             void update();
-            void update(uint16_t stateA);
+            void update(uint16_t stateB);
             void update(uint16_t stateA, uint16_t stateB);
 
         private:
