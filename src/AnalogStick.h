@@ -13,8 +13,6 @@ namespace simpleButton {
             ButtonAnalog* left  = NULL;
             ButtonAnalog* right = NULL;
 
-            uint32_t updateInterval = 5;
-
             AnalogStick();
             AnalogStick(uint8_t xPin, uint8_t yPin, uint8_t buttonPin);
             ~AnalogStick();
@@ -25,8 +23,20 @@ namespace simpleButton {
             uint8_t getX();
             uint8_t getY();
 
+            void setLogic(uint16_t logic);
+            void setLogic(uint16_t logic, uint8_t tolerance);
+
+            void setUpdateInterval(uint32_t updateInterval);
+            void setDefaultMinPushTime(uint32_t defaultMinPushTime);
+            void setDefaultMinReleaseTime(uint32_t defaultMinReleaseTime);
+            void setDefaultTimeSpan(uint32_t defaultTimeSpan);
+            void setDefaultHoldTime(uint32_t defaultHoldInterval);
+
         private:
             bool setup = false;
+
+            uint16_t logic    = 1024;
+            uint8_t tolerance = 25; // percentage
 
             uint8_t xValue = 0;
             uint8_t yValue = 0;
@@ -34,8 +44,6 @@ namespace simpleButton {
             uint8_t xPin      = 0;
             uint8_t yPin      = 0;
             uint8_t buttonPin = 0;
-
-            uint32_t updateTime = 0;
     };
 }
 

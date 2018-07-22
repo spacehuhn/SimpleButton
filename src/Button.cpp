@@ -198,4 +198,24 @@ namespace simpleButton {
         }
         return false;
     }
+
+    void Button::setUpdateInterval(uint32_t updateInterval) {
+        this->updateInterval = updateInterval;
+    }
+
+    void Button::setDefaultMinPushTime(uint32_t defaultMinPushTime) {
+        this->defaultMinPushTime = defaultMinPushTime;
+    }
+
+    void Button::setDefaultMinReleaseTime(uint32_t defaultMinReleaseTime) {
+        this->defaultMinReleaseTime = defaultMinReleaseTime;
+    }
+
+    void Button::setDefaultTimeSpan(uint32_t defaultTimeSpan) {
+        this->defaultTimeSpan = defaultTimeSpan;
+    }
+
+    void Button::setDefaultHoldTime(uint32_t defaultHoldInterval) {
+        this->defaultHoldInterval = defaultHoldInterval;
+    }
 }

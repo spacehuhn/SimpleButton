@@ -5,6 +5,11 @@ namespace simpleButton {
         enable();
     }
 
+    ButtonAnalog::ButtonAnalog(uint8_t pin) {
+        this->button_pin = pin;
+        enable();
+    }
+
     ButtonAnalog::ButtonAnalog(uint16_t minValue, uint16_t maxValue) {
         this->minValue = minValue;
         this->maxValue = maxValue;
@@ -45,6 +50,19 @@ namespace simpleButton {
 
         if ((newState >= minValue) && (newState <= maxValue)) push();
         else release();
+    }
+
+    void ButtonAnalog::setMin(uint16_t minValue) {
+        this->minValue = minValue;
+    }
+
+    void ButtonAnalog::setMax(uint16_t maxValue) {
+        this->maxValue = maxValue;
+    }
+
+    void ButtonAnalog::setBounds(uint16_t minValue, uint16_t maxValue) {
+        setMin(minValue);
+        setMax(maxValue);
     }
 
     uint16_t ButtonAnalog::getValue() {

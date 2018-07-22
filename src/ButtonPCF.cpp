@@ -138,4 +138,24 @@ namespace simpleButton {
     bool ButtonPCF::holding(uint32_t interval) {
         return button ? button->holding(interval) : false;
     }
+
+    void ButtonPCF::setUpdateInterval(uint32_t updateInterval) {
+        if (button) button->setUpdateInterval(updateInterval);
+    }
+
+    void ButtonPCF::setDefaultMinPushTime(uint32_t defaultMinPushTime) {
+        if (button) button->setDefaultMinPushTime(defaultMinPushTime);
+    }
+
+    void ButtonPCF::setDefaultMinReleaseTime(uint32_t defaultMinReleaseTime) {
+        if (button) button->setDefaultMinReleaseTime(defaultMinReleaseTime);
+    }
+
+    void ButtonPCF::setDefaultTimeSpan(uint32_t defaultTimeSpan) {
+        if (button) button->setDefaultTimeSpan(defaultTimeSpan);
+    }
+
+    void ButtonPCF::setDefaultHoldTime(uint32_t defaultHoldInterval) {
+        if (button) button->setDefaultHoldTime(defaultHoldInterval);
+    }
 }

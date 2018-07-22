@@ -45,6 +45,12 @@ namespace simpleButton {
             bool holding();
             bool holding(uint32_t interval);
 
+            void setUpdateInterval(uint32_t updateInterval);
+            void setDefaultMinPushTime(uint32_t defaultMinPushTime);
+            void setDefaultMinReleaseTime(uint32_t defaultMinReleaseTime);
+            void setDefaultTimeSpan(uint32_t defaultTimeSpan);
+            void setDefaultHoldTime(uint32_t defaultHoldInterval);
+
         private:
             Button* button = NULL;
             PCF857x* pcf   = NULL;

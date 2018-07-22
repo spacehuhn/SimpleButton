@@ -3,10 +3,12 @@
 namespace simpleButton {
     AnalogStick::AnalogStick() {
         this->button = new Button();
-        this->up     = new ButtonAnalog(0, 55);
-        this->down   = new ButtonAnalog(200, 255);
-        this->left   = new ButtonAnalog(0, 55);
-        this->right  = new ButtonAnalog(200, 255);
+        this->up     = new ButtonAnalog();
+        this->down   = new ButtonAnalog();
+        this->left   = new ButtonAnalog();
+        this->right  = new ButtonAnalog();
+
+        setLogic(1024);
 
         this->setup = true;
     }
@@ -21,10 +23,12 @@ namespace simpleButton {
         pinMode(buttonPin, INPUT);
 
         this->button = new ButtonPullup(buttonPin);
-        this->up     = new ButtonAnalog(yPin, 0, 55);
-        this->down   = new ButtonAnalog(yPin, 200, 255);
-        this->left   = new ButtonAnalog(xPin, 0, 55);
-        this->right  = new ButtonAnalog(xPin, 200, 255);
+        this->up     = new ButtonAnalog(yPin);
+        this->down   = new ButtonAnalog(yPin);
+        this->left   = new ButtonAnalog(xPin);
+        this->right  = new ButtonAnalog(xPin);
+
+        setLogic(1024);
 
         this->setup = true;
     }
@@ -32,9 +36,7 @@ namespace simpleButton {
     AnalogStick::~AnalogStick() {}
 
     void AnalogStick::update() {
-        if (setup && (millis() - updateTime >= updateInterval)) {
-            updateInterval = millis();
-
+        if (setup) {
             button->update();
             up->update();
             down->update();
@@ -47,9 +49,7 @@ namespace simpleButton {
     }
 
     void AnalogStick::update(uint8_t xValue, uint8_t yValue, bool buttonPress) {
-        if (setup && (millis() - updateTime >= updateInterval)) {
-            updateInterval = millis();
-
+        if (setup) {
             this->xValue = xValue;
             this->yValue = yValue;
 
@@ -67,5 +67,61 @@ namespace simpleButton {
 
     uint8_t AnalogStick::getY() {
         return yValue;
+    }
+
+    void AnalogStick::setLogic(uint16_t logic) {
+        setLogic(logic, tolerance);
+    }
+
+    void AnalogStick::setLogic(uint16_t logic, uint8_t tolerance) {
+        this->logic     = logic;
+        this->tolerance = tolerance;
+
+        uint16_t difference = (double)logic * ((double)tolerance / double(100));
+
+        up->setBounds(0, difference);
+        down->setBounds(logic - difference, logic);
+        left->setBounds(0, difference);
+        right->setBounds(logic - difference, logic);
+    }
+
+    void AnalogStick::setUpdateInterval(uint32_t updateInterval) {
+        button->setUpdateInterval(updateInterval);
+        up->setUpdateInterval(updateInterval);
+        down->setUpdateInterval(updateInterval);
+        left->setUpdateInterval(updateInterval);
+        right->setUpdateInterval(updateInterval);
+    }
+
+    void AnalogStick::setDefaultMinPushTime(uint32_t defaultMinPushTime) {
+        button->setDefaultMinPushTime(defaultMinPushTime);
+        up->setDefaultMinPushTime(defaultMinPushTime);
+        down->setDefaultMinPushTime(defaultMinPushTime);
+        left->setDefaultMinPushTime(defaultMinPushTime);
+        right->setDefaultMinPushTime(defaultMinPushTime);
+    }
+
+    void AnalogStick::setDefaultMinReleaseTime(uint32_t defaultMinReleaseTime) {
+        button->setDefaultMinReleaseTime(defaultMinReleaseTime);
+        up->setDefaultMinReleaseTime(defaultMinReleaseTime);
+        down->setDefaultMinReleaseTime(defaultMinReleaseTime);
+        left->setDefaultMinReleaseTime(defaultMinReleaseTime);
+        right->setDefaultMinReleaseTime(defaultMinReleaseTime);
+    }
+
+    void AnalogStick::setDefaultTimeSpan(uint32_t defaultTimeSpan) {
+        button->setDefaultTimeSpan(defaultTimeSpan);
+        up->setDefaultTimeSpan(defaultTimeSpan);
+        down->setDefaultTimeSpan(defaultTimeSpan);
+        left->setDefaultTimeSpan(defaultTimeSpan);
+        right->setDefaultTimeSpan(defaultTimeSpan);
+    }
+
+    void AnalogStick::setDefaultHoldTime(uint32_t defaultHoldInterval) {
+        button->setDefaultHoldTime(defaultHoldInterval);
+        up->setDefaultHoldTime(defaultHoldInterval);
+        down->setDefaultHoldTime(defaultHoldInterval);
+        left->setDefaultHoldTime(defaultHoldInterval);
+        right->setDefaultHoldTime(defaultHoldInterval);
     }
 }

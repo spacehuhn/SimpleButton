@@ -6,12 +6,6 @@
 namespace simpleButton {
     class Button {
         public:
-            uint32_t updateInterval        = 5;
-            uint32_t defaultMinPushTime    = 40;
-            uint32_t defaultMinReleaseTime = 40;
-            uint32_t defaultTimeSpan       = 500;
-            uint32_t defaultHoldInterval   = 250;
-
             Button();
             Button(uint8_t pin);
             Button(uint8_t pin, bool inverted);
@@ -51,6 +45,12 @@ namespace simpleButton {
             virtual bool holding();
             virtual bool holding(uint32_t interval);
 
+            virtual void setUpdateInterval(uint32_t updateInterval);
+            virtual void setDefaultMinPushTime(uint32_t defaultMinPushTime);
+            virtual void setDefaultMinReleaseTime(uint32_t defaultMinReleaseTime);
+            virtual void setDefaultTimeSpan(uint32_t defaultTimeSpan);
+            virtual void setDefaultHoldTime(uint32_t defaultHoldInterval);
+
         protected:
             bool button_inverted = false;
             bool button_setup    = false;
@@ -70,6 +70,12 @@ namespace simpleButton {
             uint32_t prevReleaseTime = 0;
             uint32_t holdTime        = 0;
             uint32_t updateTime      = 0;
+
+            uint32_t updateInterval        = 5;
+            uint32_t defaultMinPushTime    = 40;
+            uint32_t defaultMinReleaseTime = 40;
+            uint32_t defaultTimeSpan       = 500;
+            uint32_t defaultHoldInterval   = 250;
     };
 }
 
