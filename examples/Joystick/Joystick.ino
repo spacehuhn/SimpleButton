@@ -43,13 +43,13 @@ void loop() {
 
     if (down->clicked()) Serial.println("down clicked");
 
-    if (left->held()) Serial.println("left held");
+    if (left->holding()) Serial.println("left holding");
 
-    if (right->held()) Serial.println("right held");
+    if (right->holding()) Serial.println("right holding");
 
-    if (up->held()) Serial.println("up held");
+    if (up->holding()) Serial.println("up holding");
 
-    if (down->held()) Serial.println("down held");
+    if (down->holding()) Serial.println("down holding");
 
     if (key->clicked()) Serial.println("clicked");
 }

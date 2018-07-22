@@ -42,8 +42,8 @@ namespace simpleButton {
             bool doubleClicked(uint32_t minPushTime);
             bool doubleClicked(uint32_t minPushTime, uint32_t timeSpan);
             bool doubleClicked(uint32_t minPushTime, uint32_t minReleaseTime, uint32_t timeSpan);
-            bool held();
-            bool held(uint32_t interval);
+            bool holding();
+            bool holding(uint32_t interval);
 
         private:
             Button* button = NULL;

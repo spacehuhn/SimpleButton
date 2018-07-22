@@ -15,7 +15,7 @@ You can not only read out the current state of the button, but also if it's:
 - released
 - clicked
 - doubleclicked
-- held
+- holding
 
 It also works with buttons that are connected to a PCF8574 or PCF8575 GPIO expander!  
 For that my [PCF8574](https://github.com/spacehuhn/PCF8574) library is integrated, so you don't need to install any additional library.  
@@ -126,10 +126,10 @@ if(b->clicked()){ ...}
 // if(b->clicked(uint32_t minPushTime)) { ... }
 
 // if button is beeing hold
-if(b->held()){ ... }
+if(b->holding()){ ... }
 
 // with custom time interval in ms (default = 250)
-// if(b->held(uint32_t interval)){ ... };
+// if(b->holding(uint32_t interval)){ ... };
 
 // when the button is beeing pushed
 if(b->pushed()) { ... }

@@ -43,7 +43,7 @@ void loop() {
 
     if (bKey->clicked()) Serial.println("clicked");
 
-    if (bKey->held()) Serial.println("held");
+    if (bKey->holding()) Serial.println("holding");
 
     if (bUp->clicked()) Serial.println("up");
 

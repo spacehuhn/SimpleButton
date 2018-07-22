@@ -40,11 +40,11 @@ void loop() {
 
     if (buttonA->clicked()) Serial.println("Button A clicked");
 
-    if (buttonA->held()) Serial.println("Button A held");
+    if (buttonA->holding()) Serial.println("Button A holding");
 
     if (buttonB->doubleClicked()) Serial.println("Button B doubleclicked");
 
     if (buttonB->clicked()) Serial.println("Button B clicked");
 
-    if (buttonB->held()) Serial.println("Button B held");
+    if (buttonB->holding()) Serial.println("Button B holding");
 }

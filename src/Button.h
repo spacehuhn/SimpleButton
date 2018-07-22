@@ -48,8 +48,8 @@ namespace simpleButton {
             virtual bool doubleClicked(uint32_t minPushTime);
             virtual bool doubleClicked(uint32_t minPushTime, uint32_t timeSpan);
             virtual bool doubleClicked(uint32_t minPushTime, uint32_t minReleaseTime, uint32_t timeSpan);
-            virtual bool held();
-            virtual bool held(uint32_t interval);
+            virtual bool holding();
+            virtual bool holding(uint32_t interval);
 
         protected:
             bool button_inverted = false;

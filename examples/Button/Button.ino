@@ -25,5 +25,5 @@ void loop() {
 
     if (b->clicked()) Serial.println("clicked");
 
-    if (b->held()) Serial.println("held");
+    if (b->holding()) Serial.println("holding");
 }
