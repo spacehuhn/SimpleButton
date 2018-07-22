@@ -17,9 +17,12 @@ namespace simpleButton {
             void update();
             void update(uint16_t state);
 
+            uint16_t getState();
+
         private:
             uint16_t minValue = 0;
             uint16_t maxValue = 1024;
+            uint16_t value    = 0;
     };
 }
 #endif // ifndef ButtonAnalog_h

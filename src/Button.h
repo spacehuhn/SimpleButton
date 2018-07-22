@@ -35,7 +35,7 @@ namespace simpleButton {
             virtual bool isEnabled();
             virtual bool isSetup();
 
-            virtual bool getState();
+            virtual uint16_t getState();
             virtual int getClicks();
             virtual int getPushTime();
 

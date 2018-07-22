@@ -30,7 +30,7 @@ namespace simpleButton {
         if (prevState != tmpState) click();
     }
 
-    bool Switch::getState() {
+    uint16_t Switch::getState() {
         return tmpState;
     }
 }

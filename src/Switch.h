@@ -15,7 +15,7 @@ namespace simpleButton {
             void update();
             void update(uint16_t state);
 
-            bool getState();
+            uint16_t getState();
 
         private:
             bool tmpState = false;

@@ -31,6 +31,8 @@ namespace simpleButton {
             if (button_inverted) currentState = 1024 - currentState;
         }
 
+        value = currentState;
+
         return currentState;
     }
 
@@ -45,5 +47,9 @@ namespace simpleButton {
 
         if ((state >= minValue) && (state <= maxValue)) push();
         else release();
+    }
+
+    uint16_t ButtonAnalog::getState() {
+        return value;
     }
 }

@@ -106,7 +106,7 @@ namespace simpleButton {
         return button_setup;
     }
 
-    bool Button::getState() {
+    uint16_t Button::getState() {
         return state;
     }
 

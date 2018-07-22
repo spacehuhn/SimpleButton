@@ -83,7 +83,7 @@ namespace simpleButton {
         return button_setup;
     }
 
-    bool ButtonPCF::getState() {
+    uint16_t ButtonPCF::getState() {
         return button ? button->getState() : false;
     }
 

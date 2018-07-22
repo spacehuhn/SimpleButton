@@ -29,7 +29,7 @@ namespace simpleButton {
             bool isEnabled();
             bool isSetup();
 
-            bool getState();
+            uint16_t getState();
             int getClicks();
             int getPushTime();
 
