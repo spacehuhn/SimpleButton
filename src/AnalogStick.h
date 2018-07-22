@@ -14,6 +14,7 @@ namespace simpleButton {
             ButtonAnalog* right = NULL;
 
             AnalogStick();
+            AnalogStick(uint8_t xPin, uint8_t yPin);
             AnalogStick(uint8_t xPin, uint8_t yPin, uint8_t buttonPin);
             ~AnalogStick();
 
@@ -33,8 +34,6 @@ namespace simpleButton {
             void setDefaultHoldTime(uint32_t defaultHoldInterval);
 
         private:
-            bool setup = false;
-
             uint16_t logic    = 1024;
             uint8_t tolerance = 25; // percentage
 

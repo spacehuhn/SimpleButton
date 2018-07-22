@@ -9,8 +9,24 @@ namespace simpleButton {
         this->right  = new ButtonAnalog();
 
         setLogic(1024);
+    }
 
-        this->setup = true;
+    AnalogStick::AnalogStick(uint8_t xPin, uint8_t yPin) {
+        this->xPin      = xPin;
+        this->yPin      = yPin;
+        this->buttonPin = 255;
+
+        pinMode(xPin, INPUT);
+        pinMode(yPin, INPUT);
+        pinMode(buttonPin, INPUT);
+
+        this->button = new ButtonPullup(buttonPin);
+        this->up     = new ButtonAnalog(yPin);
+        this->down   = new ButtonAnalog(yPin);
+        this->left   = new ButtonAnalog(xPin);
+        this->right  = new ButtonAnalog(xPin);
+
+        setLogic(1024);
     }
 
     AnalogStick::AnalogStick(uint8_t xPin, uint8_t yPin, uint8_t buttonPin) {
@@ -29,36 +45,30 @@ namespace simpleButton {
         this->right  = new ButtonAnalog(xPin);
 
         setLogic(1024);
-
-        this->setup = true;
     }
 
     AnalogStick::~AnalogStick() {}
 
     void AnalogStick::update() {
-        if (setup) {
-            button->update();
-            up->update();
-            down->update();
-            left->update();
-            right->update();
+        button->update();
+        up->update();
+        down->update();
+        left->update();
+        right->update();
 
-            this->xValue = left->getState();
-            this->yValue = up->getState();
-        }
+        this->xValue = left->getState();
+        this->yValue = up->getState();
     }
 
     void AnalogStick::update(uint8_t xValue, uint8_t yValue, bool buttonPress) {
-        if (setup) {
-            this->xValue = xValue;
-            this->yValue = yValue;
+        this->xValue = xValue;
+        this->yValue = yValue;
 
-            button->update(buttonPress);
-            up->update(yValue);
-            down->update(yValue);
-            left->update(xValue);
-            right->update(xValue);
-        }
+        button->update(buttonPress);
+        up->update(yValue);
+        down->update(yValue);
+        left->update(xValue);
+        right->update(xValue);
     }
 
     uint8_t AnalogStick::getX() {
