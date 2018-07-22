@@ -42,7 +42,7 @@ namespace simpleButton {
             state = true;
 
             prevPushTime    = pushTime;
-            prevReleaseTime = millis();
+            prevReleaseTime = releaseTime;
             pushedFlag      = true;
 
             pushTime = millis();
@@ -55,6 +55,7 @@ namespace simpleButton {
         if (state) {
             state        = false;
             releasedFlag = true;
+            releaseTime  = millis();
         }
     }
 
@@ -64,8 +65,8 @@ namespace simpleButton {
 
     void Button::click(uint32_t time) {
         push();
-        pushTime        = millis() - time;
-        prevReleaseTime = millis() - defaultMinReleaseTime;
+        pushTime    = millis() - time - defaultMinReleaseTime;
+        releaseTime = millis() - defaultMinReleaseTime;
         release();
     }
 
@@ -143,11 +144,12 @@ namespace simpleButton {
     }
 
     bool Button::clicked(uint32_t minPushTime, uint32_t minReleaseTime) {
-        bool notHolding     = !holdFlag;
-        bool minTime        = millis() - pushTime >= minPushTime;
-        bool releaseTimeout = millis() - prevReleaseTime >= minReleaseTime;
+        bool notHolding          = !holdFlag;
+        bool pushedBeforeRelease = pushTime < releaseTime;
+        bool minTime             = millis() - pushTime >= minPushTime;
+        bool releaseTimeout      = millis() - releaseTime >= minReleaseTime;
 
-        if (notHolding && minTime && releaseTimeout) {
+        if (pushedBeforeRelease && notHolding && minTime && releaseTimeout) {
             if (released()) {
                 clicks++;
                 return true;

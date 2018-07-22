@@ -64,9 +64,10 @@ namespace simpleButton {
 
             uint16_t clicks = 0;
 
+            uint32_t pushTime        = 0;
+            uint32_t releaseTime     = 0;
             uint32_t prevPushTime    = 0;
             uint32_t prevReleaseTime = 0;
-            uint32_t pushTime        = 0;
             uint32_t holdTime        = 0;
             uint32_t updateTime      = 0;
     };
