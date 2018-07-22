@@ -2,30 +2,32 @@
 #define RotaryEncoder_h
 
 #include "Button.h"
+#include "ButtonPullup.h"
 
 namespace simpleButton {
-    class RotaryEncoder : public Button {
+    class RotaryEncoder {
         public:
-            uint32_t updateInterval = 0;
+            Button* clockwise     = NULL;
+            Button* anticlockwise = NULL;
+            Button* button        = NULL;
 
             RotaryEncoder();
-            RotaryEncoder(uint8_t pin);
-            RotaryEncoder(uint8_t pin, Button* button);
-            RotaryEncoder(uint8_t pin, Button* button, uint8_t button_steps);
-            RotaryEncoder(Button* button);
-            RotaryEncoder(Button* button, uint8_t button_steps);
-
+            RotaryEncoder(uint8_t channelA, uint8_t channelB);
+            RotaryEncoder(uint8_t channelA, uint8_t channelB, uint8_t button);
             ~RotaryEncoder();
 
-            void enable();
+            void update();
+            void update(bool stateA, bool stateB, bool buttonState);
+
             void reset();
 
-            void update();
-            void update(uint16_t stateB);
-            void update(uint16_t stateA, uint16_t stateB);
+            int8_t getPos();
+
+            void setPos(int8_t pos);
+            void setSteps(uint8_t steps);
 
         private:
-            Button* buttonA = NULL;
+            int8_t pos = 0;
 
             bool prevA = false;
             bool prevB = false;
@@ -34,8 +36,8 @@ namespace simpleButton {
             State curState  = State::STILL;
             State prevState = State::STILL;
 
-            uint8_t button_steps = 1;
-            uint8_t steps        = 0;
+            uint8_t button_steps = 1; // how many steps per turn
+            uint8_t steps        = 0; // tmp counter
     };
 }
 

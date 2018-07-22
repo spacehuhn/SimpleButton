@@ -10,42 +10,25 @@ using namespace simpleButton;
    (the labels on your rotary encoder might be different!)
  */
 
-Button* bKey  = NULL;
-Button* bUp   = NULL;
-Button* bDown = NULL;
+RotaryEncoder* rotaryEncoder = NULL;
 
 void setup() {
     Serial.begin(115200);
     Serial.println();
 
-    bKey = new ButtonPullup(12);
-
-    // uncomment the "2" if you have a rotary encoder with x1 encoding
-    // (in simpler words: if you get "up" or "down" twice with each step, you need to uncomment the 2)
-    bUp   = new RotaryEncoder(5, NULL /*, 2*/);
-    bDown = new RotaryEncoder(4, bUp /*, 2*/);
-
-    // ^ Note that you have need 2 buttons, because you have 2 channels to read out the rotary encoder.
-    // The first button is just there to read out it's own state.
-    // The second one needs a pointer to the first, that way it can figure out in which direction it's going.
-
-    Serial.begin(115200);
+    rotaryEncoder = new RotaryEncoder(5, 4, 12);
+    // rotaryEncoder->setSteps(2); // default = 1
 
     Serial.println("Started");
 }
 
 void loop() {
-    bKey->update();
-    bUp->update();
-    bDown->update();
+    rotaryEncoder->update();
 
-    if (bKey->doubleClicked()) Serial.println("doubleclicked");
+    if (rotaryEncoder->button->doubleClicked()) Serial.println("doubleclicked");
+    if (rotaryEncoder->button->clicked()) Serial.println("clicked");
+    if (rotaryEncoder->button->holding()) Serial.println("holding");
 
-    if (bKey->clicked()) Serial.println("clicked");
-
-    if (bKey->holding()) Serial.println("holding");
-
-    if (bUp->clicked()) Serial.println("up");
-
-    if (bDown->clicked()) Serial.println("down");
+    if (rotaryEncoder->clockwise->clicked()) Serial.println("up");
+    if (rotaryEncoder->anticlockwise->clicked()) Serial.println("down");
 }

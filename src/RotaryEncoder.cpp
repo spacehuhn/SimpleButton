@@ -2,102 +2,60 @@
 
 namespace simpleButton {
     RotaryEncoder::RotaryEncoder() {
-        this->button_inverted = true;
-        enable();
+        this->clockwise     = new Button();
+        this->anticlockwise = new Button();
+        this->button        = new ButtonPullup();
     }
 
-    RotaryEncoder::RotaryEncoder(uint8_t pin) {
-        this->button_pin      = pin;
-        this->button_inverted = true;
-        enable();
+    RotaryEncoder::RotaryEncoder(uint8_t channelA, uint8_t channelB) {
+        this->clockwise     = new Button(channelA);
+        this->anticlockwise = new Button(channelB);
+        this->button        = new ButtonPullup();
+
+        prevA = clockwise->read();
+        prevB = anticlockwise->read();
     }
 
-    RotaryEncoder::RotaryEncoder(uint8_t pin, Button* button) {
-        this->button_pin      = pin;
-        this->buttonA         = button;
-        this->button_inverted = true;
-        enable();
-    }
+    RotaryEncoder::RotaryEncoder(uint8_t channelA, uint8_t channelB, uint8_t button) {
+        this->clockwise     = new Button(channelA);
+        this->anticlockwise = new Button(channelB);
+        this->button        = new ButtonPullup(button);
 
-    RotaryEncoder::RotaryEncoder(uint8_t pin, Button* button, uint8_t button_steps) {
-        this->button_pin      = pin;
-        this->buttonA         = button;
-        this->button_steps    = button_steps;
-        this->button_inverted = true;
-        enable();
-    }
-
-    RotaryEncoder::RotaryEncoder(Button* button) {
-        this->buttonA         = button;
-        this->button_inverted = true;
-        enable();
-    }
-
-    RotaryEncoder::RotaryEncoder(Button* button, uint8_t button_steps) {
-        this->buttonA         = button;
-        this->button_steps    = button_steps;
-        this->button_inverted = true;
-        enable();
+        prevA = clockwise->read();
+        prevB = anticlockwise->read();
     }
 
     RotaryEncoder::~RotaryEncoder() {}
 
     void RotaryEncoder::update() {
-        if (button_enabled && button_setup /*&& (millis() - updateTime >= updateInterval)*/) {
-            update(read());
-        }
+        update(clockwise->read(), anticlockwise->read(), button->read());
     }
 
-    void RotaryEncoder::enable() {
-        Button::enable();
-        update();
-        reset();
-    }
-
-    void RotaryEncoder::reset() {
-        Button::reset();
-
-        curState  = State::STILL;
-        prevState = State::STILL;
-
-        steps = 0;
-    }
-
-    void RotaryEncoder::update(uint16_t stateB) {
-        if (buttonA) {
-            this->state = state > 0;
-            update(buttonA->getState(), stateB);
-        } else {
-            this->state = state > 0;
-        }
-    }
-
-    void RotaryEncoder::update(uint16_t stateA, uint16_t stateB) {
-        bool curA = stateA > 0;
-        bool curB = stateB > 0;
-
-        updateTime = millis();
+    void RotaryEncoder::update(bool stateA, bool stateB, bool buttonState) {
+        button->update(buttonState);
 
         if (curState == State::STILL) {
-            if ((curA != prevA) && (curB == prevB)) {
-                prevA    = curA;
-                curState = State::CLOCKWISE;
-            } else if ((curA == prevA) && (curB != prevB)) {
-                prevB    = curB;
+            if ((stateA != prevA) && (stateB == prevB)) {
+                prevA    = stateA;
                 curState = State::ANTICLOCKWISE;
+            } else if ((stateA == prevA) && (stateB != prevB)) {
+                prevB    = stateB;
+                curState = State::CLOCKWISE;
             }
-        } else if ((curState != State::STILL) && (curA == curB)) {
-            prevA = curA;
-            prevB = curB;
+        } else if ((curState != State::STILL) && (stateA == stateB)) {
+            prevA = stateA;
+            prevB = stateB;
 
             if (curState == prevState) steps++;
             else steps = 1;
 
             if (steps >= button_steps) {
                 if (curState == State::CLOCKWISE) {
-                    click();
-                } else /*if (curState == State::ANTICLOCKWISE) */ {
-                    buttonA->click();
+                    clockwise->click();
+                    pos++;
+                } else if (curState == State::ANTICLOCKWISE)  {
+                    anticlockwise->click();
+                    pos--;
                 }
 
                 steps = 0;
@@ -106,5 +64,28 @@ namespace simpleButton {
             prevState = curState;
             curState  = State::STILL;
         }
+    }
+
+    void RotaryEncoder::reset() {
+        button->reset();
+        clockwise->reset();
+        anticlockwise->reset();
+
+        curState  = State::STILL;
+        prevState = State::STILL;
+
+        steps = 0;
+    }
+
+    int8_t RotaryEncoder::getPos() {
+        return pos;
+    }
+
+    void RotaryEncoder::setPos(int8_t pos) {
+        this->pos = pos;
+    }
+
+    void RotaryEncoder::setSteps(uint8_t steps) {
+        this->button_steps = steps;
     }
 }
