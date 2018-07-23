@@ -38,7 +38,7 @@ namespace simpleButton {
 
     void Switch::setButton(Button* button) {
         if (this->button) delete this->button;
-        this->button = button ? button ? new Button();
+        this->button = button ? button : new Button();
     }
 
     bool Switch::getState() {

@@ -91,10 +91,10 @@ namespace simpleButton {
         if (this->left) delete this->left;
         if (this->right) delete this->right;
 
-        this->up    = up ? up : new AnalogButton();
-        this->down  = down ? down : new AnalogButton();
-        this->left  = left ? left : new AnalogButton();
-        this->right = right ? right : new AnalogButton();
+        this->up    = up ? up : new ButtonAnalog();
+        this->down  = down ? down : new ButtonAnalog();
+        this->left  = left ? left : new ButtonAnalog();
+        this->right = right ? right : new ButtonAnalog();
 
         this->button = button ? button : new Button();
 
