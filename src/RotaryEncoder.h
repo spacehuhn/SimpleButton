@@ -16,17 +16,17 @@ namespace simpleButton {
             RotaryEncoder(uint8_t channelA, uint8_t channelB, uint8_t button);
             ~RotaryEncoder();
 
-            void update();
-            void update(bool stateA, bool stateB, bool buttonState);
+            virtual void update();
+            virtual void update(bool stateA, bool stateB, bool buttonState);
 
-            void reset();
+            virtual void reset();
 
-            int8_t getPos();
+            virtual int8_t getPos();
 
-            void setPos(int8_t pos);
-            void setSteps(uint8_t steps);
+            virtual void setPos(int8_t pos);
+            virtual void setSteps(uint8_t steps);
 
-        private:
+        protected:
             int8_t pos = 0;
 
             bool prevA = false;

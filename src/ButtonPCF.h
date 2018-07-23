@@ -13,11 +13,11 @@ namespace simpleButton {
             ButtonPCF(PCF857x* pcf, uint8_t pin, bool inverted);
             ~ButtonPCF();
 
-            void enable();
+            virtual void enable();
 
-            int read();
-            void update();
-            void update(int state);
+            virtual int read();
+            virtual void update();
+            virtual void update(int state);
 
         protected:
             PCF857x* pcf = NULL;
