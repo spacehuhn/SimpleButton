@@ -65,9 +65,9 @@ namespace simpleButton {
 
     void Button::click(uint32_t time) {
         push();
-        pushTime    = millis() - time - defaultMinReleaseTime;
-        releaseTime = millis() - defaultMinReleaseTime;
+        pushTime = millis() - time - defaultMinReleaseTime;
         release();
+        releaseTime = millis() - defaultMinReleaseTime;
     }
 
     int Button::read() {
@@ -144,12 +144,11 @@ namespace simpleButton {
     }
 
     bool Button::clicked(uint32_t minPushTime, uint32_t minReleaseTime) {
-        bool notHolding          = !holdFlag;
-        bool pushedBeforeRelease = pushTime < releaseTime;
-        bool minTime             = millis() - pushTime >= minPushTime;
-        bool releaseTimeout      = millis() - releaseTime >= minReleaseTime;
+        bool notHolding     = !holdFlag;
+        bool minTime        = millis() - pushTime >= minPushTime;
+        bool releaseTimeout = millis() - releaseTime >= minReleaseTime;
 
-        if (pushedBeforeRelease && notHolding && minTime && releaseTimeout) {
+        if (notHolding && minTime && releaseTimeout) {
             if (released()) {
                 clicks++;
                 return true;
