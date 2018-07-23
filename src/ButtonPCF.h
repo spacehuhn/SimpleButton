@@ -9,51 +9,18 @@ namespace simpleButton {
     class ButtonPCF : public Button {
         public:
             ButtonPCF();
-            ButtonPCF(Button* button, PCF857x* pcf, uint8_t pin);
+            ButtonPCF(PCF857x* pcf, uint8_t pin);
+            ButtonPCF(PCF857x* pcf, uint8_t pin, bool inverted);
             ~ButtonPCF();
 
             void enable();
-            void disable();
-            void reset();
-
-            void push();
-            void release();
-
-            void click();
-            void click(uint32_t time);
 
             int read();
             void update();
             void update(int state);
 
-            bool isEnabled();
-            bool isSetup();
-
-            bool getState();
-            int getClicks();
-            int getPushTime();
-
-            bool pushed();
-            bool released();
-            bool clicked();
-            bool clicked(uint32_t minPushTime);
-            bool clicked(uint32_t minPushTime, uint32_t minReleaseTime);
-            bool doubleClicked();
-            bool doubleClicked(uint32_t minPushTime);
-            bool doubleClicked(uint32_t minPushTime, uint32_t timeSpan);
-            bool doubleClicked(uint32_t minPushTime, uint32_t minReleaseTime, uint32_t timeSpan);
-            bool holding();
-            bool holding(uint32_t interval);
-
-            void setUpdateInterval(uint32_t updateInterval);
-            void setDefaultMinPushTime(uint32_t defaultMinPushTime);
-            void setDefaultMinReleaseTime(uint32_t defaultMinReleaseTime);
-            void setDefaultTimeSpan(uint32_t defaultTimeSpan);
-            void setDefaultHoldTime(uint32_t defaultHoldInterval);
-
-        private:
-            Button* button = NULL;
-            PCF857x* pcf   = NULL;
+        protected:
+            PCF857x* pcf = NULL;
     };
 }
 

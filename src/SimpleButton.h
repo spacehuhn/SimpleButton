@@ -6,6 +6,7 @@
 #include "Switch.h"
 #include "RotaryEncoder.h"
 #include "ButtonPCF.h"
+#include "ButtonPullupPCF.h"
 #include "ButtonAnalog.h"
 #include "AnalogStick.h"
 

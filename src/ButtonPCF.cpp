@@ -5,10 +5,16 @@ namespace simpleButton {
         enable();
     }
 
-    ButtonPCF::ButtonPCF(Button* button, PCF857x* pcf, uint8_t pin) {
-        this->button     = button;
+    ButtonPCF::ButtonPCF(PCF857x* pcf, uint8_t pin) {
         this->pcf        = pcf;
         this->button_pin = pin;
+        enable();
+    }
+
+    ButtonPCF::ButtonPCF(PCF857x* pcf, uint8_t pin, bool inverted) {
+        this->pcf             = pcf;
+        this->button_pin      = pin;
+        this->button_inverted = inverted;
         enable();
     }
 
@@ -17,40 +23,9 @@ namespace simpleButton {
     void ButtonPCF::enable() {
         button_enabled = true;
 
-        if (button && pcf && (button_pin < 8)) {
-            button->enable();
+        if (pcf && (button_pin < 16)) {
             button_setup = true;
-
-            pcf->write(button_pin, button->isInverted());
-            update();
-            reset();
         }
-    }
-
-    void ButtonPCF::disable() {
-        button_enabled = false;
-
-        if (button) button->disable();
-    }
-
-    void ButtonPCF::reset() {
-        if (button) button->reset();
-    }
-
-    void ButtonPCF::push() {
-        if (button) button->push();
-    }
-
-    void ButtonPCF::release() {
-        if (button) button->release();
-    }
-
-    void ButtonPCF::click() {
-        if (button) button->click();
-    }
-
-    void ButtonPCF::click(uint32_t time) {
-        if (button) button->click(time);
     }
 
     int ButtonPCF::read() {
@@ -59,7 +34,7 @@ namespace simpleButton {
         if (button_enabled && button_setup) {
             currentState = pcf->read(button_pin) > 0;
 
-            if (button->isInverted()) currentState = !currentState;
+            if (button_inverted) currentState = !currentState;
         }
 
         return (int)currentState;
@@ -72,90 +47,6 @@ namespace simpleButton {
     }
 
     void ButtonPCF::update(int state) {
-        if (button) button->update(state);
-    }
-
-    bool ButtonPCF::isEnabled() {
-        return button_enabled;
-    }
-
-    bool ButtonPCF::isSetup() {
-        return button_setup;
-    }
-
-    bool ButtonPCF::getState() {
-        return button ? button->getState() : false;
-    }
-
-    int ButtonPCF::getClicks() {
-        return button ? button->getClicks() : 0;
-    }
-
-    int ButtonPCF::getPushTime() {
-        return button ? button->getPushTime() : 0;
-    }
-
-    bool ButtonPCF::pushed() {
-        return button ? button->pushed() : false;
-    }
-
-    bool ButtonPCF::released() {
-        return button ? button->released() : false;
-    }
-
-    bool ButtonPCF::clicked() {
-        return button ? button->clicked() : false;
-    }
-
-    bool ButtonPCF::clicked(uint32_t minPushTime) {
-        return button ? button->clicked(minPushTime) : false;
-    }
-
-    bool ButtonPCF::clicked(uint32_t minPushTime, uint32_t minReleaseTime) {
-        return button ? button->clicked(minPushTime, minReleaseTime) : false;
-    }
-
-    bool ButtonPCF::doubleClicked() {
-        return button ? button->doubleClicked() : false;
-    }
-
-    bool ButtonPCF::doubleClicked(uint32_t minPushTime) {
-        return button ? button->doubleClicked(minPushTime) : false;
-    }
-
-    bool ButtonPCF::doubleClicked(uint32_t minPushTime, uint32_t timeSpan) {
-        return button ? button->doubleClicked(minPushTime, timeSpan) : false;
-    }
-
-    bool ButtonPCF::doubleClicked(uint32_t minPushTime, uint32_t minReleaseTime, uint32_t timeSpan) {
-        return button ? button->doubleClicked(minPushTime, minReleaseTime, timeSpan) : false;
-    }
-
-    bool ButtonPCF::holding() {
-        return button ? button->holding() : false;
-    }
-
-    bool ButtonPCF::holding(uint32_t interval) {
-        return button ? button->holding(interval) : false;
-    }
-
-    void ButtonPCF::setUpdateInterval(uint32_t updateInterval) {
-        if (button) button->setUpdateInterval(updateInterval);
-    }
-
-    void ButtonPCF::setDefaultMinPushTime(uint32_t defaultMinPushTime) {
-        if (button) button->setDefaultMinPushTime(defaultMinPushTime);
-    }
-
-    void ButtonPCF::setDefaultMinReleaseTime(uint32_t defaultMinReleaseTime) {
-        if (button) button->setDefaultMinReleaseTime(defaultMinReleaseTime);
-    }
-
-    void ButtonPCF::setDefaultTimeSpan(uint32_t defaultTimeSpan) {
-        if (button) button->setDefaultTimeSpan(defaultTimeSpan);
-    }
-
-    void ButtonPCF::setDefaultHoldTime(uint32_t defaultHoldInterval) {
-        if (button) button->setDefaultHoldTime(defaultHoldInterval);
+        Button::update(state);
     }
 }
