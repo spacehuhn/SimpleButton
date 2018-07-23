@@ -10,8 +10,8 @@ using namespace simpleButton;
    (the labels on your rotary encoder might be different!)
  */
 
-PCF8574* myPCF                  = NULL;
-RotaryEncoderPCF* rotaryEncoder = NULL;
+PCF8574* myPCF               = NULL;
+RotaryEncoder* rotaryEncoder = NULL;
 
 void setup() {
     // for non-ESP Arduino's, just do Wire.begin();
@@ -23,7 +23,7 @@ void setup() {
 
     myPCF = new PCF8574(0x20); // 0x20 = i2c address (use a i2c scanner sketch to find the right address)
 
-    rotaryEncoder = new RotaryEncoderPCF(myPCF, 0, 1);
+    rotaryEncoder = new RotaryEncoder(myPCF, 0, 1);
 
     Serial.println("Started");
 }
