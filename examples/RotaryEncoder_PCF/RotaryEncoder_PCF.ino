@@ -31,6 +31,12 @@ void setup() {
 void loop() {
     rotaryEncoder->update();
 
+    if (!myPCF->connected()) {
+        Serial.println(myPCF->getError());
+
+        while (true) delay(1000);
+    }
+
     if (rotaryEncoder->clockwise->clicked()) Serial.println("down");
     if (rotaryEncoder->anticlockwise->clicked()) Serial.println("up");
 }

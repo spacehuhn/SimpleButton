@@ -33,6 +33,12 @@ void loop() {
     buttonA->update();
     buttonB->update();
 
+    if (!myPCF->connected()) {
+        Serial.println(myPCF->getError());
+
+        while (true) delay(1000);
+    }
+
     if (buttonA->doubleClicked()) Serial.println("Button A doubleclicked");
     if (buttonA->clicked()) Serial.println("Button A clicked");
     if (buttonA->holding()) Serial.println("Button A holding");

@@ -1,87 +1,101 @@
 #include "PCF8574.h"
 
-PCF8574::PCF8574(uint8_t address) {
-    PCF8574::wire    = &Wire;
-    PCF8574::address = address;
-}
-
-PCF8574::PCF8574(uint8_t address, TwoWire* wire) {
-    PCF8574::wire    = wire;
-    PCF8574::address = address;
-}
-
-PCF8574::~PCF8574() {}
-
-int PCF8574::read() {
-    wire->beginTransmission(address);
-    wire->requestFrom(address, (uint8_t)1);
-
-    data = 0;
-
-    if (wire->available() >= 1) {
-        data = i2cRead();
+namespace simpleButton {
+    PCF8574::PCF8574(uint8_t address) {
+        PCF8574::wire    = &Wire;
+        PCF8574::address = address;
     }
 
-    wire->endTransmission();
+    PCF8574::PCF8574(uint8_t address, TwoWire* wire) {
+        PCF8574::wire    = wire;
+        PCF8574::address = address;
+    }
 
-    return data;
-}
+    PCF8574::~PCF8574() {}
 
-int PCF8574::read(uint8_t pin) {
-    data = read();
-    return (data & (1 << pin)) > 0;
-}
+    int PCF8574::read() {
+        wire->requestFrom(address, (uint8_t)1);
 
-void PCF8574::write(int value) {
-    wire->beginTransmission(address);
+        data = 0;
 
-    pinModeMask &= 0xff00;
-    pinModeMask |= value;
-    data         = pinModeMask;
+        if (wire->available() >= 1) {
+            data = wire->read();
+        } else {
+            error = PCF_I2C_ERROR;
+        }
 
-    i2cWrite(data);
+        return data;
+    }
 
-    wire->endTransmission();
-}
+    int PCF8574::read(uint8_t pin) {
+        if (pin < 8) {
+            data = read();
+            return (data & (1 << pin)) > 0;
+        } else {
+            error = PCF_PIN_ERROR;
+            return -1;
+        }
+    }
 
-void PCF8574::write(uint8_t pin, int value) {
-    uint8_t val = value & 1;
+    void PCF8574::write(int value) {
+        wire->beginTransmission(address);
 
-    if (val) pinModeMask |= val << pin;
-    else pinModeMask &= ~(1 << pin);
+        pinModeMask &= 0xff00;
+        pinModeMask |= value;
+        data         = pinModeMask;
 
-    write(pinModeMask);
-}
+        wire->write(data);
 
-void PCF8574::toggle() {
-    pinModeMask = ~pinModeMask;
-    write(pinModeMask);
-}
+        error = wire->endTransmission();
+    }
 
-void PCF8574::toggle(uint8_t pin) {
-    pinModeMask ^= 1 << pin;
+    void PCF8574::write(uint8_t pin, int value) {
+        if (pin < 8) {
+            uint8_t val = value & 1;
 
-    write(pinModeMask);
-}
+            if (val) pinModeMask |= val << pin;
+            else pinModeMask &= ~(1 << pin);
 
-void PCF8574::shiftRight(uint8_t n) {
-    pinModeMask >>= n;
-    write(pinModeMask);
-}
+            write(pinModeMask);
+        } else {
+            error = PCF_PIN_ERROR;
+        }
+    }
 
-void PCF8574::shiftLeft(uint8_t n) {
-    pinModeMask <<= n;
-    write(pinModeMask);
-}
+    void PCF8574::toggle() {
+        pinModeMask = ~pinModeMask;
+        write(pinModeMask);
+    }
 
-void PCF8574::rotateLeft(uint8_t n) {
-    rotateRight(8 - (n & 7));
-}
+    void PCF8574::toggle(uint8_t pin) {
+        if (pin < 8) {
+            pinModeMask ^= 1 << pin;
 
-void PCF8574::rotateRight(uint8_t n) {
-    uint8_t r = n & 7;
+            write(pinModeMask);
+        } else {
+            error = PCF_PIN_ERROR;
+        }
+    }
 
-    pinModeMask = (pinModeMask >> r) | (pinModeMask << (8 - r));
+    void PCF8574::shiftRight(uint8_t n) {
+        pinModeMask >>= n;
+        write(pinModeMask);
+    }
 
-    write(pinModeMask);
+    void PCF8574::shiftLeft(uint8_t n) {
+        pinModeMask <<= n;
+        write(pinModeMask);
+    }
+
+    void PCF8574::rotateLeft(uint8_t n) {
+        rotateRight(8 - (n & 7));
+    }
+
+    void PCF8574::rotateRight(uint8_t n) {
+        uint8_t r = n & 7;
+
+        pinModeMask = (pinModeMask >> r) | (pinModeMask << (8 - r));
+
+        write(pinModeMask);
+    }
 }

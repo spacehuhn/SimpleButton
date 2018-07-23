@@ -1,89 +1,88 @@
 #include "PCF8575.h"
 
-PCF8575::PCF8575(uint8_t address) {
-    PCF8575::wire    = &Wire;
-    PCF8575::address = address;
-}
-
-PCF8575::PCF8575(uint8_t address, TwoWire* wire) {
-    PCF8575::wire    = wire;
-    PCF8575::address = address;
-}
-
-PCF8575::~PCF8575() {}
-
-int PCF8575::read() {
-    wire->beginTransmission(address);
-    wire->requestFrom(address, (uint8_t)2);
-
-    data = 0;
-
-    if (wire->available() >= 2) {
-        data  = i2cRead();
-        data |= i2cRead() << 8;
+namespace simpleButton {
+    PCF8575::PCF8575(uint8_t address) {
+        PCF8575::wire    = &Wire;
+        PCF8575::address = address;
     }
 
-    wire->endTransmission();
+    PCF8575::PCF8575(uint8_t address, TwoWire* wire) {
+        PCF8575::wire    = wire;
+        PCF8575::address = address;
+    }
 
-    return data;
-}
+    PCF8575::~PCF8575() {}
 
-int PCF8575::read(uint8_t pin) {
-    data = read();
+    int PCF8575::read() {
+        wire->requestFrom(address, (uint8_t)2);
 
-    return (data & (1 << pin)) > 0;
-}
+        data = 0;
 
-void PCF8575::write(int value) {
-    wire->beginTransmission(address);
+        if (wire->available() >= 2) {
+            data  = wire->read();
+            data |= wire->read() << 8;
+        }
 
-    pinModeMask = value;
-    data        = pinModeMask;
+        return data;
+    }
 
-    i2cWrite((uint8_t)data);
-    i2cWrite((uint8_t)(data >> 8));
+    int PCF8575::read(uint8_t pin) {
+        data = read();
 
-    wire->endTransmission();
-}
+        return (data & (1 << pin)) > 0;
+    }
 
-void PCF8575::write(uint8_t pin, int value) {
-    uint8_t val = value & 1;
+    void PCF8575::write(int value) {
+        wire->beginTransmission(address);
 
-    if (val) pinModeMask |= val << pin;
-    else pinModeMask &= ~(1 << pin);
+        pinModeMask = value;
+        data        = pinModeMask;
 
-    write(pinModeMask);
-}
+        wire->write((uint8_t)data);
+        wire->write((uint8_t)(data >> 8));
 
-void PCF8575::toggle() {
-    pinModeMask = ~pinModeMask;
-    write(pinModeMask);
-}
+        wire->endTransmission();
+    }
 
-void PCF8575::toggle(uint8_t pin) {
-    pinModeMask ^= 1 << pin;
+    void PCF8575::write(uint8_t pin, int value) {
+        uint8_t val = value & 1;
 
-    write(pinModeMask);
-}
+        if (val) pinModeMask |= val << pin;
+        else pinModeMask &= ~(1 << pin);
 
-void PCF8575::shiftRight(uint8_t n) {
-    pinModeMask >>= n;
-    write(pinModeMask);
-}
+        write(pinModeMask);
+    }
 
-void PCF8575::shiftLeft(uint8_t n) {
-    pinModeMask <<= n;
-    write(pinModeMask);
-}
+    void PCF8575::toggle() {
+        pinModeMask = ~pinModeMask;
+        write(pinModeMask);
+    }
 
-void PCF8575::rotateLeft(uint8_t n) {
-    rotateRight(16 - (n & 15));
-}
+    void PCF8575::toggle(uint8_t pin) {
+        pinModeMask ^= 1 << pin;
 
-void PCF8575::rotateRight(uint8_t n) {
-    uint8_t r = n & 15;
+        write(pinModeMask);
+    }
 
-    pinModeMask = (pinModeMask >> r) | (pinModeMask << (16 - r));
+    void PCF8575::shiftRight(uint8_t n) {
+        pinModeMask >>= n;
+        write(pinModeMask);
+    }
 
-    write(pinModeMask);
+    void PCF8575::shiftLeft(uint8_t n) {
+        pinModeMask <<= n;
+        write(pinModeMask);
+    }
+
+    void PCF8575::rotateLeft(uint8_t n) {
+        rotateRight(16 - (n & 15));
+    }
+
+    void PCF8575::rotateRight(uint8_t n) {
+        uint8_t r = n & 15;
+
+        pinModeMask = (pinModeMask >> r) | (pinModeMask << (16 - r));
+
+        write(pinModeMask);
+    }
 }
