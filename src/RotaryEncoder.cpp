@@ -4,13 +4,13 @@ namespace simpleButton {
     RotaryEncoder::RotaryEncoder() {
         this->clockwise     = new Button();
         this->anticlockwise = new Button();
-        this->button        = new ButtonPullup();
+        this->button        = new Button();
     }
 
     RotaryEncoder::RotaryEncoder(uint8_t channelA, uint8_t channelB) {
         this->clockwise     = new Button(channelA);
         this->anticlockwise = new Button(channelB);
-        this->button        = new ButtonPullup();
+        this->button        = new Button();
 
         prevA = clockwise->read();
         prevB = anticlockwise->read();
@@ -43,7 +43,18 @@ namespace simpleButton {
         prevB = anticlockwise->read();
     }
 
-    RotaryEncoder::~RotaryEncoder() {}
+    RotaryEncoder::RotaryEncoder(Button* clockwise, Button* anticlockwise, Button* button) {
+        setButtons(clockwise, anticlockwise, button);
+
+        prevA = clockwise->read();
+        prevB = anticlockwise->read();
+    }
+
+    RotaryEncoder::~RotaryEncoder() {
+        if (this->clockwise) delete this->clockwise;
+        if (this->anticlockwise) delete this->anticlockwise;
+        if (this->button) delete this->button;
+    }
 
     void RotaryEncoder::update() {
         update(clockwise->read(), anticlockwise->read(), button->read());
@@ -95,11 +106,21 @@ namespace simpleButton {
         steps = 0;
     }
 
-    int8_t RotaryEncoder::getPos() {
+    int32_t RotaryEncoder::getPos() {
         return pos;
     }
 
-    void RotaryEncoder::setPos(int8_t pos) {
+    void RotaryEncoder::setButtons(Button* clockwise, Button* anticlockwise, Button* button) {
+        if (this->clockwise) delete this->clockwise;
+        if (this->anticlockwise) delete this->anticlockwise;
+        if (this->button) delete this->button;
+
+        this->clockwise     = clockwise ? clockwise : new Button();
+        this->anticlockwise = anticlockwise ? anticlockwise : new Button();
+        this->button        = button ? button : new Button();
+    }
+
+    void RotaryEncoder::setPos(int32_t pos) {
         this->pos = pos;
     }
 

@@ -24,6 +24,8 @@ namespace simpleButton {
             uint8_t getX();
             uint8_t getY();
 
+            void setButtons(ButtonAnalog* up, ButtonAnalog* down, ButtonAnalog* left, ButtonAnalog* right,
+                            Button* button);
             void setLogic(uint16_t logic);
             void setLogic(uint16_t logic, uint8_t tolerance);
 

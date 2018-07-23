@@ -47,7 +47,12 @@ namespace simpleButton {
         setLogic(1024);
     }
 
-    AnalogStick::~AnalogStick() {}
+    AnalogStick::~AnalogStick() {
+        if (this->up) delete this->up;
+        if (this->down) delete this->down;
+        if (this->left) delete this->left;
+        if (this->right) delete this->right;
+    }
 
     void AnalogStick::update() {
         button->update();
@@ -77,6 +82,23 @@ namespace simpleButton {
 
     uint8_t AnalogStick::getY() {
         return yValue;
+    }
+
+    void AnalogStick::setButtons(ButtonAnalog* up, ButtonAnalog* down, ButtonAnalog* left, ButtonAnalog* right,
+                                 Button* button) {
+        if (this->up) delete this->up;
+        if (this->down) delete this->down;
+        if (this->left) delete this->left;
+        if (this->right) delete this->right;
+
+        this->up    = up ? up : new AnalogButton();
+        this->down  = down ? down : new AnalogButton();
+        this->left  = left ? left : new AnalogButton();
+        this->right = right ? right : new AnalogButton();
+
+        this->button = button ? button : new Button();
+
+        setLogic(this->logic, this->tolerance);
     }
 
     void AnalogStick::setLogic(uint16_t logic) {

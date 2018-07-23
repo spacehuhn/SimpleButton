@@ -15,7 +15,14 @@ namespace simpleButton {
         tmpState = button->read();
     }
 
-    Switch::~Switch() {}
+    Switch::Switch(Button* button) {
+        setButton(button);
+        tmpState = button->read();
+    }
+
+    Switch::~Switch() {
+        if (this->button) delete this->button;
+    }
 
     void Switch::update() {
         update(button->read());
@@ -27,6 +34,11 @@ namespace simpleButton {
         tmpState = state > 0;
 
         if (prevState != tmpState) button->click();
+    }
+
+    void Switch::setButton(Button* button) {
+        if (this->button) delete this->button;
+        this->button = button ? button ? new Button();
     }
 
     bool Switch::getState() {

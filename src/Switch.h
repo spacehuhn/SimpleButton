@@ -7,20 +7,24 @@
 namespace simpleButton {
     class Switch {
         public:
+            Button* button = NULL;
+
             Switch();
             Switch(uint8_t pin);
             Switch(PCF857x* pcf, uint8_t pin);
+            Switch(Button* button);
             ~Switch();
 
             void update();
             void update(bool state);
 
+            void setButton(Button* button);
+
             bool getState();
             bool clicked();
 
         private:
-            Button* button = NULL;
-            bool tmpState  = false;
+            bool tmpState = false;
     };
 }
 

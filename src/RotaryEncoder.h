@@ -20,20 +20,22 @@ namespace simpleButton {
             RotaryEncoder(uint8_t channelA, uint8_t channelB, uint8_t button);
             RotaryEncoder(PCF857x* pcf, uint8_t channelA, uint8_t channelB);
             RotaryEncoder(PCF857x* pcf, uint8_t channelA, uint8_t channelB, uint8_t button);
+            RotaryEncoder(Button* clockwise, Button* anticlockwise, Button* button);
             ~RotaryEncoder();
 
-            virtual void update();
-            virtual void update(bool stateA, bool stateB, bool buttonState);
+            void update();
+            void update(bool stateA, bool stateB, bool buttonState);
 
-            virtual void reset();
+            void reset();
 
-            virtual int8_t getPos();
+            int32_t getPos();
 
-            virtual void setPos(int8_t pos);
-            virtual void setSteps(uint8_t steps);
+            void setButtons(Button* clockwise, Button* anticlockwise, Button* button);
+            void setPos(int32_t pos);
+            void setSteps(uint8_t steps);
 
-        protected:
-            int8_t pos = 0;
+        private:
+            int32_t pos = 0;
 
             bool prevA = false;
             bool prevB = false;
