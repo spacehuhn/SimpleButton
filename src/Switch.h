@@ -2,23 +2,25 @@
 #define Switch_h
 
 #include "Button.h"
+#include "ButtonPCF.h"
 
 namespace simpleButton {
-    class Switch : public Button {
+    class Switch {
         public:
             Switch();
             Switch(uint8_t pin);
+            Switch(PCF857x* pcf, uint8_t pin);
             ~Switch();
 
-            void enable();
-
             void update();
-            void update(uint16_t state);
+            void update(bool state);
 
             bool getState();
+            bool clicked();
 
         private:
-            bool tmpState = false;
+            Button* button = NULL;
+            bool tmpState  = false;
     };
 }
 

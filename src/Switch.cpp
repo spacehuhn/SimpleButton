@@ -2,35 +2,38 @@
 
 namespace simpleButton {
     Switch::Switch() {
-        enable();
+        button = new Button();
     }
 
     Switch::Switch(uint8_t pin) {
-        this->button_pin = pin;
-        enable();
+        button   = new Button(pin);
+        tmpState = button->read();
+    }
+
+    Switch::Switch(PCF857x* pcf, uint8_t pin) {
+        button   = new ButtonPCF(pcf, pin);
+        tmpState = button->read();
     }
 
     Switch::~Switch() {}
 
-    void Switch::enable() {
-        Button::enable();
-        tmpState = read();
-    }
-
     void Switch::update() {
-        if (button_enabled && button_setup && (millis() - updateTime >= updateInterval)) update(read());
+        update(button->read());
     }
 
-    void Switch::update(uint16_t state) {
-        updateTime = millis();
-
+    void Switch::update(bool state) {
         bool prevState = tmpState;
+
         tmpState = state > 0;
 
-        if (prevState != tmpState) click();
+        if (prevState != tmpState) button->click();
     }
 
     bool Switch::getState() {
         return tmpState;
+    }
+
+    bool Switch::clicked() {
+        return button->clicked();
     }
 }
