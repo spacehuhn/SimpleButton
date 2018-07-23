@@ -128,7 +128,7 @@ namespace simpleButton {
     }
 
     bool Button::released() {
-        if (releasedFlag) {
+        if (releasedFlag && (pushTime < releaseTime)) {
             releasedFlag = false;
             return true;
         }
