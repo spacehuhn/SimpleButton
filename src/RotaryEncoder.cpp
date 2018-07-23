@@ -25,6 +25,24 @@ namespace simpleButton {
         prevB = anticlockwise->read();
     }
 
+    RotaryEncoder::RotaryEncoder(PCF857x* pcf, uint8_t channelA, uint8_t channelB) {
+        this->clockwise     = new ButtonPCF(pcf, channelA);
+        this->anticlockwise = new ButtonPCF(pcf, channelB);
+        this->button        = new ButtonPullupPCF();
+
+        prevA = clockwise->read();
+        prevB = anticlockwise->read();
+    }
+
+    RotaryEncoder::RotaryEncoder(PCF857x* pcf, uint8_t channelA, uint8_t channelB, uint8_t button) {
+        this->clockwise     = new ButtonPCF(pcf, channelA);
+        this->anticlockwise = new ButtonPCF(pcf, channelB);
+        this->button        = new ButtonPullupPCF(pcf, button);
+
+        prevA = clockwise->read();
+        prevB = anticlockwise->read();
+    }
+
     RotaryEncoder::~RotaryEncoder() {}
 
     void RotaryEncoder::update() {

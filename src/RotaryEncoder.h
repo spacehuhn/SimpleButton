@@ -3,6 +3,10 @@
 
 #include "Button.h"
 #include "ButtonPullup.h"
+#include "PCF8574.h"
+#include "PCF8575.h"
+#include "ButtonPCF.h"
+#include "ButtonPullupPCF.h"
 
 namespace simpleButton {
     class RotaryEncoder {
@@ -14,6 +18,8 @@ namespace simpleButton {
             RotaryEncoder();
             RotaryEncoder(uint8_t channelA, uint8_t channelB);
             RotaryEncoder(uint8_t channelA, uint8_t channelB, uint8_t button);
+            RotaryEncoder(PCF857x* pcf, uint8_t channelA, uint8_t channelB);
+            RotaryEncoder(PCF857x* pcf, uint8_t channelA, uint8_t channelB, uint8_t button);
             ~RotaryEncoder();
 
             virtual void update();
