@@ -6,22 +6,34 @@ namespace simpleButton {
     }
 
     Switch::Switch(uint8_t pin) {
-        button   = new Button(pin);
-        tmpState = button->read();
+        setup(pin);
     }
 
     Switch::Switch(PCF857x* pcf, uint8_t pin) {
-        button   = new ButtonPCF(pcf, pin);
-        tmpState = button->read();
+        setup(pcf, pin);
     }
 
     Switch::Switch(Button* button) {
-        setButton(button);
-        tmpState = button->read();
+        setup(button);
     }
 
     Switch::~Switch() {
         if (this->button) delete this->button;
+    }
+
+    void Switch::setup(uint8_t pin) {
+        button   = new Button(pin);
+        tmpState = button->read();
+    }
+
+    void Switch::setup(PCF857x* pcf, uint8_t pin) {
+        button   = new ButtonPCF(pcf, pin);
+        tmpState = button->read();
+    }
+
+    void Switch::setup(Button* button) {
+        setButton(button);
+        tmpState = button->read();
     }
 
     void Switch::update() {

@@ -8,7 +8,10 @@ namespace simpleButton {
         public:
             ButtonPullupPCF();
             ButtonPullupPCF(PCF857x* pcf, uint8_t pin);
+
             ~ButtonPullupPCF();
+
+            void setup(PCF857x* pcf, uint8_t pin);
 
             void enable();
     };

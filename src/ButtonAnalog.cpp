@@ -2,28 +2,29 @@
 
 namespace simpleButton {
     ButtonAnalog::ButtonAnalog() {
-        enable();
+        setup(255, 0, 1024);
     }
 
     ButtonAnalog::ButtonAnalog(uint8_t pin) {
-        this->button_pin = pin;
-        enable();
+        setup(pin, 0, 1024);
     }
 
     ButtonAnalog::ButtonAnalog(uint16_t minValue, uint16_t maxValue) {
-        this->minValue = minValue;
-        this->maxValue = maxValue;
-        enable();
+        setup(255, minValue, maxValue);
     }
 
     ButtonAnalog::ButtonAnalog(uint8_t pin, uint16_t minValue, uint16_t maxValue) {
+        setup(pin, minValue, maxValue);
+    }
+
+    ButtonAnalog::~ButtonAnalog() {}
+
+    void ButtonAnalog::setup(uint8_t pin, uint16_t minValue, uint16_t maxValue) {
         this->button_pin = pin;
         this->minValue   = minValue;
         this->maxValue   = maxValue;
         enable();
     }
-
-    ButtonAnalog::~ButtonAnalog() {}
 
     int ButtonAnalog::read() {
         int currentState = 0;

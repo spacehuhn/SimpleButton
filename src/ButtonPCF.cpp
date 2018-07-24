@@ -2,29 +2,32 @@
 
 namespace simpleButton {
     ButtonPCF::ButtonPCF() {
-        enable();
+        setup(NULL, 255, false);
     }
 
     ButtonPCF::ButtonPCF(PCF857x* pcf, uint8_t pin) {
-        this->pcf        = pcf;
-        this->button_pin = pin;
-        enable();
+        setup(pcf, pin, false);
     }
 
     ButtonPCF::ButtonPCF(PCF857x* pcf, uint8_t pin, bool inverted) {
+        setup(pcf, pin, inverted);
+    }
+
+    ButtonPCF::~ButtonPCF() {}
+
+    void ButtonPCF::setup(PCF857x* pcf, uint8_t pin, bool inverted) {
         this->pcf             = pcf;
         this->button_pin      = pin;
         this->button_inverted = inverted;
         enable();
     }
 
-    ButtonPCF::~ButtonPCF() {}
-
     void ButtonPCF::enable() {
         button_enabled = true;
 
-        if (pcf && (button_pin < 16)) {
-            button_setup = true;
+        if (pcf) {
+            pcf->write(button_pin, 0);
+            if (pcf->connected()) button_setup = true;
         }
     }
 

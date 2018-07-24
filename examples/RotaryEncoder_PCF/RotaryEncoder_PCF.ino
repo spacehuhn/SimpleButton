@@ -7,6 +7,7 @@ using namespace simpleButton;
    - PCF8574 is connected with SDA to GPIO 5 (D1) and with SCL to GPIO 4 (D2)
    - Rotary encoder CLK is connected to the PCF pin 0 - that's channel A
    - Rotary encoder DT is connected to PCF pin 1 - that's channel B
+   - Rotary encoder SW (switch) is unconnected and therefor set to 255
    (the labels on your rotary encoder might be different!)
  */
 
@@ -35,7 +36,7 @@ void setup() {
         }
     } while (!myPCF->connected());
 
-    rotaryEncoder = new RotaryEncoder(myPCF, 0, 1);
+    rotaryEncoder = new RotaryEncoder(myPCF, 0, 1, 255);
 
     Serial.println("Started");
 }

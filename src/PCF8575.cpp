@@ -2,13 +2,11 @@
 
 namespace simpleButton {
     PCF8575::PCF8575(uint8_t address) {
-        PCF8575::wire    = &Wire;
-        PCF8575::address = address;
+        setup(address);
     }
 
     PCF8575::PCF8575(uint8_t address, TwoWire* wire) {
-        PCF8575::wire    = wire;
-        PCF8575::address = address;
+        setup(address, wire);
     }
 
     PCF8575::~PCF8575() {}

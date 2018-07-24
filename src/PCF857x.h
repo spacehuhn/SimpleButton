@@ -10,6 +10,11 @@
 namespace simpleButton {
     class PCF857x {
         public:
+            virtual ~PCF857x() = default;
+
+            virtual void setup(uint8_t address);
+            virtual void setup(uint8_t address, TwoWire* wire);
+
             virtual int read() = 0;
             virtual int read(uint8_t pin) = 0;
 

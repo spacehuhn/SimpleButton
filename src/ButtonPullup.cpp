@@ -2,17 +2,20 @@
 
 namespace simpleButton {
     ButtonPullup::ButtonPullup() {
-        this->button_inverted = true;
-        enable();
+        setup(255);
     }
 
     ButtonPullup::ButtonPullup(uint8_t pin) {
+        setup(pin);
+    }
+
+    ButtonPullup::~ButtonPullup() {}
+
+    void ButtonPullup::setup(uint8_t pin) {
         this->button_pin      = pin;
         this->button_inverted = true;
         enable();
     }
-
-    ButtonPullup::~ButtonPullup() {}
 
     void ButtonPullup::enable() {
         button_enabled = true;

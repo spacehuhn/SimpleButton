@@ -1,6 +1,18 @@
 #include "PCF857x.h"
 
 namespace simpleButton {
+    void PCF857x::setup(uint8_t address) {
+        this->wire    = &Wire;
+        this->address = address;
+        write(0);
+    }
+
+    void PCF857x::setup(uint8_t address, TwoWire* wire) {
+        this->wire    = wire;
+        this->address = address;
+        write(0);
+    }
+
     bool PCF857x::connected() {
         return error == 0;
     }

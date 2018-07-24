@@ -8,7 +8,10 @@ namespace simpleButton {
         public:
             ButtonPullup();
             ButtonPullup(uint8_t pin);
+
             ~ButtonPullup();
+
+            void setup(uint8_t pin);
 
             void enable();
     };

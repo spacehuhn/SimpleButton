@@ -80,8 +80,8 @@ Button* b = new Switch(12);
 
 #### Rotary Encoder
 ```c++
-// creates a rotary encoder connected to pin 5 and pin 4
-RotaryEncoder* rotaryEncoder = new RotaryEncoder(5, 4);
+// creates a rotary encoder connected to pin 5 and pin 4 and switch connected pin 3 (set switch to 255 to disable it)
+RotaryEncoder* rotaryEncoder = new RotaryEncoder(5, 4, 3);
 
 // in case you have a rotary encoder that does 2 steps with each turn (x1 encoding):
 // (default is 1 step per turn)
@@ -96,7 +96,8 @@ ButtonAnalog* b = ButtonAnalog(A0, 0, 20);
 
 #### AnalogStick
 ```c++
-// creates an analog stick that has channelA connected to A0, channelB connected to A1 and the switch connected to pin 5
+// creates an analog stick that has X connected to A0, Y connected to A1 and the switch connected to pin 5
+// (set switch to 255 to disable it)
 AnalogStick* analogStick = new AnalogStick(A0, A1, 5);
 
 // set the logic to read values from 0 to 1024 with 25% tolerance

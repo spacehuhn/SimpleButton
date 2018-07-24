@@ -11,7 +11,10 @@ namespace simpleButton {
             ButtonAnalog(uint8_t pin);
             ButtonAnalog(uint16_t minValue, uint16_t maxValue);
             ButtonAnalog(uint8_t pin, uint16_t minValue, uint16_t maxValue);
+
             ~ButtonAnalog();
+
+            void setup(uint8_t pin, uint16_t minValue, uint16_t maxValue);
 
             int read();
 

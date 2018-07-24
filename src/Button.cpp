@@ -2,21 +2,24 @@
 
 namespace simpleButton {
     Button::Button() {
-        enable();
+        setup(255, false);
     }
 
     Button::Button(uint8_t pin) {
-        this->button_pin = pin;
-        enable();
+        setup(pin, false);
     }
 
     Button::Button(uint8_t pin, bool inverted) {
+        setup(pin, inverted);
+    }
+
+    Button::~Button() {}
+
+    void Button::setup(uint8_t pin, bool inverted) {
         this->button_pin      = pin;
         this->button_inverted = inverted;
         enable();
     }
-
-    Button::~Button() {}
 
     void Button::enable() {
         button_enabled = true;

@@ -16,12 +16,15 @@ namespace simpleButton {
             Button* button        = NULL;
 
             RotaryEncoder();
-            RotaryEncoder(uint8_t channelA, uint8_t channelB);
             RotaryEncoder(uint8_t channelA, uint8_t channelB, uint8_t button);
-            RotaryEncoder(PCF857x* pcf, uint8_t channelA, uint8_t channelB);
             RotaryEncoder(PCF857x* pcf, uint8_t channelA, uint8_t channelB, uint8_t button);
             RotaryEncoder(Button* clockwise, Button* anticlockwise, Button* button);
+
             ~RotaryEncoder();
+
+            void setup(uint8_t channelA, uint8_t channelB, uint8_t button);
+            void setup(PCF857x* pcf, uint8_t channelA, uint8_t channelB, uint8_t button);
+            void setup(Button* clockwise, Button* anticlockwise, Button* button);
 
             void update();
             void update(bool stateA, bool stateB, bool buttonState);

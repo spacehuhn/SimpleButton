@@ -13,7 +13,12 @@ namespace simpleButton {
             Switch(uint8_t pin);
             Switch(PCF857x* pcf, uint8_t pin);
             Switch(Button* button);
+
             ~Switch();
+
+            void setup(uint8_t pin);
+            void setup(PCF857x* pcf, uint8_t pin);
+            void setup(Button* button);
 
             void update();
             void update(bool state);

@@ -2,58 +2,50 @@
 
 namespace simpleButton {
     RotaryEncoder::RotaryEncoder() {
-        this->clockwise     = new Button();
-        this->anticlockwise = new Button();
-        this->button        = new Button();
-    }
-
-    RotaryEncoder::RotaryEncoder(uint8_t channelA, uint8_t channelB) {
-        this->clockwise     = new Button(channelA);
-        this->anticlockwise = new Button(channelB);
-        this->button        = new Button();
-
-        prevA = clockwise->read();
-        prevB = anticlockwise->read();
+        setButtons(NULL, NULL, NULL);
     }
 
     RotaryEncoder::RotaryEncoder(uint8_t channelA, uint8_t channelB, uint8_t button) {
-        this->clockwise     = new Button(channelA);
-        this->anticlockwise = new Button(channelB);
-        this->button        = new ButtonPullup(button);
-
-        prevA = clockwise->read();
-        prevB = anticlockwise->read();
-    }
-
-    RotaryEncoder::RotaryEncoder(PCF857x* pcf, uint8_t channelA, uint8_t channelB) {
-        this->clockwise     = new ButtonPCF(pcf, channelA);
-        this->anticlockwise = new ButtonPCF(pcf, channelB);
-        this->button        = new ButtonPullupPCF();
-
-        prevA = clockwise->read();
-        prevB = anticlockwise->read();
+        setup(channelA, channelB, button);
     }
 
     RotaryEncoder::RotaryEncoder(PCF857x* pcf, uint8_t channelA, uint8_t channelB, uint8_t button) {
-        this->clockwise     = new ButtonPCF(pcf, channelA);
-        this->anticlockwise = new ButtonPCF(pcf, channelB);
-        this->button        = new ButtonPullupPCF(pcf, button);
-
-        prevA = clockwise->read();
-        prevB = anticlockwise->read();
+        setup(pcf, channelA, channelB, button);
     }
 
     RotaryEncoder::RotaryEncoder(Button* clockwise, Button* anticlockwise, Button* button) {
-        setButtons(clockwise, anticlockwise, button);
-
-        prevA = clockwise->read();
-        prevB = anticlockwise->read();
+        setup(clockwise, anticlockwise, button);
     }
 
     RotaryEncoder::~RotaryEncoder() {
         if (this->clockwise) delete this->clockwise;
         if (this->anticlockwise) delete this->anticlockwise;
         if (this->button) delete this->button;
+    }
+
+    void RotaryEncoder::setup(uint8_t channelA, uint8_t channelB, uint8_t button) {
+        this->clockwise     = new ButtonPullup(channelA);
+        this->anticlockwise = new ButtonPullup(channelB);
+        this->button        = new ButtonPullup(button);
+
+        prevA = clockwise->read();
+        prevB = anticlockwise->read();
+    }
+
+    void RotaryEncoder::setup(PCF857x* pcf, uint8_t channelA, uint8_t channelB, uint8_t button) {
+        this->clockwise     = new ButtonPullupPCF(pcf, channelA);
+        this->anticlockwise = new ButtonPullupPCF(pcf, channelB);
+        this->button        = new ButtonPullupPCF(pcf, button);
+
+        prevA = clockwise->read();
+        prevB = anticlockwise->read();
+    }
+
+    void RotaryEncoder::setup(Button* clockwise, Button* anticlockwise, Button* button) {
+        setButtons(clockwise, anticlockwise, button);
+
+        prevA = clockwise->read();
+        prevB = anticlockwise->read();
     }
 
     void RotaryEncoder::update() {

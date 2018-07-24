@@ -14,9 +14,11 @@ namespace simpleButton {
             ButtonAnalog* right = NULL;
 
             AnalogStick();
-            AnalogStick(uint8_t xPin, uint8_t yPin);
             AnalogStick(uint8_t xPin, uint8_t yPin, uint8_t buttonPin);
+
             ~AnalogStick();
+
+            void setup(uint8_t xPin, uint8_t yPin, uint8_t buttonPin);
 
             void update();
             void update(uint8_t xValue, uint8_t yValue, bool buttonPress);

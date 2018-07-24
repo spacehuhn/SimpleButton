@@ -2,49 +2,11 @@
 
 namespace simpleButton {
     AnalogStick::AnalogStick() {
-        this->button = new Button();
-        this->up     = new ButtonAnalog();
-        this->down   = new ButtonAnalog();
-        this->left   = new ButtonAnalog();
-        this->right  = new ButtonAnalog();
-
-        setLogic(1024);
-    }
-
-    AnalogStick::AnalogStick(uint8_t xPin, uint8_t yPin) {
-        this->xPin      = xPin;
-        this->yPin      = yPin;
-        this->buttonPin = 255;
-
-        pinMode(xPin, INPUT);
-        pinMode(yPin, INPUT);
-        pinMode(buttonPin, INPUT);
-
-        this->button = new ButtonPullup(buttonPin);
-        this->up     = new ButtonAnalog(yPin);
-        this->down   = new ButtonAnalog(yPin);
-        this->left   = new ButtonAnalog(xPin);
-        this->right  = new ButtonAnalog(xPin);
-
-        setLogic(1024);
+        setup(255, 255, 255);
     }
 
     AnalogStick::AnalogStick(uint8_t xPin, uint8_t yPin, uint8_t buttonPin) {
-        this->xPin      = xPin;
-        this->yPin      = yPin;
-        this->buttonPin = buttonPin;
-
-        pinMode(xPin, INPUT);
-        pinMode(yPin, INPUT);
-        pinMode(buttonPin, INPUT);
-
-        this->button = new ButtonPullup(buttonPin);
-        this->up     = new ButtonAnalog(yPin);
-        this->down   = new ButtonAnalog(yPin);
-        this->left   = new ButtonAnalog(xPin);
-        this->right  = new ButtonAnalog(xPin);
-
-        setLogic(1024);
+        setup(xPin, yPin, buttonPin);
     }
 
     AnalogStick::~AnalogStick() {
@@ -52,6 +14,24 @@ namespace simpleButton {
         if (this->down) delete this->down;
         if (this->left) delete this->left;
         if (this->right) delete this->right;
+    }
+
+    void AnalogStick::setup(uint8_t xPin, uint8_t yPin, uint8_t buttonPin) {
+        this->xPin      = xPin;
+        this->yPin      = yPin;
+        this->buttonPin = buttonPin;
+
+        if (xPin < 255) pinMode(xPin, INPUT);
+        if (yPin < 255) pinMode(yPin, INPUT);
+        if (buttonPin < 255) pinMode(buttonPin, INPUT);
+
+        this->button = new ButtonPullup(buttonPin);
+        this->up     = new ButtonAnalog(yPin);
+        this->down   = new ButtonAnalog(yPin);
+        this->left   = new ButtonAnalog(xPin);
+        this->right  = new ButtonAnalog(xPin);
+
+        setLogic(1024);
     }
 
     void AnalogStick::update() {
