@@ -23,6 +23,18 @@ void setup() {
 
     myPCF = new PCF8574(0x38); // 0x38 = i2c address (use a i2c scanner sketch to find the right address)
 
+    // check connction
+    do {
+        Serial.print("Connecting to PCF8574...");
+        myPCF->write(0);
+        Serial.println(myPCF->getError());
+
+        if (!myPCF->connected()) {
+            Serial.println("Please check the wiring, the i2c address and restart the device!");
+            delay(2000);
+        }
+    } while (!myPCF->connected());
+
     buttonA = new ButtonPullupPCF(myPCF, 0);
     buttonB = new ButtonPCF(myPCF, 1);
 
@@ -32,12 +44,6 @@ void setup() {
 void loop() {
     buttonA->update();
     buttonB->update();
-
-    if (!myPCF->connected()) {
-        Serial.println(myPCF->getError());
-
-        while (true) delay(1000);
-    }
 
     if (buttonA->doubleClicked()) Serial.println("Button A doubleclicked");
     if (buttonA->clicked()) Serial.println("Button A clicked");

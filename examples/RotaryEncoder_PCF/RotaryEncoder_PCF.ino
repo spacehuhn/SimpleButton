@@ -23,6 +23,18 @@ void setup() {
 
     myPCF = new PCF8574(0x20); // 0x20 = i2c address (use a i2c scanner sketch to find the right address)
 
+    // check connection
+    do {
+        Serial.print("Connecting to PCF8574...");
+        myPCF->write(0);
+        Serial.println(myPCF->getError());
+
+        if (!myPCF->connected()) {
+            Serial.println("Please check the wiring, the i2c address and restart the device!");
+            delay(2000);
+        }
+    } while (!myPCF->connected());
+
     rotaryEncoder = new RotaryEncoder(myPCF, 0, 1);
 
     Serial.println("Started");
@@ -30,13 +42,6 @@ void setup() {
 
 void loop() {
     rotaryEncoder->update();
-
-    if (!myPCF->connected()) {
-        Serial.println(myPCF->getError());
-
-        while (true) delay(1000);
-    }
-
     if (rotaryEncoder->clockwise->clicked()) Serial.println("down");
     if (rotaryEncoder->anticlockwise->clicked()) Serial.println("up");
 }
