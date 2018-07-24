@@ -25,6 +25,7 @@ namespace simpleButton {
             AnalogStick* analogRight = NULL;
 
             PS2Gamepad();
+            PS2Gamepad(uint8_t clockPin, uint8_t cmdPin, uint8_t attPin, uint8_t dataPin);
             ~PS2Gamepad();
 
             void setup(uint8_t clockPin, uint8_t cmdPin, uint8_t attPin, uint8_t dataPin);
@@ -34,7 +35,7 @@ namespace simpleButton {
 
             String getError();
 
-            bool isEnabled();
+            bool connected();
 
             void setUpdateInterval(uint32_t updateInterval);
             void setMotors(uint8_t motorA, uint8_t motorB);
@@ -56,7 +57,7 @@ namespace simpleButton {
             uint32_t updateInterval = 25;
 
             // class variables
-            bool enabled = false;
+            bool is_connected = false;
 
             uint8_t errorCode      = 0;
             uint8_t controllerType = 0;

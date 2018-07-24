@@ -5,6 +5,10 @@ namespace simpleButton {
 
     PS2Gamepad::PS2Gamepad() {}
 
+    PS2Gamepad::PS2Gamepad(uint8_t clockPin, uint8_t cmdPin, uint8_t attPin, uint8_t dataPin) {
+        setup(clockPin, cmdPin, attPin, dataPin);
+    }
+
     PS2Gamepad::~PS2Gamepad() {
         if (up) delete up;
         if (down) delete down;
@@ -112,12 +116,12 @@ namespace simpleButton {
         if (!success) {
             errorCode = 2;
         } else {
-            enabled = true;
+            is_connected = true;
         }
     }
 
     void PS2Gamepad::update() {
-        if (enabled && (millis() - lastPoll > updateInterval)) {
+        if (is_connected && (millis() - lastPoll > updateInterval)) {
             poll();
 
             up->update(getDigitalValue(4));
@@ -166,8 +170,8 @@ namespace simpleButton {
         return msg;
     }
 
-    bool PS2Gamepad::isEnabled() {
-        return enabled;
+    bool PS2Gamepad::connected() {
+        return is_connected;
     }
 
     void PS2Gamepad::setUpdateInterval(uint32_t updateInterval) {
