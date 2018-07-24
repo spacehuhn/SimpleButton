@@ -11,7 +11,7 @@ namespace simpleButton {
             ButtonPCF();
             ButtonPCF(PCF857x* pcf, uint8_t pin);
             ButtonPCF(PCF857x* pcf, uint8_t pin, bool inverted);
-            ~ButtonPCF();
+            virtual ~ButtonPCF();
 
             virtual void enable();
 
