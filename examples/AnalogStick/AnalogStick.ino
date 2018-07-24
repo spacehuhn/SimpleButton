@@ -32,6 +32,10 @@ void loop() {
 
     analogStick->update();
 
+    // or read them out using the object
+    // uint8_t x = analogStick->left->getValue();
+    // uint8_t y = analogStick->up->getValue();
+
     if (analogStick->button->doubleClicked()) Serial.println("doubleClicked");
     if (analogStick->button->clicked()) Serial.println("clicked");
     if (analogStick->button->holding()) Serial.println("holding");

@@ -26,7 +26,7 @@ void setup() {
     gamepad = new PS2Gamepad();
 
     // try connecting to it
-    while (!gamepad->isEnabled()) {
+    while (!gamepad->connected()) {
         Serial.print("Connecting to PlayStation-2 Controller...");
 
         // setup
@@ -36,7 +36,7 @@ void setup() {
         Serial.println(gamepad->getError());
 
         // retry if connection failed
-        if (!gamepad->isEnabled()) {
+        if (!gamepad->connected()) {
             Serial.println("Retrying...");
             delay(1000);
         }
@@ -51,10 +51,10 @@ void loop() {
     // print analog values
 
     /*
-       uint8_t left_x = gamepad->analogLeft->up->getValue();
-       uint8_t left_y = gamepad->analogLeft->left->getValue();
-       uint8_t right_x = gamepad->analogRight->up->getValue();
-       uint8_t right_y = gamepad->analogRight->left->getValue();
+       uint8_t left_x = gamepad->analogLeft->left->getValue();
+       uint8_t left_y = gamepad->analogLeft->up->getValue();
+       uint8_t right_x = gamepad->analogRight->left->getValue();
+       uint8_t right_y = gamepad->analogRight->up->getValue();
        Serial.printf("Left-X: %+3u, Left-Y: %+3u, Right-X: %+3u, Right-Y: %+3u\n", left_x, left_y, right_x, right_y);
      */
 
