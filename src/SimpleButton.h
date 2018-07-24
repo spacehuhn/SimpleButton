@@ -15,4 +15,6 @@
 
 #include "AnalogStick.h"
 
+#include "PS2Gamepad.h"
+
 #endif // ifndef SimpleButton_h

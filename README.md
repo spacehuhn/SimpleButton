@@ -8,7 +8,9 @@ This libary supports:
 - On/Off Switches
 - Rotary Encoders
 - The [Lameboy](https://hackaday.io/project/26823-lameboy-another-esp12-handheld) :D
-- Any Analog input (i.e. Joystick, ButtonMatrix...)
+- Any Analog input (i.e. ButtonMatrix)
+- AnalogStick
+- PlayStation2 Gamepad
 
 You can not only read out the current state of the button, but also if it's:    
 - pushed
@@ -23,7 +25,6 @@ For that my [PCF8574](https://github.com/spacehuhn/PCF8574) library is integrate
 ## To-Do:
 - Add support for [I2C Encoder](https://www.tindie.com/products/Saimon/i2c-encoder-connect-rotary-encoders-on-i2c-bus/)
 - Add support for MCP23017
-- Add support for ps2 controller
 
 (Currently waiting on my orders from China to add those :D)
 
