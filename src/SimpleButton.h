@@ -12,6 +12,7 @@
 #include "Switch.h"
 
 #include "RotaryEncoder.h"
+#include "RotaryEncoderI2C.h"
 
 #include "AnalogStick.h"
 
