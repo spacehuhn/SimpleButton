@@ -3,20 +3,20 @@ A simple Arduino library to make interfacing and reacting on button events easie
 
 ## Features
 
-This libary supports:  
+This library supports:  
 - Push buttons (with or without pullup or inverted logic)
 - On/Off Switches
 - Rotary Encoders
 - The [Lameboy](https://hackaday.io/project/26823-lameboy-another-esp12-handheld) :D
 - Any Analog input (i.e. ButtonMatrix)
-- AnalogStick
+- Analog-Stick
 - PlayStation2 Gamepad
 
 You can not only read out the current state of the button, but also if it's:    
 - pushed
 - released
 - clicked
-- doubleclicked
+- double clicked
 - holding
 
 It also works with buttons that are connected to a PCF8574 or PCF8575 GPIO expander!  
@@ -51,7 +51,7 @@ using namespace simpleButton;
 #### Push Button
 
 **Normal logic:**  
-The usual way of connecting a push button as descriped [here](https://www.arduino.cc/en/Tutorial/Button).  
+The usual way of connecting a push button as described [here](https://www.arduino.cc/en/Tutorial/Button).  
 ```c++
 // creates button on pin 12
 Button* b = new Button(12);
@@ -65,7 +65,7 @@ Button* b = new Button(12, true);
 ```
 
 **Pullup button:**  
-This will use the internal resistor and you won't need to add an external one. Also descriped [here](https://www.arduino.cc/en/Tutorial/InputPullupSerial).  
+This will use the internal resistor and you won't need to add an external one. Also described [here](https://www.arduino.cc/en/Tutorial/InputPullupSerial).  
 ```c++
 // creates pullup button on pin 12
 Button* b = new ButtonPullup(12);
