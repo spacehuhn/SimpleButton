@@ -11,6 +11,7 @@ This library supports:
 - Any Analog input (i.e. ButtonMatrix)
 - Analog-Stick
 - PlayStation2 Gamepad
+- [I2C Encoder](https://www.tindie.com/products/Saimon/i2c-encoder-connect-rotary-encoders-on-i2c-bus/)
 
 You can not only read out the current state of the button, but also if it's:    
 - pushed
@@ -23,10 +24,7 @@ It also works with buttons that are connected to a PCF8574 or PCF8575 GPIO expan
 For that my [PCF8574](https://github.com/spacehuhn/PCF8574) library is integrated, so you don't need to install any additional library.  
 
 ## To-Do:
-- Add support for [I2C Encoder](https://www.tindie.com/products/Saimon/i2c-encoder-connect-rotary-encoders-on-i2c-bus/)
-- Add support for MCP23017
-
-(Currently waiting on my orders from China to add those :D)
+- Add support for MCP23017 GPIO expander
 
 ## Installation
 
@@ -81,11 +79,47 @@ Button* b = new Switch(12);
 #### Rotary Encoder
 ```c++
 // creates a rotary encoder connected to pin 5 and pin 4 and switch connected pin 3 (set switch to 255 to disable it)
-RotaryEncoder* rotaryEncoder = new RotaryEncoder(5, 4, 3);
+RotaryEncoder* myEncoder = new RotaryEncoder(5, 4, 3);
 
-// in case you have a rotary encoder that does 2 steps with each turn (x1 encoding):
+// rotary encoder connected to the PCF on pin 2 and pin 3
+RotaryEncoder* myEncoder = new RotaryEncoder(myPCF, 2, 3, 255);
+
+// I2C encoder at address 0x30
+RotaryEncoderI2C* myEncoder = new RotaryEncoderI2C(0x30);
+
+// in case you have a rotary encoder that does 2 steps with each turn:
 // (default is 1 step per turn)
-rotaryEncoder->setSteps(2);
+myEncoder->setEncoding(2);
+
+// set a start position for the counter
+myEncoder->setPos(10);
+
+// set a minimum value threshold
+myEncoder->setMin(-20);
+
+// set a maximum value threshold
+myEncoder->setMax(20);
+
+// invert the directions
+myEncoder->setInverted(true);
+
+// enable looping (when the counter goes below the minimum it will be set to the maximum and vice versa)
+myEncoder->enableLoop(true);
+
+// ===== for the I2C encoder only =====
+
+// enables a interrupt pin at gpio 12 with pullup enabled (true)
+myEncoder->enableInterrupt(12, true);
+
+// enables the dual-color led
+myEncoder->enableLed(true);
+
+// set LED-A to 255 (on) and LED-B to 0 (off)
+myEncoder->setLed(255, 0);
+
+//  !!!!! IMPORTANT !!!!!
+// to enable all our config changes
+myEncoder->begin();
 ```
 
 #### Analog Button
@@ -134,7 +168,7 @@ Button* b = new ButtonPCF(myPCF, 0);
 Button* b = new ButtonPullupPCF(myPCF, 1);
 
 // rotary encoder connected to the PCF on pin 2 and pin 3
-RotaryEncoder* rotaryEncoder = new RotaryEncoder(myPCF, 2, 3);
+RotaryEncoder* myEncoder = new RotaryEncoder(myPCF, 2, 3, 255);
 
 // check for errors
 bool isConnected = myPCF->connected();
@@ -182,6 +216,40 @@ bool currentButtonState = b->getState();
 **Reading out the analog value:**  
 ```c++
 uint8_t value = analogButton->getValue();
+```
+
+**Using a rotary encoder:**
+```c++
+// update the encoder
+myEncoder->update();
+
+// read out the position counter
+int position = myEncoder->getPos();
+
+// if rotary encoder switch was pushed
+bool clicked = myEncoder->clicked();
+
+// read out the directions
+bool incremented = myEncoder->incremented();
+bool decremented = myEncoder->decremented();
+
+// read out if the counter hit a threshold
+bool hitMinValue = myEncoder->minVal();
+bool hitMaxValue = myEncoder->maxVal();
+
+// use Buttons for the events
+Button* clockwise = myEncoder->clockwise;
+Button* anticlockwise = myEncoder->anticlockwise;
+Button* pushButton = myEncoder->button;
+
+// ==== for I2C encoder only =====
+
+// read out if interrupt pin changed (will always be true if disabled)
+bool interrupt = myEncoder->interrupt();
+
+// if the interrupt pin is enabled, you can also use the update function
+// to see if something changed
+bool changed = myEncoder->update();
 ```
 
 **Using the analog stick:**  

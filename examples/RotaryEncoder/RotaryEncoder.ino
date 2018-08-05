@@ -10,25 +10,36 @@ using namespace simpleButton;
    (the labels on your rotary encoder might be different!)
  */
 
-RotaryEncoder* rotaryEncoder = NULL;
+RotaryEncoder* myEncoder = NULL;
+int32_t previousPosition = 0;
 
 void setup() {
     Serial.begin(115200);
     Serial.println();
 
-    rotaryEncoder = new RotaryEncoder(5, 4, 12);
-    // rotaryEncoder->setSteps(2); // default = 1
+    myEncoder = new RotaryEncoder(5, 4, 12); // channel-A, channel-B, switch (255 = not used)
+    // myEncoder->setEncoding(2); // <- if it used x2 encoding (x1 is default)
+    myEncoder->setMin(-128);
+    myEncoder->setMax(127);
+    // myEncoder->setInverted(true);
+    // myEncoder->enableLoop(true);
 
     Serial.println("Started");
 }
 
 void loop() {
-    rotaryEncoder->update();
+    myEncoder->update();
 
-    if (rotaryEncoder->button->doubleClicked()) Serial.println("doubleclicked");
-    if (rotaryEncoder->button->clicked()) Serial.println("clicked");
-    if (rotaryEncoder->button->holding()) Serial.println("holding");
+    int32_t currentPosition = myEncoder->getPos();
 
-    if (rotaryEncoder->clockwise->clicked()) Serial.println("up");
-    if (rotaryEncoder->anticlockwise->clicked()) Serial.println("down");
+    if (currentPosition != previousPosition) {
+        previousPosition = currentPosition;
+        Serial.print(currentPosition);
+        if (myEncoder->incremented()) Serial.println(" up");
+        if (myEncoder->decremented()) Serial.println(" down");
+    }
+
+    if (myEncoder->clicked()) {
+        Serial.println("clicked");
+    }
 }

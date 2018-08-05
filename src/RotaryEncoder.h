@@ -35,7 +35,17 @@ namespace simpleButton {
 
             void setButtons(Button* clockwise, Button* anticlockwise, Button* button);
             void setPos(int32_t pos);
-            void setSteps(uint8_t steps);
+            void enableLoop(bool loop);
+            void setEncoding(uint8_t steps);
+            void setMin(int32_t value);
+            void setMax(int32_t value);
+            void setInverted(bool inverted);
+
+            bool clicked();
+            bool incremented();
+            bool decremented();
+            bool minVal();
+            bool maxVal();
 
         private:
             int32_t pos = 0;
@@ -47,8 +57,16 @@ namespace simpleButton {
             State curState  = State::STILL;
             State prevState = State::STILL;
 
-            uint8_t button_steps = 1; // how many steps per turn
+            uint8_t button_steps = 1; // how many steps per turn (encoding)
             uint8_t steps        = 0; // tmp counter
+
+            int32_t min   = -128;
+            int32_t max   = 127;
+            bool loop     = false;
+            bool inverted = false;
+
+            void goClockwise();
+            void goAnticlockwise();
     };
 }
 

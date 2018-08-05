@@ -11,8 +11,9 @@ using namespace simpleButton;
    (the labels on your rotary encoder might be different!)
  */
 
-PCF8574* myPCF               = NULL;
-RotaryEncoder* rotaryEncoder = NULL;
+PCF8574* myPCF           = NULL;
+RotaryEncoder* myEncoder = NULL;
+int32_t previousPosition = 0;
 
 void setup() {
     // for non-ESP Arduino's, just do Wire.begin();
@@ -36,13 +37,24 @@ void setup() {
         }
     } while (!myPCF->connected());
 
-    rotaryEncoder = new RotaryEncoder(myPCF, 0, 1, 255);
+    myEncoder = new RotaryEncoder(myPCF, 0, 1, 255); // pcf857x, Channel-A, Channel-B, switch (255 = not used)
 
     Serial.println("Started");
 }
 
 void loop() {
-    rotaryEncoder->update();
-    if (rotaryEncoder->clockwise->clicked()) Serial.println("down");
-    if (rotaryEncoder->anticlockwise->clicked()) Serial.println("up");
+    myEncoder->update();
+
+    int32_t currentPosition = myEncoder->getPos();
+
+    if (currentPosition != previousPosition) {
+        previousPosition = currentPosition;
+        Serial.print(currentPosition);
+        if (myEncoder->incremented()) Serial.println(" up");
+        if (myEncoder->decremented()) Serial.println(" down");
+    }
+
+    if (myEncoder->clicked()) {
+        Serial.println("clicked");
+    }
 }

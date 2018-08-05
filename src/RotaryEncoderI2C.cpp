@@ -21,11 +21,18 @@ namespace simpleButton {
     void RotaryEncoderI2C::setup(uint8_t i2cAddress, TwoWire* wire) {
         this->i2cAddress = i2cAddress;
         this->wire       = wire;
+
+        this->clockwise     = new Button();
+        this->anticlockwise = new Button();
+        this->button        = new Button();
+
         begin();
     }
 
     bool RotaryEncoderI2C::interrupt() {
-        return interruptEnable ? (digitalRead(interruptPin) == LOW) : false;
+        if (interruptEnable) return digitalRead(interruptPin) == LOW;
+
+        return true;
     }
 
     void RotaryEncoderI2C::enableInterrupt(uint8_t pin, bool pullup) {
@@ -36,7 +43,19 @@ namespace simpleButton {
     }
 
     bool RotaryEncoderI2C::update() {
-        return readStatus();
+        if (interrupt()) {
+            readStatus();
+
+            if (clicked()) button->click();
+
+            if (incremented()) clockwise->click();
+
+            if (decremented()) anticlockwise->click();
+
+            return true;
+        }
+
+        return false;
     }
 
     void RotaryEncoderI2C::begin() {
@@ -54,7 +73,12 @@ namespace simpleButton {
     }
 
     void RotaryEncoderI2C::reset() {
+        button->reset();
+        clockwise->reset();
+        anticlockwise->reset();
+
         setConfig(0x80);
+        update();
     }
 
     bool RotaryEncoderI2C::connected() {
@@ -96,8 +120,12 @@ namespace simpleButton {
         write(0x00, config);
     }
 
-    void RotaryEncoderI2C::setLED(bool led) {
+    void RotaryEncoderI2C::enableLed(bool led) {
         ledEnabled = led;
+    }
+
+    void RotaryEncoderI2C::enableLoop(bool loop) {
+        this->loop = loop;
     }
 
     void RotaryEncoderI2C::setEncoding(uint8_t encoding) {
@@ -105,15 +133,11 @@ namespace simpleButton {
         else if (encoding == 2) this->encoding = true;
     }
 
-    void RotaryEncoderI2C::setLoop(bool loop) {
-        this->loop = loop;
-    }
-
     void RotaryEncoderI2C::setInverted(bool inverted) {
         this->inverted = inverted;
     }
 
-    void RotaryEncoderI2C::setCounter(int32_t value) {
+    void RotaryEncoderI2C::setPos(int32_t value) {
         write(0x02, value);
     }
 
@@ -125,12 +149,21 @@ namespace simpleButton {
         write(0x06, value);
     }
 
-    void RotaryEncoderI2C::setLEDA(uint8_t value) {
+    void RotaryEncoderI2C::setLed(uint8_t valueA, uint8_t valueB) {
+        setLedA(valueA);
+        setLedB(valueB);
+    }
+
+    void RotaryEncoderI2C::setLedA(uint8_t value) {
         write(0x0E, value);
     }
 
-    void RotaryEncoderI2C::setLEDB(uint8_t value) {
+    void RotaryEncoderI2C::setLedB(uint8_t value) {
         write(0x0F, value);
+    }
+
+    int32_t RotaryEncoderI2C::getPos() {
+        return read32(0x02);
     }
 
     uint8_t RotaryEncoderI2C::readStatus() {
@@ -138,16 +171,12 @@ namespace simpleButton {
         return status;
     }
 
-    uint8_t RotaryEncoderI2C::readLEDA() {
+    uint8_t RotaryEncoderI2C::readLedA() {
         return read(0x0E);
     }
 
-    uint8_t RotaryEncoderI2C::readLEDB() {
+    uint8_t RotaryEncoderI2C::readLedB() {
         return read(0x0F);
-    }
-
-    int32_t RotaryEncoderI2C::readCounter() {
-        return read32(0x02);
     }
 
     int32_t RotaryEncoderI2C::readMax() {
@@ -158,7 +187,7 @@ namespace simpleButton {
         return read32(0x0A);
     }
 
-    bool RotaryEncoderI2C::pushed() {
+    bool RotaryEncoderI2C::clicked() {
         return status & 0x01;
     }
 

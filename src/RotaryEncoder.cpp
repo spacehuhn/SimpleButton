@@ -72,11 +72,11 @@ namespace simpleButton {
 
             if (steps >= button_steps) {
                 if (curState == State::CLOCKWISE) {
-                    clockwise->click();
-                    pos++;
+                    if (!inverted) goClockwise();
+                    else goAnticlockwise();
                 } else if (curState == State::ANTICLOCKWISE)  {
-                    anticlockwise->click();
-                    pos--;
+                    if (!inverted) goAnticlockwise();
+                    else goClockwise();
                 }
 
                 steps = 0;
@@ -116,7 +116,57 @@ namespace simpleButton {
         this->pos = pos;
     }
 
-    void RotaryEncoder::setSteps(uint8_t steps) {
-        this->button_steps = steps;
+    void RotaryEncoder::setMin(int32_t value) {
+        this->min = value;
+    }
+
+    void RotaryEncoder::setMax(int32_t value) {
+        this->max = value;
+    }
+
+    void RotaryEncoder::setEncoding(uint8_t steps) {
+        if ((steps == 1) || (steps == 2) || (steps == 4)) this->button_steps = steps;
+    }
+
+    void RotaryEncoder::enableLoop(bool loop) {
+        this->loop = loop;
+    }
+
+    void RotaryEncoder::setInverted(bool inverted) {
+        this->inverted = inverted;
+    }
+
+    void RotaryEncoder::goClockwise() {
+        clockwise->click();
+        anticlockwise->reset();
+        if (pos < max) pos++;
+        else if (loop) pos = min;
+    }
+
+    void RotaryEncoder::goAnticlockwise() {
+        anticlockwise->click();
+        clockwise->reset();
+        if (pos > min) pos--;
+        else if (loop) pos = max;
+    }
+
+    bool RotaryEncoder::clicked() {
+        return button->clicked();
+    }
+
+    bool RotaryEncoder::incremented() {
+        return clockwise->clicked();
+    }
+
+    bool RotaryEncoder::decremented() {
+        return anticlockwise->clicked();
+    }
+
+    bool RotaryEncoder::minVal() {
+        return pos == min;
+    }
+
+    bool RotaryEncoder::maxVal() {
+        return pos == max;
     }
 }

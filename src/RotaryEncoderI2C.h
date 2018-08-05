@@ -6,9 +6,15 @@
 
 #define ROTARY_ENCODER_I2C_ERROR 5
 
+#include "Button.h"
+
 namespace simpleButton {
     class RotaryEncoderI2C {
         public:
+            Button* clockwise     = NULL;
+            Button* anticlockwise = NULL;
+            Button* button        = NULL;
+
             RotaryEncoderI2C();
             RotaryEncoderI2C(uint8_t i2cAddress);
             RotaryEncoderI2C(uint8_t i2cAddressdress, TwoWire* wire);
@@ -29,27 +35,29 @@ namespace simpleButton {
             void setConfig(uint8_t config);
 
             void enableInterrupt(uint8_t pin, bool pullup);
-            void setLED(bool led);
+            void enableLed(bool led);
+            void enableLoop(bool loop);
             void setEncoding(uint8_t encoding);
-            void setLoop(bool loop);
             void setInverted(bool inverted);
 
             bool interrupt();
 
-            void setCounter(int32_t value);
+            void setPos(int32_t value);
             void setMin(int32_t value);
             void setMax(int32_t value);
-            void setLEDA(uint8_t value);
-            void setLEDB(uint8_t value);
+            void setLed(uint8_t valueA, uint8_t valueB);
+            void setLedA(uint8_t value);
+            void setLedB(uint8_t value);
+
+            int32_t getPos();
 
             uint8_t readStatus();
-            uint8_t readLEDA();
-            uint8_t readLEDB();
-            int32_t readCounter();
+            uint8_t readLedA();
+            uint8_t readLedB();
             int32_t readMax();
             int32_t readMin();
 
-            bool pushed();
+            bool clicked();
             bool incremented();
             bool decremented();
             bool minVal();
