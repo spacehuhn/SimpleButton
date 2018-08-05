@@ -14,9 +14,8 @@ Button * buttonA = NULL;
 Button * buttonB = NULL;
 
 void setup() {
-    // for non-ESP Arduino's, just do Wire.begin();
-    Wire.begin(5, 4);
-    Wire.setClock(700000);
+    // Wire.begin()
+    Wire.begin(5, 4); // <- for esp8266 (5 = SDA pin, 4 = SCL pin)
 
     Serial.begin(115200);
     Serial.println();
