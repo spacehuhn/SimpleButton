@@ -17,7 +17,7 @@ void setup() {
     Serial.begin(115200);
     Serial.println();
 
-    myEncoder = new RotaryEncoder(5, 4, 12); // channel-A, channel-B, switch (255 = not used)
+    myEncoder = new RotaryEncoder(5, 4, 12); // channel-A, channel-B, push button (255 = not used)
     // myEncoder->setEncoding(2); // <- if it used x2 encoding (x1 is default)
     myEncoder->setMin(-128);
     myEncoder->setMax(127);

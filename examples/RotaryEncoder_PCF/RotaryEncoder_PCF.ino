@@ -36,7 +36,7 @@ void setup() {
         }
     } while (!myPCF->connected());
 
-    myEncoder = new RotaryEncoder(myPCF, 0, 1, 255); // pcf857x, Channel-A, Channel-B, switch (255 = not used)
+    myEncoder = new RotaryEncoder(myPCF, 0, 1, 255); // pcf857x, Channel-A, Channel-B, push button (255 = not used)
 
     Serial.println("Started");
 }
