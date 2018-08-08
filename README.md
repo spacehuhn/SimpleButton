@@ -175,7 +175,7 @@ bool isConnected = myPCF->connected();
 String errorMessage = myPCF->getError();
 ```
 
-### Read out the events
+### Read out status
 `b` is a pointer to a created button (see above).  
 
 ```c++
@@ -314,6 +314,45 @@ if (gamepad->analogRight->up->holding()) Serial.println("Stick-Right up");
 if (gamepad->analogRight->down->holding()) Serial.println("Stick-Right down");
 if (gamepad->analogRight->left->holding()) Serial.println("Stick-Right left");
 if (gamepad->analogRight->right->holding()) Serial.println("Stick-Right right");
+```
+
+### Use events
+Each button can have multiple events, you can add them with following methods:  
+```c++
+void setOnPushed(void (* fnct)());
+
+void setOnReleased(void (* fnct)());
+
+void setOnClicked(void (* fnct)());
+void setOnClicked(void (* fnct)(), uint32_t minPushTime);
+void setOnClicked(void (* fnct)(), uint32_t minPushTime, uint32_t minReleaseTime);
+
+void setOnDoubleClicked(void (* fnct)());
+void setOnDoubleClicked(void (* fnct)(), uint32_t minPushTime);
+void setOnDoubleClicked(void (* fnct)(), uint32_t minPushTime, uint32_t timeSpan);
+void setOnDoubleClicked(void (* fnct)(), uint32_t minPushTime, uint32_t minReleaseTime, uint32_t timeSpan);
+    
+void setOnHolding(void (* fnct)());
+void setOnHolding(void (* fnct)(), uint32_t interval);
+```
+
+Here's an example:  
+```c++
+button->setOnClicked([](){
+  Serial.println("Button clicked!");
+});
+
+rotaryEncoder->clockwise->setOnClicked([](){
+  Serial.println("Moved clockwise");
+});
+
+analogStick->left->setOnPushed([](){
+  Serial.println("Analog-left");
+});
+
+gamepad->up->setOnDoubleClicked([](){
+  Serial.println("Double clicked UP button");
+});
 ```
 
 ## License
