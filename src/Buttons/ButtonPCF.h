@@ -2,8 +2,9 @@
 #define ButtonPCF_h
 
 #include "Button.h"
-#include "PCF8574.h"
-#include "PCF8575.h"
+#include "libs/PCF857x.h"
+#include "libs/PCF8574.h"
+#include "libs/PCF8575.h"
 
 namespace simpleButton {
     class ButtonPCF : public Button {

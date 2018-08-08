@@ -238,7 +238,7 @@ namespace simpleButton {
         error = wire->endTransmission();
 
         // read out the sweet data
-        wire->requestFrom(i2cAddress, 1);
+        wire->requestFrom(i2cAddress, (uint8_t)1);
 
         if (wire->available() == 1) {
             data = wire->read();
@@ -258,7 +258,7 @@ namespace simpleButton {
         error = wire->endTransmission();
 
         // read out the sweet data
-        wire->requestFrom(i2cAddress, 4);
+        wire->requestFrom(i2cAddress, (uint8_t)4);
 
         if (wire->available() == 4) {
             data = wire->read();
