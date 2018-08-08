@@ -37,8 +37,9 @@ namespace simpleButton {
     }
 
     void ButtonAnalog::update() {
-        if (button_enabled && button_setup && (millis() - updateTime >= updateInterval)) {
-            update(read());
+        if (millis() - updateTime >= updateInterval) {
+            Button::updateEvents();
+            if (button_enabled && button_setup) update(read());
         }
     }
 

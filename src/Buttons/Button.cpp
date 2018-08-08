@@ -71,6 +71,8 @@ namespace simpleButton {
         pushTime = millis() - time - defaultMinReleaseTime;
         release();
         releaseTime = millis() - defaultMinReleaseTime;
+
+        updateEvents();
     }
 
     int Button::read() {
@@ -86,16 +88,51 @@ namespace simpleButton {
     }
 
     void Button::update() {
-        if (button_enabled && button_setup && (millis() - updateTime >= updateInterval)) {
-            update(read());
+        if (millis() - updateTime >= updateInterval) {
+            updateEvents();
+            if (button_enabled && button_setup) update(read());
         }
     }
 
     void Button::update(int state) {
+        // update time
         updateTime = millis();
 
+        // check events
+        updateEvents();
+
+        // update state
         if (state > 0) push();
         else release();
+    }
+
+    void Button::updateEvents() {
+        Event* e = this->events;
+
+        while (e != NULL) {
+            switch (e->getMode()) {
+            case e->MODE::PUSHED:
+                if (this->pushed()) e->run();
+                break;
+
+            case e->MODE::RELEASED:
+                if (this->released()) e->run();
+                break;
+
+            case e->MODE::CLICKED:
+                if (this->clicked(e->getMinPushTime(), e->getMinReleaseTime())) e->run();
+                break;
+
+            case e->MODE::DOUBLECLICKED:
+                if (this->doubleClicked(e->getMinPushTime(), e->getMinReleaseTime(), e->getInterval())) e->run();
+                break;
+
+            case e->MODE::HOLDING:
+                if (this->holding(e->getInterval())) e->run();
+                break;
+            }
+            e = e->next;
+        }
     }
 
     bool Button::isInverted() {
@@ -219,5 +256,64 @@ namespace simpleButton {
 
     void Button::setDefaultHoldTime(uint32_t defaultHoldInterval) {
         this->defaultHoldInterval = defaultHoldInterval;
+    }
+
+    void Button::setOnPushed(void (*fnct)()) {
+        this->addEvent(new PushEvent(fnct));
+    }
+
+    void Button::setOnReleased(void (*fnct)()) {
+        this->addEvent(new ReleaseEvent(fnct));
+    }
+
+    void Button::setOnClicked(void (*fnct)()) {
+        setOnClicked(fnct, defaultMinPushTime);
+    }
+
+    void Button::setOnClicked(void (*fnct)(), uint32_t minPushTime) {
+        setOnClicked(fnct, minPushTime, defaultMinReleaseTime);
+    }
+
+    void Button::setOnClicked(void (*fnct)(), uint32_t minPushTime, uint32_t minReleaseTime) {
+        this->addEvent(new ClickEvent(fnct, minPushTime, minReleaseTime));
+    }
+
+    void Button::setOnDoubleClicked(void (*fnct)()) {
+        setOnDoubleClicked(fnct, defaultMinPushTime);
+    }
+
+    void Button::setOnDoubleClicked(void (*fnct)(), uint32_t minPushTime) {
+        setOnDoubleClicked(fnct, minPushTime, defaultTimeSpan);
+    }
+
+    void Button::setOnDoubleClicked(void (*fnct)(), uint32_t minPushTime, uint32_t timeSpan) {
+        setOnDoubleClicked(fnct, minPushTime, defaultMinReleaseTime, timeSpan);
+    }
+
+    void Button::setOnDoubleClicked(void (*fnct)(), uint32_t minPushTime, uint32_t minReleaseTime, uint32_t timeSpan) {
+        this->addEvent(new DoubleclickEvent(fnct, minPushTime, minReleaseTime, timeSpan));
+    }
+
+    void Button::setOnHolding(void (*fnct)()) {
+        setOnHolding(fnct, defaultHoldInterval);
+    }
+
+    void Button::setOnHolding(void (*fnct)(), uint32_t interval) {
+        this->addEvent(new HoldEvent(fnct, interval));
+    }
+
+    void Button::clearEvents() {
+        delete events;
+        events = NULL;
+    }
+
+    void Button::addEvent(Event* e) {
+        if (events == NULL) events = e;
+        else {
+            Event* tmp = events;
+
+            while (tmp->next != NULL) tmp = tmp->next;
+            tmp->next = e;
+        }
     }
 }

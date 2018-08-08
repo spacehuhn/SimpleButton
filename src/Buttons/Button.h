@@ -2,6 +2,12 @@
 #define Button_h
 
 #include "Arduino.h"
+#include "Events/Event.h"
+#include "Events/PushEvent.h"
+#include "Events/ReleaseEvent.h"
+#include "Events/ClickEvent.h"
+#include "Events/DoubleclickEvent.h"
+#include "Events/HoldEvent.h"
 
 namespace simpleButton {
     class Button {
@@ -27,6 +33,7 @@ namespace simpleButton {
             virtual int read();
             virtual void update();
             virtual void update(int state);
+            virtual void updateEvents();
 
             virtual bool isInverted();
             virtual bool isEnabled();
@@ -54,7 +61,24 @@ namespace simpleButton {
             virtual void setDefaultTimeSpan(uint32_t defaultTimeSpan);
             virtual void setDefaultHoldTime(uint32_t defaultHoldInterval);
 
+            virtual void setOnPushed(void (* fnct)());
+            virtual void setOnReleased(void (* fnct)());
+            virtual void setOnClicked(void (* fnct)());
+            virtual void setOnClicked(void (* fnct)(), uint32_t minPushTime);
+            virtual void setOnClicked(void (* fnct)(), uint32_t minPushTime, uint32_t minReleaseTime);
+            virtual void setOnDoubleClicked(void (* fnct)());
+            virtual void setOnDoubleClicked(void (* fnct)(), uint32_t minPushTime);
+            virtual void setOnDoubleClicked(void (* fnct)(), uint32_t minPushTime, uint32_t timeSpan);
+            virtual void setOnDoubleClicked(
+                void (* fnct)(), uint32_t minPushTime, uint32_t minReleaseTime, uint32_t timeSpan);
+            virtual void setOnHolding(void (* fnct)());
+            virtual void setOnHolding(void (* fnct)(), uint32_t interval);
+
+            virtual void clearEvents();
+
         protected:
+            Event* events = NULL;
+
             bool button_inverted = false;
             bool button_setup    = false;
             bool button_enabled  = false;
@@ -79,6 +103,8 @@ namespace simpleButton {
             uint32_t defaultMinReleaseTime = 40;
             uint32_t defaultTimeSpan       = 500;
             uint32_t defaultHoldInterval   = 250;
+
+            void addEvent(Event* e);
     };
 }
 
