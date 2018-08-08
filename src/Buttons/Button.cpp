@@ -124,7 +124,7 @@ namespace simpleButton {
                 break;
 
             case e->MODE::DOUBLECLICKED:
-                if (this->doubleClicked(e->getMinPushTime(), e->getMinReleaseTime(), e->getInterval())) e->run();
+                if (this->doubleClicked(e->getMinPushTime(), e->getMinReleaseTime(), e->getTimeSpan())) e->run();
                 break;
 
             case e->MODE::HOLDING:
@@ -267,7 +267,7 @@ namespace simpleButton {
     }
 
     void Button::setOnClicked(void (*fnct)()) {
-        setOnClicked(fnct, defaultMinPushTime);
+        setOnClicked(fnct, defaultMinPushTime, defaultMinReleaseTime);
     }
 
     void Button::setOnClicked(void (*fnct)(), uint32_t minPushTime) {
@@ -279,11 +279,11 @@ namespace simpleButton {
     }
 
     void Button::setOnDoubleClicked(void (*fnct)()) {
-        setOnDoubleClicked(fnct, defaultMinPushTime);
+        setOnDoubleClicked(fnct, defaultMinPushTime, defaultMinReleaseTime, defaultTimeSpan);
     }
 
     void Button::setOnDoubleClicked(void (*fnct)(), uint32_t minPushTime) {
-        setOnDoubleClicked(fnct, minPushTime, defaultTimeSpan);
+        setOnDoubleClicked(fnct, minPushTime, defaultMinReleaseTime, defaultTimeSpan);
     }
 
     void Button::setOnDoubleClicked(void (*fnct)(), uint32_t minPushTime, uint32_t timeSpan) {

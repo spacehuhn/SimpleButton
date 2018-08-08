@@ -9,9 +9,9 @@
 namespace simpleButton {
     class RotaryEncoder {
         public:
+            Button* button        = NULL;
             Button* clockwise     = NULL;
             Button* anticlockwise = NULL;
-            Button* button        = NULL;
 
             RotaryEncoder();
             RotaryEncoder(uint8_t channelA, uint8_t channelB, uint8_t button);
