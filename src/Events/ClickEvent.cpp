@@ -1,13 +1,18 @@
 #include "ClickEvent.h"
 
 namespace simpleButton {
-    ClickEvent::ClickEvent(void (*fnct)(), uint32_t minPushTime, uint32_t releaseTime) {
-        this->fnct        = fnct;
-        this->minPushTime = minPushTime;
-        this->releaseTime = releaseTime;
+    ClickEvent::ClickEvent(void (*fnct)(), uint32_t minPushTime, uint32_t minReleaseTime) {
+        this->fnct           = fnct;
+        this->minPushTime    = minPushTime;
+        this->minReleaseTime = minReleaseTime;
     }
 
-    ClickEvent::~ClickEvent() {}
+    ClickEvent::~ClickEvent() {
+        if (next) {
+            delete next;
+            next = NULL;
+        }
+    }
 
     uint8_t ClickEvent::getMode() {
         return MODE::CLICKED;
@@ -17,7 +22,7 @@ namespace simpleButton {
         return minPushTime;
     }
 
-    uint32_t ClickEvent::getReleaseTime() {
-        return releaseTime;
+    uint32_t ClickEvent::getMinReleaseTime() {
+        return minReleaseTime;
     }
 }

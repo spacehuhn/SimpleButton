@@ -5,16 +5,16 @@
 namespace simpleButton {
     class ClickEvent : public Event {
         public:
-            ClickEvent(void(*fnct)(), uint32_t minPushTime, uint32_t releaseTime);
+            ClickEvent(void(*fnct)(), uint32_t minPushTime, uint32_t minReleaseTime);
             ~ClickEvent();
 
             uint8_t getMode();
             uint32_t getMinPushTime();
-            uint32_t getReleaseTime();
+            uint32_t getMinReleaseTime();
 
         private:
-            uint32_t minPushTime = 0;
-            uint32_t releaseTime = 0;
+            uint32_t minPushTime    = 0;
+            uint32_t minReleaseTime = 0;
     };
 }
 
