@@ -1,6 +1,28 @@
 # SimpleButton
 A simple Arduino library to make interfacing and reacting on button events easier.
 
+**Overview:**  
+- [Features]()
+- [To-Do]()
+- [Installation]()
+- [Usage]()
+  - [Include the library]()
+  - [Create a button]()
+    - [Push Button]()
+    - [On/Off Switch]()
+    - [Rotary Encoder]()
+    - [Analog Button]()
+    - [Analog Stick]()
+    - [PlayStation2 Gamepad]()
+    - [PCF8574 and PCF8575]()
+  - [Read out status]()
+    - [Button]()
+    - [Rotary Encoder]()
+    - [Analog Stick]()
+    - [PlayStation2 Gamepad]()
+  - [Use events]()
+- [License]()
+
 ## Features
 
 This library supports:  
@@ -46,7 +68,7 @@ using namespace simpleButton;
 
 ### Create a button
 
-#### Push Button
+#### Push Button Setup
 
 **Normal logic:**  
 The usual way of connecting a push button as described [here](https://www.arduino.cc/en/Tutorial/Button).  
@@ -69,14 +91,14 @@ This will use the internal resistor and you won't need to add an external one. A
 Button* b = new ButtonPullup(12);
 ```
 
-#### On/Off Switch
+#### On/Off Switch Setup
 You can use a switch as a button. Whenever you switch it, it will count it as a button click.  
 ```c++
 // creates switch on pin 12
 Button* b = new Switch(12);
 ```
 
-#### Rotary Encoder
+#### Rotary Encoder Setup
 ```c++
 // creates a rotary encoder connected to pin 5 and pin 4 and switch connected pin 3 (set switch to 255 to disable it)
 RotaryEncoder* myEncoder = new RotaryEncoder(5, 4, 3);
@@ -122,13 +144,13 @@ myEncoder->setLed(255, 0);
 myEncoder->begin();
 ```
 
-#### Analog Button
+#### Analog Button Setup
 ```c++
 // create an analog button on pin A0 that is pushed when it reads a value between 0 and 20
 ButtonAnalog* b = ButtonAnalog(A0, 0, 20);
 ```
 
-#### AnalogStick
+#### Analog Stick Setup
 ```c++
 // creates an analog stick that has X connected to A0, Y connected to A1 and the switch connected to pin 5
 // (set switch to 255 to disable it)
@@ -141,7 +163,11 @@ analogStick->setLogic(1024, 25);
 analogStick->setLogic(256, 25);
 ```
 
-#### PlayStation2 Gamepad
+#### PlayStation2 Gamepad Setup
+
+To learn more about the wiring, protocol and usage of the PlayStation2 controller, please have a look [here](http://store.curiousinventor.com/guides/PS2/).  
+It doesn't really matter (on most Arduino's) what pins you use to connect the controller.  
+
 ```c++
 // create the gamepad
 PS2Gamepad* gamepad = new PS2Gamepad();
@@ -154,7 +180,7 @@ bool isConnected = gamepad->connected();
 String errorMessage = gamepad->getError();
 ```
 
-#### Using the PCF8574 and PCF8575
+#### PCF8574 and PCF8575 Setup
 ```c++
 // create a PCF8574 or PCF8575
 // 0x20 = i2c address (use a i2c scanner sketch to find the right address)
@@ -178,6 +204,24 @@ String errorMessage = myPCF->getError();
 ### Read out status
 `b` is a pointer to a created button (see above).  
 
+#### Button status
+
+Important status methods a `Button` object has:  
+```c++
+bool pushed();
+bool released();
+bool clicked();
+bool clicked(uint32_t minPushTime);
+bool clicked(uint32_t minPushTime, uint32_t minReleaseTime);
+bool doubleClicked();
+bool doubleClicked(uint32_t minPushTime);
+bool doubleClicked(uint32_t minPushTime, uint32_t timeSpan);
+bool doubleClicked(uint32_t minPushTime, uint32_t minReleaseTime, uint32_t timeSpan);
+bool holding();
+bool holding(uint32_t interval);
+```
+
+Example usage:  
 ```c++
 // first update the button
 b->update();
@@ -186,22 +230,22 @@ b->update();
 if(b->doubleClicked()){ ... }
 
 // with minimum push time in ms (default = 40)
-// if(b->doubleClicked(uint32_t minPushTime)) { ... }
+if(b->doubleClicked(uint32_t minPushTime)) { ... }
 
 // with minimum push time in a given time span in ms (default = 650)
-// if(b->doubleClicked(uint32_t minPushTime, uint32_t timeSpan)) { ... }
+if(b->doubleClicked(uint32_t minPushTime, uint32_t timeSpan)) { ... }
 
 // react on a click		
 if(b->clicked()){ ...}
 
 // with a minimum push time in ms (default = 40)
-// if(b->clicked(uint32_t minPushTime)) { ... }
+if(b->clicked(uint32_t minPushTime)) { ... }
 
 // if button is beeing hold
 if(b->holding()){ ... }
 
 // with custom time interval in ms (default = 250)
-// if(b->holding(uint32_t interval)){ ... };
+if(b->holding(uint32_t interval)){ ... };
 
 // when the button is beeing pushed
 if(b->pushed()) { ... }
@@ -211,14 +255,21 @@ if(b->released()) { ... }
 
 // you can also read the button state out directly
 bool currentButtonState = b->getState();
-```
 
-**Reading out the analog value:**  
-```c++
+// read out the analog value
 uint8_t value = analogButton->getValue();
 ```
 
-**Using a rotary encoder:**
+#### Rotary Encoder status
+
+These are the `Button`s a `RotaryEncoder` object has:  
+```c++
+Button* button;
+Button* clockwise;
+Button* anticlockwise;
+```
+
+Example usage:  
 ```c++
 // update the encoder
 myEncoder->update();
@@ -228,19 +279,20 @@ int position = myEncoder->getPos();
 
 // if rotary encoder switch was pushed
 bool clicked = myEncoder->clicked();
+// here using the Button object
+bool clicked = myEncoder->button->clicked();
 
 // read out the directions
 bool incremented = myEncoder->incremented();
 bool decremented = myEncoder->decremented();
 
+// read out the directions using the Button objects
+bool incremented = myEncoder->clockwise->clicked();
+bool decremented = myEncoder->anticlockwise->clicked();
+
 // read out if the counter hit a threshold
 bool hitMinValue = myEncoder->minVal();
 bool hitMaxValue = myEncoder->maxVal();
-
-// use Buttons for the events
-Button* clockwise = myEncoder->clockwise;
-Button* anticlockwise = myEncoder->anticlockwise;
-Button* pushButton = myEncoder->button;
 
 // ==== for I2C encoder only =====
 
@@ -252,7 +304,18 @@ bool interrupt = myEncoder->interrupt();
 bool changed = myEncoder->update();
 ```
 
-**Using the analog stick:**  
+#### Analog Stick status
+
+These are the `Button`s a `AnalogStick` object has:  
+```c++
+Button* button;
+ButtonAnalog* up;
+ButtonAnalog* down;
+ButtonAnalog* left;
+ButtonAnalog* right;
+```
+
+Example usage:  
 ```c++
 // read out the values
 uint8_t x = analogStick->left->getValue();
@@ -268,7 +331,29 @@ if (analogStick->up->holding()) Serial.println("up holding");
 if (analogStick->down->holding()) Serial.println("down holding");
 ```
 
-**Using the gamepad:**  
+#### PlayStation2 Gamepad status
+
+These are the `Button`s a `PS2Gamepad` object has:  
+```c++
+Button* up;
+Button* down;
+Button* left;
+Button* right;
+Button* l1;
+Button* l2;
+Button* r1;
+Button* r2;
+Button* select;
+Button* start;
+Button* square;
+Button* triangle;
+Button* x;
+Button* circle;
+AnalogStick* analogLeft;
+AnalogStick* analogRight;
+```
+
+Example usage:  
 ```c++
 // getting the analog-stick values
 uint8_t left_x = gamepad->analogLeft->left->getValue();
@@ -331,7 +416,7 @@ void setOnDoubleClicked(void (* fnct)());
 void setOnDoubleClicked(void (* fnct)(), uint32_t minPushTime);
 void setOnDoubleClicked(void (* fnct)(), uint32_t minPushTime, uint32_t timeSpan);
 void setOnDoubleClicked(void (* fnct)(), uint32_t minPushTime, uint32_t minReleaseTime, uint32_t timeSpan);
-    
+
 void setOnHolding(void (* fnct)());
 void setOnHolding(void (* fnct)(), uint32_t interval);
 ```
