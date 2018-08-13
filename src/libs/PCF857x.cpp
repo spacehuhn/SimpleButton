@@ -22,7 +22,7 @@ namespace simpleButton {
 
         switch (error) {
         case 0:
-            msg += "OK";
+            msg += String(F("OK"));
             break;
 
         case 1:
