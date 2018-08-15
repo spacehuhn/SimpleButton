@@ -14,7 +14,7 @@ A simple Arduino library to make interfacing and reacting on button events easie
     - [Analog Button](#analog-button-setup)
     - [Analog Stick](#analog-stick-setup)
     - [PlayStation2 Gamepad](#playstation2-gamepad-setup)
-    - [PCF8574 and PCF8575](#pcf8574-and-pcf8575-setup)
+    - [GPIO Expander](#gpio-expander-setup)
   - [Read out status](#read-out-status)
     - [Button](button-status)
     - [Rotary Encoder](#rotary-encoder-status)
