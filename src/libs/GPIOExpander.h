@@ -1,5 +1,5 @@
-#ifndef GPIOExpander_h
-#define GPIOExpander_h
+#ifndef SimpleButton_GPIOExpander_h
+#define SimpleButton_GPIOExpander_h
 
 #include "Arduino.h"
 #include <Wire.h>
@@ -34,4 +34,4 @@ namespace simpleButton {
             uint8_t address;
     };
 }
-#endif // ifndef GPIOExpander_h
+#endif // ifndef SimpleButton_GPIOExpander_h

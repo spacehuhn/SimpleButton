@@ -1,7 +1,8 @@
-#ifndef PushEvent_h
-#define PushEvent_h
+#ifndef SimpleButton_PushEvent_h
+#define SimpleButton_PushEvent_h
 
 #include "Event.h"
+
 namespace simpleButton {
     class PushEvent : public Event {
         public:
@@ -12,4 +13,4 @@ namespace simpleButton {
     };
 }
 
-#endif // ifndef PushEvent_h
+#endif // ifndef SimpleButton_PushEvent_h

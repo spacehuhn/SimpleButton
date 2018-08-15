@@ -1,5 +1,5 @@
-#ifndef ButtonPullup_h
-#define ButtonPullup_h
+#ifndef SimpleButton_ButtonPullup_h
+#define SimpleButton_ButtonPullup_h
 
 #include "Button.h"
 
@@ -17,4 +17,4 @@ namespace simpleButton {
     };
 }
 
-#endif // ifndef ButtonPullup_h
+#endif // ifndef SimpleButton_ButtonPullup_h

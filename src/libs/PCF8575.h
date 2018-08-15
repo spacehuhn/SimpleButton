@@ -1,5 +1,5 @@
-#ifndef PCF8575_h
-#define PCF8575_h
+#ifndef SimpleButton_PCF8575_h
+#define SimpleButton_PCF8575_h
 
 #include "GPIOExpander.h"
 
@@ -25,4 +25,4 @@ namespace simpleButton {
             uint16_t pinModeMask;
     };
 }
-#endif // ifndef PCF8575_h
+#endif // ifndef SimpleButton_PCF8575_h

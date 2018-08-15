@@ -1,5 +1,5 @@
-#ifndef MCP23017_h
-#define MCP23017_h
+#ifndef SimpleButton_MCP23017_h
+#define SimpleButton_MCP23017_h
 
 #include "GPIOExpander.h"
 
@@ -43,4 +43,4 @@ namespace simpleButton {
     };
 }
 
-#endif // ifndef MCP23017_h
+#endif // ifndef SimpleButton_MCP23017_h

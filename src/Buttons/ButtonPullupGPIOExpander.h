@@ -1,5 +1,5 @@
-#ifndef ButtonPullupGPIOExpander_h
-#define ButtonPullupGPIOExpander_h
+#ifndef SimpleButton_ButtonPullupGPIOExpander_h
+#define SimpleButton_ButtonPullupGPIOExpander_h
 
 #include "ButtonGPIOExpander.h"
 
@@ -17,4 +17,4 @@ namespace simpleButton {
     };
 }
 
-#endif // ifndef ButtonPullupGPIOExpander_h
+#endif // ifndef SimpleButton_ButtonPullupGPIOExpander_h

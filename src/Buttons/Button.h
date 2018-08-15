@@ -1,5 +1,5 @@
-#ifndef Button_h
-#define Button_h
+#ifndef SimpleButton_Button_h
+#define SimpleButton_Button_h
 
 #include "Arduino.h"
 #include "Events/Event.h"
@@ -108,4 +108,4 @@ namespace simpleButton {
     };
 }
 
-#endif // ifndef Button_h
+#endif // ifndef SimpleButton_Button_h

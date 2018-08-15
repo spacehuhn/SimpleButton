@@ -1,5 +1,5 @@
-#ifndef HoldEvent_h
-#define HoldEvent_h
+#ifndef SimpleButton_HoldEvent_h
+#define SimpleButton_HoldEvent_h
 
 #include "Event.h"
 namespace simpleButton {
@@ -16,4 +16,4 @@ namespace simpleButton {
     };
 }
 
-#endif // ifndef HoldEvent_h
+#endif // ifndef SimpleButton_HoldEvent_h

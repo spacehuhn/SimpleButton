@@ -1,5 +1,5 @@
-#ifndef ButtonAnalog_h
-#define ButtonAnalog_h
+#ifndef SimpleButton_ButtonAnalog_h
+#define SimpleButton_ButtonAnalog_h
 
 #include "Button.h"
 
@@ -33,4 +33,4 @@ namespace simpleButton {
             uint16_t value    = 0;
     };
 }
-#endif // ifndef ButtonAnalog_h
+#endif // ifndef SimpleButton_ButtonAnalog_h

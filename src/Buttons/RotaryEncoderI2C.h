@@ -1,5 +1,5 @@
-#ifndef RotaryEncoderI2C_h
-#define RotaryEncoderI2C_h
+#ifndef SimpleButton_RotaryEncoderI2C_h
+#define SimpleButton_RotaryEncoderI2C_h
 
 #include "Arduino.h"
 #include <Wire.h>
@@ -89,4 +89,4 @@ namespace simpleButton {
             int32_t read32(uint8_t address);
     };
 }
-#endif // ifndef RotaryEncoderI2C_h
+#endif // ifndef SimpleButton_RotaryEncoderI2C_h

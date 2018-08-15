@@ -1,5 +1,5 @@
-#ifndef DoubleclickEvent_h
-#define DoubleclickEvent_h
+#ifndef SimpleButton_DoubleclickEvent_h
+#define SimpleButton_DoubleclickEvent_h
 
 #include "Event.h"
 namespace simpleButton {
@@ -20,4 +20,4 @@ namespace simpleButton {
     };
 }
 
-#endif // ifndef DoubleclickEvent_h
+#endif // ifndef SimpleButton_DoubleclickEvent_h

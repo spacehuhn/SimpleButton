@@ -1,5 +1,5 @@
-#ifndef Switch_h
-#define Switch_h
+#ifndef SimpleButton_Switch_h
+#define SimpleButton_Switch_h
 
 #include "Button.h"
 #include "ButtonGPIOExpander.h"
@@ -33,4 +33,4 @@ namespace simpleButton {
     };
 }
 
-#endif // ifndef Switch_h
+#endif // ifndef SimpleButton_Switch_h

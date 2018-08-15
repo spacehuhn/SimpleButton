@@ -1,5 +1,5 @@
-#ifndef PS2Gamepad_h
-#define PS2Gamepad_h
+#ifndef SimpleButton_PS2Gamepad_h
+#define SimpleButton_PS2Gamepad_h
 
 #include "Button.h"
 #include "AnalogStick.h"
@@ -86,4 +86,4 @@ namespace simpleButton {
     };
 }
 
-#endif // ifndef PS2Gamepad_h
+#endif // ifndef SimpleButton_PS2Gamepad_h

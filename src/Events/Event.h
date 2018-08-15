@@ -1,5 +1,5 @@
-#ifndef Event_h
-#define Event_h
+#ifndef SimpleButton_Event_h
+#define SimpleButton_Event_h
 
 #include "Arduino.h"
 

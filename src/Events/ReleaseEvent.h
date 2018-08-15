@@ -1,7 +1,8 @@
-#ifndef ReleaseEvent_h
-#define ReleaseEvent_h
+#ifndef SimpleButton_ReleaseEvent_h
+#define SimpleButton_ReleaseEvent_h
 
 #include "Event.h"
+
 namespace simpleButton {
     class ReleaseEvent : public Event {
         public:
@@ -12,4 +13,4 @@ namespace simpleButton {
     };
 }
 
-#endif // ifndef ReleaseEvent_h
+#endif // ifndef SimpleButton_ReleaseEvent_h

@@ -1,5 +1,5 @@
-#ifndef RotaryEncoder_h
-#define RotaryEncoder_h
+#ifndef SimpleButton_RotaryEncoder_h
+#define SimpleButton_RotaryEncoder_h
 
 #include "Button.h"
 #include "ButtonPullup.h"
@@ -68,4 +68,4 @@ namespace simpleButton {
     };
 }
 
-#endif // ifndef RotaryEncoder_h
+#endif // ifndef SimpleButton_RotaryEncoder_h

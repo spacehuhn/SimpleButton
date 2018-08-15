@@ -1,5 +1,5 @@
-#ifndef AnalogStick_h
-#define AnalogStick_h
+#ifndef SimpleButton_AnalogStick_h
+#define SimpleButton_AnalogStick_h
 
 #include "ButtonPullup.h"
 #include "ButtonAnalog.h"
@@ -50,4 +50,4 @@ namespace simpleButton {
     };
 }
 
-#endif // ifndef AnalogStick_h
+#endif // ifndef SimpleButton_AnalogStick_h

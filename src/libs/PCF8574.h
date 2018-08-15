@@ -1,5 +1,5 @@
-#ifndef PCF8574_h
-#define PCF8574_h
+#ifndef SimpleButton_PCF8574_h
+#define SimpleButton_PCF8574_h
 
 #include "GPIOExpander.h"
 
@@ -25,4 +25,4 @@ namespace simpleButton {
     };
 }
 
-#endif // ifndef PCF8574_h
+#endif // ifndef SimpleButton_PCF8574_h

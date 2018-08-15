@@ -1,5 +1,5 @@
-#ifndef ButtonGPIOExpander_h
-#define ButtonGPIOExpander_h
+#ifndef SimpleButton_ButtonGPIOExpander_h
+#define SimpleButton_ButtonGPIOExpander_h
 
 #include "Button.h"
 #include "libs/GPIOExpander.h"
@@ -29,4 +29,4 @@ namespace simpleButton {
     };
 }
 
-#endif // ifndef ButtonGPIOExpander_h
+#endif // ifndef SimpleButton_ButtonGPIOExpander_h

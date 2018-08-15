@@ -1,5 +1,5 @@
-#ifndef ClickEvent_h
-#define ClickEvent_h
+#ifndef SimpleButton_ClickEvent_h
+#define SimpleButton_ClickEvent_h
 
 #include "Event.h"
 namespace simpleButton {
@@ -18,4 +18,4 @@ namespace simpleButton {
     };
 }
 
-#endif // ifndef ClickEvent_h
+#endif // ifndef SimpleButton_ClickEvent_h
