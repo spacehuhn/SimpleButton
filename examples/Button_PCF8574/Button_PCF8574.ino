@@ -9,7 +9,7 @@ using namespace simpleButton;
    - Button B is connected between the PCF pin 1 and 3.3V (VCC)
  */
 
-PCF857x* myPCF   = NULL;
+GPIOExpander* myPCF   = NULL;
 Button * buttonA = NULL;
 Button * buttonB = NULL;
 
@@ -34,8 +34,8 @@ void setup() {
         }
     } while (!myPCF->connected());
 
-    buttonA = new ButtonPullupPCF(myPCF, 0);
-    buttonB = new ButtonPCF(myPCF, 1);
+    buttonA = new ButtonPullupGPIOExpander(myPCF, 0);
+    buttonB = new ButtonGPIOExpander(myPCF, 1);
 
     Serial.println("Started");
 }

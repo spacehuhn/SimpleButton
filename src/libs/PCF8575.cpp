@@ -42,10 +42,8 @@ namespace simpleButton {
         wire->endTransmission();
     }
 
-    void PCF8575::write(uint8_t pin, int value) {
-        uint8_t val = value & 1;
-
-        if (val) pinModeMask |= val << pin;
+    void PCF8575::write(uint8_t pin, bool value) {
+        if (value) pinModeMask |= value << pin;
         else pinModeMask &= ~(1 << pin);
 
         write(pinModeMask);
@@ -58,28 +56,6 @@ namespace simpleButton {
 
     void PCF8575::toggle(uint8_t pin) {
         pinModeMask ^= 1 << pin;
-
-        write(pinModeMask);
-    }
-
-    void PCF8575::shiftRight(uint8_t n) {
-        pinModeMask >>= n;
-        write(pinModeMask);
-    }
-
-    void PCF8575::shiftLeft(uint8_t n) {
-        pinModeMask <<= n;
-        write(pinModeMask);
-    }
-
-    void PCF8575::rotateLeft(uint8_t n) {
-        rotateRight(16 - (n & 15));
-    }
-
-    void PCF8575::rotateRight(uint8_t n) {
-        uint8_t r = n & 15;
-
-        pinModeMask = (pinModeMask >> r) | (pinModeMask << (16 - r));
 
         write(pinModeMask);
     }

@@ -1,10 +1,10 @@
 #ifndef PCF8574_h
 #define PCF8574_h
 
-#include "PCF857x.h"
+#include "GPIOExpander.h"
 
 namespace simpleButton {
-    class PCF8574 : public PCF857x {
+    class PCF8574 : public GPIOExpander {
         public:
             PCF8574(uint8_t address);
             PCF8574(uint8_t address, TwoWire* wire);
@@ -14,16 +14,10 @@ namespace simpleButton {
             int read(uint8_t pin);
 
             void write(int value);
-            void write(uint8_t pin, int value);
+            void write(uint8_t pin, bool value);
 
             void toggle();
             void toggle(uint8_t pin);
-
-            void shiftLeft(uint8_t n  = 1);
-            void shiftRight(uint8_t n = 1);
-
-            void rotateLeft(uint8_t n  = 1);
-            void rotateRight(uint8_t n = 1);
 
         private:
             uint8_t data;

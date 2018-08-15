@@ -1,28 +1,28 @@
-#include "ButtonPCF.h"
+#include "ButtonGPIOExpander.h"
 
 namespace simpleButton {
-    ButtonPCF::ButtonPCF() {
+    ButtonGPIOExpander::ButtonGPIOExpander() {
         setup(NULL, 255, false);
     }
 
-    ButtonPCF::ButtonPCF(PCF857x* pcf, uint8_t pin) {
+    ButtonGPIOExpander::ButtonGPIOExpander(GPIOExpander* pcf, uint8_t pin) {
         setup(pcf, pin, false);
     }
 
-    ButtonPCF::ButtonPCF(PCF857x* pcf, uint8_t pin, bool inverted) {
+    ButtonGPIOExpander::ButtonGPIOExpander(GPIOExpander* pcf, uint8_t pin, bool inverted) {
         setup(pcf, pin, inverted);
     }
 
-    ButtonPCF::~ButtonPCF() {}
+    ButtonGPIOExpander::~ButtonGPIOExpander() {}
 
-    void ButtonPCF::setup(PCF857x* pcf, uint8_t pin, bool inverted) {
+    void ButtonGPIOExpander::setup(GPIOExpander* pcf, uint8_t pin, bool inverted) {
         this->pcf             = pcf;
         this->button_pin      = pin;
         this->button_inverted = inverted;
         enable();
     }
 
-    void ButtonPCF::enable() {
+    void ButtonGPIOExpander::enable() {
         button_enabled = true;
 
         if (pcf) {
@@ -31,7 +31,7 @@ namespace simpleButton {
         }
     }
 
-    int ButtonPCF::read() {
+    int ButtonGPIOExpander::read() {
         bool currentState = false;
 
         if (button_enabled && button_setup) {
@@ -43,13 +43,13 @@ namespace simpleButton {
         return (int)currentState;
     }
 
-    void ButtonPCF::update() {
+    void ButtonGPIOExpander::update() {
         if (button_enabled && button_setup) {
             update(read());
         }
     }
 
-    void ButtonPCF::update(int state) {
+    void ButtonGPIOExpander::update(int state) {
         Button::update(state);
     }
 }

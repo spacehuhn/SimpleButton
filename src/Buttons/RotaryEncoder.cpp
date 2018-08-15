@@ -9,7 +9,7 @@ namespace simpleButton {
         setup(channelA, channelB, button);
     }
 
-    RotaryEncoder::RotaryEncoder(PCF857x* pcf, uint8_t channelA, uint8_t channelB, uint8_t button) {
+    RotaryEncoder::RotaryEncoder(GPIOExpander* pcf, uint8_t channelA, uint8_t channelB, uint8_t button) {
         setup(pcf, channelA, channelB, button);
     }
 
@@ -32,10 +32,10 @@ namespace simpleButton {
         prevB = anticlockwise->read();
     }
 
-    void RotaryEncoder::setup(PCF857x* pcf, uint8_t channelA, uint8_t channelB, uint8_t button) {
-        this->clockwise     = new ButtonPullupPCF(pcf, channelA);
-        this->anticlockwise = new ButtonPullupPCF(pcf, channelB);
-        this->button        = new ButtonPullupPCF(pcf, button);
+    void RotaryEncoder::setup(GPIOExpander* pcf, uint8_t channelA, uint8_t channelB, uint8_t button) {
+        this->clockwise     = new ButtonPullupGPIOExpander(pcf, channelA);
+        this->anticlockwise = new ButtonPullupGPIOExpander(pcf, channelB);
+        this->button        = new ButtonPullupGPIOExpander(pcf, button);
 
         prevA = clockwise->read();
         prevB = anticlockwise->read();

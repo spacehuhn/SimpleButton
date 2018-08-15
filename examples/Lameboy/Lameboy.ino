@@ -39,13 +39,13 @@ void setup() {
         }
     } while (!myPCF->connected());
 
-    up    = new ButtonPullupPCF(myPCF, 7);
-    down  = new ButtonPullupPCF(myPCF, 5);
-    left  = new ButtonPullupPCF(myPCF, 6);
-    right = new ButtonPullupPCF(myPCF, 4);
-    a     = new ButtonPullupPCF(myPCF, 3);
-    b     = new ButtonPullupPCF(myPCF, 2);
-    sd    = new ButtonPullupPCF(myPCF, 1);
+    up    = new ButtonPullupGPIOExpander(myPCF, 7);
+    down  = new ButtonPullupGPIOExpander(myPCF, 5);
+    left  = new ButtonPullupGPIOExpander(myPCF, 6);
+    right = new ButtonPullupGPIOExpander(myPCF, 4);
+    a     = new ButtonPullupGPIOExpander(myPCF, 3);
+    b     = new ButtonPullupGPIOExpander(myPCF, 2);
+    sd    = new ButtonPullupGPIOExpander(myPCF, 1);
 
     Serial.println("Started");
 }

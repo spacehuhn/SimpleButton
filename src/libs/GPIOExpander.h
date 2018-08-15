@@ -1,5 +1,5 @@
-#ifndef PCF857x_h
-#define PCF857x_h
+#ifndef GPIOExpander_h
+#define GPIOExpander_h
 
 #include "Arduino.h"
 #include <Wire.h>
@@ -8,9 +8,9 @@
 #define PCF_I2C_ERROR 6
 
 namespace simpleButton {
-    class PCF857x {
+    class GPIOExpander {
         public:
-            virtual ~PCF857x() = default;
+            virtual ~GPIOExpander() = default;
 
             virtual void setup(uint8_t address);
             virtual void setup(uint8_t address, TwoWire* wire);
@@ -19,16 +19,10 @@ namespace simpleButton {
             virtual int read(uint8_t pin) = 0;
 
             virtual void write(int value) = 0;
-            virtual void write(uint8_t pin, int value) = 0;
+            virtual void write(uint8_t pin, bool value) = 0;
 
             virtual void toggle() = 0;
             virtual void toggle(uint8_t pin) = 0;
-
-            virtual void shiftLeft(uint8_t n  = 1) = 0;
-            virtual void shiftRight(uint8_t n = 1) = 0;
-
-            virtual void rotateLeft(uint8_t n  = 1) = 0;
-            virtual void rotateRight(uint8_t n = 1) = 0;
 
             virtual bool connected();
             virtual String getError();
@@ -40,4 +34,4 @@ namespace simpleButton {
             uint8_t address;
     };
 }
-#endif // ifndef PCF857x_h
+#endif // ifndef GPIOExpander_h

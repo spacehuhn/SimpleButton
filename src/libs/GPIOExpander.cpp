@@ -1,23 +1,23 @@
-#include "PCF857x.h"
+#include "GPIOExpander.h"
 
 namespace simpleButton {
-    void PCF857x::setup(uint8_t address) {
+    void GPIOExpander::setup(uint8_t address) {
         this->wire    = &Wire;
         this->address = address;
         write(0);
     }
 
-    void PCF857x::setup(uint8_t address, TwoWire* wire) {
+    void GPIOExpander::setup(uint8_t address, TwoWire* wire) {
         this->wire    = wire;
         this->address = address;
         write(0);
     }
 
-    bool PCF857x::connected() {
+    bool GPIOExpander::connected() {
         return error == 0;
     }
 
-    String PCF857x::getError() {
+    String GPIOExpander::getError() {
         String msg;
 
         switch (error) {

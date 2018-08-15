@@ -42,11 +42,7 @@ You can not only read out the current state of the button, but also if it's:
 - double clicked
 - holding
 
-It also works with buttons that are connected to a PCF8574 or PCF8575 GPIO expander!  
-For that my [PCF8574](https://github.com/spacehuhn/PCF8574) library is integrated, so you don't need to install any additional library.  
-
-## To-Do:
-- Add support for MCP23017 GPIO expander
+It also works with buttons that are connected to a PCF8574, PCF8575 or MCP23017 GPIO expander!  
 
 ## Installation
 
@@ -104,7 +100,7 @@ Button* b = new Switch(12);
 RotaryEncoder* myEncoder = new RotaryEncoder(5, 4, 3);
 
 // rotary encoder connected to the PCF on pin 2 and pin 3
-RotaryEncoder* myEncoder = new RotaryEncoder(myPCF, 2, 3, 255);
+RotaryEncoder* myEncoder = new RotaryEncoder(exp, 2, 3, 255);
 
 // I2C encoder at address 0x30
 RotaryEncoderI2C* myEncoder = new RotaryEncoderI2C(0x30);
@@ -180,25 +176,31 @@ bool isConnected = gamepad->connected();
 String errorMessage = gamepad->getError();
 ```
 
-#### PCF8574 and PCF8575 Setup
+#### GPIO Expander Setup
 ```c++
-// create a PCF8574 or PCF8575
-// 0x20 = i2c address (use a i2c scanner sketch to find the right address)
+// start i2c
 Wire.begin();
-PCF857x* myPCF = new PCF8574(0x20);
+
+// 0x20 = i2c address (use a i2c scanner sketch to find the right address)
+// create a PCF8574
+GPIOExpander* exp = new PCF8574(0x20);
+// create a PCF8575
+GPIOExpander* exp = new PCF8575(0x20);
+// create a MCP23017
+GPIOExpander* exp = new MCP23017(0x20);
 
 // creates a push button connected to the PCF on pin 0
-Button* b = new ButtonPCF(myPCF, 0);
+Button* b = new ButtonGPIOExpander(exp, 0);
 
 // creates a pullup button connected to the PCF on pin 1
-Button* b = new ButtonPullupPCF(myPCF, 1);
+Button* b = new ButtonPullupGPIOExpander(exp, 1);
 
 // rotary encoder connected to the PCF on pin 2 and pin 3
-RotaryEncoder* myEncoder = new RotaryEncoder(myPCF, 2, 3, 255);
+RotaryEncoder* myEncoder = new RotaryEncoder(exp, 2, 3, 255);
 
 // check for errors
-bool isConnected = myPCF->connected();
-String errorMessage = myPCF->getError();
+bool isConnected = exp->connected();
+String errorMessage = exp->getError();
 ```
 
 ### Read out status

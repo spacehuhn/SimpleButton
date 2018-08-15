@@ -2,9 +2,9 @@
 #define SimpleButton_h
 
 #include "Buttons/Button.h"
-#include "Buttons/ButtonPCF.h"
+#include "Buttons/ButtonGPIOExpander.h"
 #include "Buttons/ButtonPullup.h"
-#include "Buttons/ButtonPullupPCF.h"
+#include "Buttons/ButtonPullupGPIOExpander.h"
 #include "Buttons/ButtonAnalog.h"
 #include "Buttons/Switch.h"
 #include "Buttons/RotaryEncoder.h"

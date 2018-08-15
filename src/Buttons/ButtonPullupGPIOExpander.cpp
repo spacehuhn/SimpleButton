@@ -1,24 +1,24 @@
-#include "ButtonPullupPCF.h"
+#include "ButtonPullupGPIOExpander.h"
 
 namespace simpleButton {
-    ButtonPullupPCF::ButtonPullupPCF() {
+    ButtonPullupGPIOExpander::ButtonPullupGPIOExpander() {
         setup(NULL, 255);
     }
 
-    ButtonPullupPCF::ButtonPullupPCF(PCF857x* pcf, uint8_t pin) {
+    ButtonPullupGPIOExpander::ButtonPullupGPIOExpander(GPIOExpander* pcf, uint8_t pin) {
         setup(pcf, pin);
     }
 
-    ButtonPullupPCF::~ButtonPullupPCF() {}
+    ButtonPullupGPIOExpander::~ButtonPullupGPIOExpander() {}
 
-    void ButtonPullupPCF::setup(PCF857x* pcf, uint8_t pin) {
+    void ButtonPullupGPIOExpander::setup(GPIOExpander* pcf, uint8_t pin) {
         this->pcf             = pcf;
         this->button_pin      = pin;
         this->button_inverted = true;
         enable();
     }
 
-    void ButtonPullupPCF::enable() {
+    void ButtonPullupGPIOExpander::enable() {
         button_enabled = true;
 
         if (pcf) {

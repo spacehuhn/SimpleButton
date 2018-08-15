@@ -9,7 +9,7 @@ namespace simpleButton {
         setup(pin);
     }
 
-    Switch::Switch(PCF857x* pcf, uint8_t pin) {
+    Switch::Switch(GPIOExpander* pcf, uint8_t pin) {
         setup(pcf, pin);
     }
 
@@ -26,8 +26,8 @@ namespace simpleButton {
         tmpState = button->read();
     }
 
-    void Switch::setup(PCF857x* pcf, uint8_t pin) {
-        button   = new ButtonPCF(pcf, pin);
+    void Switch::setup(GPIOExpander* pcf, uint8_t pin) {
+        button   = new ButtonGPIOExpander(pcf, pin);
         tmpState = button->read();
     }
 
