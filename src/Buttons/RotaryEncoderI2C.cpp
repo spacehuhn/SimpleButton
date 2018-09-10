@@ -26,6 +26,9 @@ namespace simpleButton {
         this->anticlockwise = new Button();
         this->button        = new Button();
 
+        setMin(-128);
+        setMax(127);
+
         begin();
     }
 
@@ -62,7 +65,6 @@ namespace simpleButton {
         uint8_t config = 0x00;
 
         if (interruptEnable) config = config | 0x01;
-        if (ledEnabled) config = config | 0x02;
         if (ledEnabled) config = config | 0x02;
         if (loop) config = config | 0x04;
         if (inverted) config = config | 0x08;
@@ -155,11 +157,11 @@ namespace simpleButton {
     }
 
     void RotaryEncoderI2C::setLedA(uint8_t value) {
-        write(0x0E, value);
+        if (ledEnabled) write(0x0E, value);
     }
 
     void RotaryEncoderI2C::setLedB(uint8_t value) {
-        write(0x0F, value);
+        if (ledEnabled) write(0x0F, value);
     }
 
     int32_t RotaryEncoderI2C::getPos() {

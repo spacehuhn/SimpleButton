@@ -135,7 +135,7 @@ namespace simpleButton {
         wire->write(address);
         error = wire->endTransmission();
 
-        wire->requestFrom(this->address, 1);
+        wire->requestFrom(this->address, (uint8_t)1);
 
         if (wire->available() == 1) {
             return wire->read();
@@ -150,7 +150,7 @@ namespace simpleButton {
         wire->write(address);
         error = wire->endTransmission();
 
-        wire->requestFrom(this->address, 2);
+        wire->requestFrom(this->address, (uint8_t)2);
 
         if (wire->available() == 2) {
             uint16_t dataA = wire->read();
