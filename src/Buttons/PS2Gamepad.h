@@ -49,9 +49,9 @@ namespace simpleButton {
 
             // config
             uint8_t motorA = 0x00; // 0 = OFF, 1 = ONN
-            uint8_t motorB = 0x00; // 0-39 = OFF, 40 - 255 = ON
+            uint8_t motorB = 0x00; // usually 0-39 = OFF, 40 - 255 = ON
 
-            bool rumbleEnabled   = false;
+            bool rumbleEnabled   = true;
             bool pressureEnabled = false;
 
             uint32_t updateInterval = 25;

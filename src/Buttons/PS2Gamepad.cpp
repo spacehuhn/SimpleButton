@@ -76,10 +76,12 @@ namespace simpleButton {
         delay(10);
         poll();
 
+		    /*
         if ((gamepadData[1] != 0x41) && (gamepadData[1] != 0x73) && (gamepadData[1] != 0x79)) {
             errorCode = 1;
             return;
         }
+        */
 
         int  tries   = 0;
         bool success = false;
@@ -198,10 +200,6 @@ namespace simpleButton {
     void PS2Gamepad::poll() {
         if (millis() - lastPoll > 1500) reconfig();
         lastPoll = millis();
-
-        if (motorB > 0) {
-            motorB = map(motorB, 0, 255, 40, 255);
-        }
 
         uint8_t dwordA[9]  = { 0x01, 0x42, 0x00, motorA, motorB, 0x00, 0x00, 0x00, 0x00 };
         uint8_t dwordB[12] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
