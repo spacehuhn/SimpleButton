@@ -62,8 +62,8 @@ void loop() {
     if (gamepad->up->clicked()) Serial.println("up clicked");
     if (gamepad->up->holding()) Serial.println("up holding");
 
-    if (gamepad->down->holding()) Serial.println("down clicked");
-    if (gamepad->down->clicked()) Serial.println("down holding");
+    if (gamepad->down->clicked()) Serial.println("down clicked");
+    if (gamepad->down->holding()) Serial.println("down holding");
 
     if (gamepad->left->clicked()) Serial.println("left clicked");
     if (gamepad->left->holding()) Serial.println("left holding");
