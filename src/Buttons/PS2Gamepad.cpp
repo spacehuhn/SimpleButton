@@ -5,8 +5,8 @@ namespace simpleButton {
 
     PS2Gamepad::PS2Gamepad() {}
 
-    PS2Gamepad::PS2Gamepad(uint8_t clockPin, uint8_t cmdPin, uint8_t attPin, uint8_t dataPin) {
-        setup(clockPin, cmdPin, attPin, dataPin);
+    PS2Gamepad::PS2Gamepad(uint8_t clockPin, uint8_t cmdPin, uint8_t attPin, uint8_t dataPin, bool rumble, bool analog) {
+        setup(clockPin, cmdPin, attPin, dataPin, rumble, analog);
     }
 
     PS2Gamepad::~PS2Gamepad() {
@@ -28,12 +28,14 @@ namespace simpleButton {
         if (analogRight) delete analogRight;
     }
 
-    void PS2Gamepad::setup(uint8_t clockPin, uint8_t cmdPin, uint8_t attPin, uint8_t dataPin) {
+    void PS2Gamepad::setup(uint8_t clockPin, uint8_t cmdPin, uint8_t attPin, uint8_t dataPin, bool rumble, bool analog) {
         // pin setup
         this->clockPin = clockPin;
         this->cmdPin   = cmdPin;
         this->attPin   = attPin;
         this->dataPin  = dataPin;
+        this->rumbleEnabled = rumble;
+        this->pressureEnabled = analog;
 
         pinMode(clockPin, OUTPUT);
         pinMode(attPin,   OUTPUT);

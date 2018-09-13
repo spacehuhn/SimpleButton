@@ -25,10 +25,10 @@ namespace simpleButton {
             AnalogStick* analogRight = NULL;
 
             PS2Gamepad();
-            PS2Gamepad(uint8_t clockPin, uint8_t cmdPin, uint8_t attPin, uint8_t dataPin);
+            PS2Gamepad(uint8_t clockPin, uint8_t cmdPin, uint8_t attPin, uint8_t dataPin, bool rumble = false, bool analog = false);
             ~PS2Gamepad();
 
-            void setup(uint8_t clockPin, uint8_t cmdPin, uint8_t attPin, uint8_t dataPin);
+            void setup(uint8_t clockPin, uint8_t cmdPin, uint8_t attPin, uint8_t dataPin, bool rumble = false, bool analog = false);
             void reconfig();
 
             void update();
@@ -51,7 +51,7 @@ namespace simpleButton {
             uint8_t motorA = 0x00; // 0 = OFF, 1 = ONN
             uint8_t motorB = 0x00; // usually 0-39 = OFF, 40 - 255 = ON
 
-            bool rumbleEnabled   = true;
+            bool rumbleEnabled   = false;
             bool pressureEnabled = false;
 
             uint32_t updateInterval = 25;
