@@ -26,6 +26,7 @@ namespace simpleButton {
             void setBounds(uint16_t minValue, uint16_t maxValue);
 
             uint16_t getValue();
+            void setValue(int value);
 
         private:
             uint16_t minValue = 0;

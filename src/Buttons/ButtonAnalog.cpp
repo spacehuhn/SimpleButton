@@ -67,6 +67,10 @@ namespace simpleButton {
         setMax(maxValue);
     }
 
+    void ButtonAnalog::setValue(int value) {
+        this->value = (uint16_t)value;
+    }
+
     uint16_t ButtonAnalog::getValue() {
         return value;
     }
