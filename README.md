@@ -337,20 +337,24 @@ if (analogStick->down->holding()) Serial.println("down holding");
 
 These are the `Button`s a `PS2Gamepad` object has:  
 ```c++
-Button* up;
-Button* down;
-Button* left;
-Button* right;
-Button* l1;
-Button* l2;
-Button* r1;
-Button* r2;
+ButtonAnalog* up;
+ButtonAnalog* down;
+ButtonAnalog* left;
+ButtonAnalog* right;
+
+ButtonAnalog* l1;
+ButtonAnalog* l2;
+ButtonAnalog* r1;
+ButtonAnalog* r2;
+
+ButtonAnalog* square;
+ButtonAnalog* triangle;
+ButtonAnalog* x;
+ButtonAnalog* circle;
+
 Button* select;
 Button* start;
-Button* square;
-Button* triangle;
-Button* x;
-Button* circle;
+
 AnalogStick* analogLeft;
 AnalogStick* analogRight;
 ```
@@ -383,7 +387,7 @@ if (gamepad->start->clicked()) Serial.println("Start clicked");
 // triangle, circle, cross, square
 if (gamepad->square->clicked()) Serial.println("Square clicked");
 if (gamepad->triangle->clicked()) Serial.println("Triangle clicked");
-if (gamepad->x->clicked()) Serial.println("X clicked");
+if (gamepad->cross->clicked()) Serial.println("Cross clicked");
 if (gamepad->circle->clicked()) Serial.println("Circle clicked");
 
 // left analog stick

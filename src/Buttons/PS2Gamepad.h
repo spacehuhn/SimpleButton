@@ -7,28 +7,32 @@
 namespace simpleButton {
     class PS2Gamepad {
         public:
-            Button* up               = NULL;
-            Button* down             = NULL;
-            Button* left             = NULL;
-            Button* right            = NULL;
-            Button* l1               = NULL;
-            Button* l2               = NULL;
-            Button* r1               = NULL;
-            Button* r2               = NULL;
-            Button* select           = NULL;
-            Button* start            = NULL;
-            Button* square           = NULL;
-            Button* triangle         = NULL;
-            Button* x                = NULL;
-            Button* circle           = NULL;
+            ButtonAnalog* up    = NULL;
+            ButtonAnalog* down  = NULL;
+            ButtonAnalog* left  = NULL;
+            ButtonAnalog* right = NULL;
+
+            ButtonAnalog* l1 = NULL;
+            ButtonAnalog* l2 = NULL;
+            ButtonAnalog* r1 = NULL;
+            ButtonAnalog* r2 = NULL;
+
+            ButtonAnalog* square   = NULL;
+            ButtonAnalog* triangle = NULL;
+            ButtonAnalog* cross    = NULL;
+            ButtonAnalog* circle   = NULL;
+
+            Button* select = NULL;
+            Button* start  = NULL;
+
             AnalogStick* analogLeft  = NULL;
             AnalogStick* analogRight = NULL;
 
             PS2Gamepad();
-            PS2Gamepad(uint8_t clockPin, uint8_t cmdPin, uint8_t attPin, uint8_t dataPin, bool rumble = false, bool analog = false);
+            PS2Gamepad(uint8_t clockPin, uint8_t cmdPin, uint8_t attPin, uint8_t dataPin, bool analog = true);
             ~PS2Gamepad();
 
-            void setup(uint8_t clockPin, uint8_t cmdPin, uint8_t attPin, uint8_t dataPin, bool rumble = false, bool analog = false);
+            void setup(uint8_t clockPin, uint8_t cmdPin, uint8_t attPin, uint8_t dataPin, bool analog = true);
             void reconfig();
 
             void update();

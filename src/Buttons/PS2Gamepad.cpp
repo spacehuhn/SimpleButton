@@ -5,8 +5,8 @@ namespace simpleButton {
 
     PS2Gamepad::PS2Gamepad() {}
 
-    PS2Gamepad::PS2Gamepad(uint8_t clockPin, uint8_t cmdPin, uint8_t attPin, uint8_t dataPin, bool rumble, bool analog) {
-        setup(clockPin, cmdPin, attPin, dataPin, rumble, analog);
+    PS2Gamepad::PS2Gamepad(uint8_t clockPin, uint8_t cmdPin, uint8_t attPin, uint8_t dataPin, bool analog) {
+        setup(clockPin, cmdPin, attPin, dataPin, analog);
     }
 
     PS2Gamepad::~PS2Gamepad() {
@@ -14,27 +14,31 @@ namespace simpleButton {
         if (down) delete down;
         if (left) delete left;
         if (right) delete right;
+
         if (l1) delete l1;
         if (l2) delete l2;
         if (r1) delete r1;
         if (r2) delete r2;
-        if (select) delete select;
-        if (start) delete start;
+
         if (square) delete square;
         if (triangle) delete triangle;
-        if (x) delete x;
+        if (cross) delete cross;
         if (circle) delete circle;
+
+        if (select) delete select;
+        if (start) delete start;
+
         if (analogLeft) delete analogLeft;
         if (analogRight) delete analogRight;
     }
 
-    void PS2Gamepad::setup(uint8_t clockPin, uint8_t cmdPin, uint8_t attPin, uint8_t dataPin, bool rumble, bool analog) {
+    void PS2Gamepad::setup(uint8_t clockPin, uint8_t cmdPin, uint8_t attPin, uint8_t dataPin, bool analog) {
         // pin setup
-        this->clockPin = clockPin;
-        this->cmdPin   = cmdPin;
-        this->attPin   = attPin;
-        this->dataPin  = dataPin;
-        this->rumbleEnabled = rumble;
+        this->clockPin        = clockPin;
+        this->cmdPin          = cmdPin;
+        this->attPin          = attPin;
+        this->dataPin         = dataPin;
+        this->rumbleEnabled   = analog;
         this->pressureEnabled = analog;
 
         pinMode(clockPin, OUTPUT);
@@ -47,20 +51,23 @@ namespace simpleButton {
         digitalWrite(clockPin, HIGH);
 
         // button setup
-        if (!up) up = new Button();
-        if (!down) down = new Button();
-        if (!left) left = new Button();
-        if (!right) right = new Button();
-        if (!l1) l1 = new Button();
-        if (!l2) l2 = new Button();
-        if (!r1) r1 = new Button();
-        if (!r2) r2 = new Button();
+        if (!up) up = new ButtonAnalog(1, 255);
+        if (!down) down = new ButtonAnalog(1, 255);
+        if (!left) left = new ButtonAnalog(1, 255);
+        if (!right) right = new ButtonAnalog(1, 255);
+
+        if (!l1) l1 = new ButtonAnalog(1, 255);
+        if (!l2) l2 = new ButtonAnalog(1, 255);
+        if (!r1) r1 = new ButtonAnalog(1, 255);
+        if (!r2) r2 = new ButtonAnalog(1, 255);
+
+        if (!square) square = new ButtonAnalog(1, 255);
+        if (!triangle) triangle = new ButtonAnalog(1, 255);
+        if (!cross) cross = new ButtonAnalog(1, 255);
+        if (!circle) circle = new ButtonAnalog(1, 255);
+
         if (!select) select = new Button();
         if (!start) start = new Button();
-        if (!square) square = new Button();
-        if (!triangle) triangle = new Button();
-        if (!x) x = new Button();
-        if (!circle) circle = new Button();
 
         if (!analogLeft) {
             analogLeft = new AnalogStick();
@@ -78,12 +85,12 @@ namespace simpleButton {
         delay(10);
         poll();
 
-		    /*
-        if ((gamepadData[1] != 0x41) && (gamepadData[1] != 0x73) && (gamepadData[1] != 0x79)) {
-            errorCode = 1;
-            return;
-        }
-        */
+        /*
+           if ((gamepadData[1] != 0x41) && (gamepadData[1] != 0x73) && (gamepadData[1] != 0x79)) {
+           errorCode = 1;
+           return;
+           }
+         */
 
         int  tries   = 0;
         bool success = false;
@@ -132,19 +139,39 @@ namespace simpleButton {
             down->update(getDigitalValue(6));
             left->update(getDigitalValue(7));
             right->update(getDigitalValue(5));
+
             l1->update(getDigitalValue(10));
             l2->update(getDigitalValue(8));
             r1->update(getDigitalValue(11));
             r2->update(getDigitalValue(9));
-            select->update(getDigitalValue(0));
-            start->update(getDigitalValue(3));
+
             square->update(getDigitalValue(15));
             triangle->update(getDigitalValue(12));
-            x->update(getDigitalValue(14));
+            cross->update(getDigitalValue(14));
             circle->update(getDigitalValue(13));
+
+            select->update(getDigitalValue(0));
+            start->update(getDigitalValue(3));
 
             analogLeft->update(getAnalogValue(7), getAnalogValue(8), getDigitalValue(1));
             analogRight->update(getAnalogValue(5), getAnalogValue(6), getDigitalValue(2));
+
+            if (pressureEnabled) {
+                up->setValue(getDigitalValue(4) | getAnalogValue(11));
+                down->setValue(getDigitalValue(6) | getAnalogValue(12));
+                left->setValue(getDigitalValue(7) | getAnalogValue(10));
+                right->setValue(getDigitalValue(5) | getAnalogValue(9));
+
+                l1->setValue(getDigitalValue(10) | getAnalogValue(17));
+                l2->setValue(getDigitalValue(8) | getAnalogValue(19));
+                r1->setValue(getDigitalValue(11) | getAnalogValue(18));
+                r2->setValue(getDigitalValue(9) | getAnalogValue(20));
+
+                square->setValue(getDigitalValue(15) | getAnalogValue(16));
+                triangle->setValue(getDigitalValue(12) | getAnalogValue(13));
+                cross->setValue(getDigitalValue(14) | getAnalogValue(15));
+                circle->setValue(getDigitalValue(13) | getAnalogValue(14));
+            }
         }
     }
 
@@ -258,8 +285,7 @@ namespace simpleButton {
     }
 
     uint8_t PS2Gamepad::getAnalogValue(uint8_t button) {
-        if ((button >= 5) && (button <= 8)) return gamepadData[button];
-        else return 0;
+        return gamepadData[button];
     }
 
     uint8_t PS2Gamepad::shift(uint8_t data) {
