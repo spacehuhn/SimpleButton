@@ -102,7 +102,7 @@ namespace simpleButton {
             uint32_t defaultMinPushTime    = 40;
             uint32_t defaultMinReleaseTime = 40;
             uint32_t defaultTimeSpan       = 500;
-            uint32_t defaultHoldInterval   = 250;
+            uint32_t defaultHoldInterval   = 500;
 
             void addEvent(Event* e);
     };
