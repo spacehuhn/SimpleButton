@@ -8,7 +8,7 @@
 
 #include "Button.h"
 
-namespace simpleButton {
+namespace simplebutton {
     class RotaryEncoderI2C {
         public:
             Button* clockwise     = NULL;

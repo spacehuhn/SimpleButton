@@ -1,6 +1,6 @@
 #include "PCF8574.h"
 
-namespace simpleButton {
+namespace simplebutton {
     PCF8574::PCF8574(uint8_t address) {
         setup(address);
     }

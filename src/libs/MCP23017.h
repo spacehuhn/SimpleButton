@@ -3,7 +3,7 @@
 
 #include "GPIOExpander.h"
 
-namespace simpleButton {
+namespace simplebutton {
     class MCP23017 : public GPIOExpander {
         public:
             MCP23017(uint8_t address);

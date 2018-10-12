@@ -1,6 +1,6 @@
 #include "SimpleButton.h"
 
-namespace simpleButton {
+namespace simplebutton {
     Button::Button() {
         setup(255, false);
     }

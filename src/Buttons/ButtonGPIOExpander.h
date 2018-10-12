@@ -7,7 +7,7 @@
 #include "libs/PCF8575.h"
 #include "libs/MCP23017.h"
 
-namespace simpleButton {
+namespace simplebutton {
     class ButtonGPIOExpander : public Button {
         public:
             ButtonGPIOExpander();

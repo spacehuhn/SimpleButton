@@ -1,7 +1,7 @@
 #include <SimpleButton.h>
 #include <EEPROM.h>
 
-using namespace simpleButton;
+using namespace simplebutton;
 
 /*
    One I2C rotary encoder is connected to an Wemos D1 mini

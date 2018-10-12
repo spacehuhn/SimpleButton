@@ -1,6 +1,6 @@
 #include "PushEvent.h"
 
-namespace simpleButton {
+namespace simplebutton {
     PushEvent::PushEvent(void (*fnct)()) {
         this->fnct = fnct;
     }

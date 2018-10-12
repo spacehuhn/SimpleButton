@@ -1,6 +1,6 @@
 #include "ButtonAnalog.h"
 
-namespace simpleButton {
+namespace simplebutton {
     ButtonAnalog::ButtonAnalog() {
         setup(255, 0, 1024);
     }

@@ -1,6 +1,6 @@
 #include "Switch.h"
 
-namespace simpleButton {
+namespace simplebutton {
     Switch::Switch() {
         button = new Button();
     }

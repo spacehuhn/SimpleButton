@@ -59,7 +59,7 @@ Also have a look at the [examples](https://github.com/spacehuhn/SimpleButton/tre
 ```c++
 #include <SimpleButton.h>
 
-using namespace simpleButton;
+using namespace simplebutton;
 ```
 
 ### Create a button

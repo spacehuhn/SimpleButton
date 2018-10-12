@@ -1,6 +1,6 @@
 #include "ReleaseEvent.h"
 
-namespace simpleButton {
+namespace simplebutton {
     ReleaseEvent::ReleaseEvent(void (*fnct)()) {
         this->fnct = fnct;
     }

@@ -1,6 +1,6 @@
 #include <SimpleButton.h>
 
-using namespace simpleButton;
+using namespace simplebutton;
 
 /*
    A 4x4 Button matrix connected to an ESP8266 (Wemos D1 mini) on pin A0.

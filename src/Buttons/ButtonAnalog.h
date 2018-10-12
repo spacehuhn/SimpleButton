@@ -4,7 +4,7 @@
 #include "Button.h"
 
 
-namespace simpleButton {
+namespace simplebutton {
     class ButtonAnalog : public Button {
         public:
             ButtonAnalog();

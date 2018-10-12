@@ -1,6 +1,6 @@
 #include <SimpleButton.h>
 
-using namespace simpleButton;
+using namespace simplebutton;
 
 /*
    One button connected to gpio 12 (D6 on the NodeMCU)

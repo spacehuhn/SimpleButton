@@ -2,7 +2,7 @@
 #define SimpleButton_HoldEvent_h
 
 #include "Event.h"
-namespace simpleButton {
+namespace simplebutton {
     class HoldEvent : public Event {
         public:
             HoldEvent(void(*fnct)(), uint32_t interval);

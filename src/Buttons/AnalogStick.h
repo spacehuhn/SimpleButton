@@ -4,7 +4,7 @@
 #include "ButtonPullup.h"
 #include "ButtonAnalog.h"
 
-namespace simpleButton {
+namespace simplebutton {
     class AnalogStick {
         public:
             Button* button      = NULL;

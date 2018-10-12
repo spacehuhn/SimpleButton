@@ -9,7 +9,7 @@
 #include "Events/DoubleclickEvent.h"
 #include "Events/HoldEvent.h"
 
-namespace simpleButton {
+namespace simplebutton {
     class Button {
         public:
             Button();

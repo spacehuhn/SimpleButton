@@ -1,6 +1,6 @@
 #include "Event.h"
 
-namespace simpleButton {
+namespace simplebutton {
     Event::~Event() {
         if (next) {
             delete next;

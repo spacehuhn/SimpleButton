@@ -1,5 +1,5 @@
 #include "RotaryEncoderI2C.h"
-namespace simpleButton {
+namespace simplebutton {
     RotaryEncoderI2C::RotaryEncoderI2C() {
         setup(0x30);
     }

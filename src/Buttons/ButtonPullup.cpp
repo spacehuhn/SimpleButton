@@ -1,6 +1,6 @@
 #include "ButtonPullup.h"
 
-namespace simpleButton {
+namespace simplebutton {
     ButtonPullup::ButtonPullup() {
         setup(255);
     }

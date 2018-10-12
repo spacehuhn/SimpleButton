@@ -1,6 +1,6 @@
 #include "ButtonGPIOExpander.h"
 
-namespace simpleButton {
+namespace simplebutton {
     ButtonGPIOExpander::ButtonGPIOExpander() {
         setup(NULL, 255, false);
     }

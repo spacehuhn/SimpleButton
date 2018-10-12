@@ -7,7 +7,7 @@
 #define PCF_PIN_ERROR 5
 #define PCF_I2C_ERROR 6
 
-namespace simpleButton {
+namespace simplebutton {
     class GPIOExpander {
         public:
             virtual ~GPIOExpander() = default;

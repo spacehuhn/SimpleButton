@@ -1,6 +1,6 @@
 #include "AnalogStick.h"
 
-namespace simpleButton {
+namespace simplebutton {
     AnalogStick::AnalogStick() {
         setup(255, 255, 255);
     }

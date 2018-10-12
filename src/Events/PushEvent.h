@@ -3,7 +3,7 @@
 
 #include "Event.h"
 
-namespace simpleButton {
+namespace simplebutton {
     class PushEvent : public Event {
         public:
             PushEvent(void(*fnct)());

@@ -1,6 +1,6 @@
 #include <SimpleButton.h>
 
-using namespace simpleButton;
+using namespace simplebutton;
 
 /*
    A on/off switch is connected to gpio 12

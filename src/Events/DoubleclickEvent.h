@@ -2,7 +2,7 @@
 #define SimpleButton_DoubleclickEvent_h
 
 #include "Event.h"
-namespace simpleButton {
+namespace simplebutton {
     class DoubleclickEvent : public Event {
         public:
             DoubleclickEvent(void(*fnct)(), uint32_t minPushTime, uint32_t minReleaseTime, uint32_t timeSpan);

@@ -3,7 +3,7 @@
 
 #include "ButtonGPIOExpander.h"
 
-namespace simpleButton {
+namespace simplebutton {
     class ButtonPullupGPIOExpander : public ButtonGPIOExpander {
         public:
             ButtonPullupGPIOExpander();

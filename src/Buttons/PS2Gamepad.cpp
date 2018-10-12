@@ -1,6 +1,6 @@
 #include "PS2Gamepad.h"
 
-namespace simpleButton {
+namespace simplebutton {
   #include "PS2Gamepad.h"
 
     PS2Gamepad::PS2Gamepad() {}

@@ -3,7 +3,7 @@
 
 #include "Event.h"
 
-namespace simpleButton {
+namespace simplebutton {
     class ReleaseEvent : public Event {
         public:
             ReleaseEvent(void(*fnct)());

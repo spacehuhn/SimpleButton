@@ -3,7 +3,7 @@
 
 #include "Arduino.h"
 
-namespace simpleButton {
+namespace simplebutton {
     class Event {
         public:
             Event* next = NULL;

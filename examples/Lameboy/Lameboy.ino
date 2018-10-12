@@ -1,7 +1,7 @@
 #include <SimpleButton.h>
 #include <Wire.h>
 
-using namespace simpleButton;
+using namespace simplebutton;
 
 /*
    This example is for the Lameboy by @davedarko

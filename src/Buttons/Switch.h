@@ -4,7 +4,7 @@
 #include "Button.h"
 #include "ButtonGPIOExpander.h"
 
-namespace simpleButton {
+namespace simplebutton {
     class Switch {
         public:
             Button* button = NULL;

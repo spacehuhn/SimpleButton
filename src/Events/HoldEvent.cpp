@@ -1,6 +1,6 @@
 #include "HoldEvent.h"
 
-namespace simpleButton {
+namespace simplebutton {
     HoldEvent::HoldEvent(void (*fnct)(), uint32_t interval) {
         this->fnct     = fnct;
         this->interval = interval;

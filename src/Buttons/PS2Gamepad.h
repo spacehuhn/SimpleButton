@@ -4,7 +4,7 @@
 #include "Button.h"
 #include "AnalogStick.h"
 
-namespace simpleButton {
+namespace simplebutton {
     class PS2Gamepad {
         public:
             ButtonAnalog* up    = NULL;

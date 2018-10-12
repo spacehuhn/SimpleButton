@@ -1,6 +1,6 @@
 #include "RotaryEncoder.h"
 
-namespace simpleButton {
+namespace simplebutton {
     RotaryEncoder::RotaryEncoder() {
         setButtons(NULL, NULL, NULL);
     }

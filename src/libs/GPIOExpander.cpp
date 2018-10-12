@@ -1,6 +1,6 @@
 #include "GPIOExpander.h"
 
-namespace simpleButton {
+namespace simplebutton {
     void GPIOExpander::setup(uint8_t address) {
         this->wire    = &Wire;
         this->address = address;

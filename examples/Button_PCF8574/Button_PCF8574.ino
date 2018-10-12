@@ -1,6 +1,6 @@
 #include <SimpleButton.h>
 
-using namespace simpleButton;
+using namespace simplebutton;
 
 /*
    2 buttons are connected to a PCF8574 on a Wemos D1 mini (ESP8266)

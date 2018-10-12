@@ -2,7 +2,7 @@
 #define SimpleButton_ClickEvent_h
 
 #include "Event.h"
-namespace simpleButton {
+namespace simplebutton {
     class ClickEvent : public Event {
         public:
             ClickEvent(void(*fnct)(), uint32_t minPushTime, uint32_t minReleaseTime);

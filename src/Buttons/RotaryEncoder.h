@@ -6,7 +6,7 @@
 #include "ButtonGPIOExpander.h"
 #include "ButtonPullupGPIOExpander.h"
 
-namespace simpleButton {
+namespace simplebutton {
     class RotaryEncoder {
         public:
             Button* button        = NULL;

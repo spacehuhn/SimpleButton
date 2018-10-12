@@ -1,5 +1,5 @@
 #include "MCP23017.h"
-namespace simpleButton {
+namespace simplebutton {
     MCP23017::MCP23017(uint8_t address) {
         setup(address);
     }

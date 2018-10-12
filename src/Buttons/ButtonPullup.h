@@ -3,7 +3,7 @@
 
 #include "Button.h"
 
-namespace simpleButton {
+namespace simplebutton {
     class ButtonPullup : public Button {
         public:
             ButtonPullup();

@@ -3,7 +3,7 @@
 
 #include "GPIOExpander.h"
 
-namespace simpleButton {
+namespace simplebutton {
     class PCF8574 : public GPIOExpander {
         public:
             PCF8574(uint8_t address);
