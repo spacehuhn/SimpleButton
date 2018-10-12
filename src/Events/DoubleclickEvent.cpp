@@ -1,7 +1,7 @@
 #include "DoubleclickEvent.h"
 
 namespace simplebutton {
-    DoubleclickEvent::DoubleclickEvent(void (*fnct)(), uint32_t minPushTime, uint32_t minReleaseTime,
+    DoubleclickEvent::DoubleclickEvent(ButtonEventFunction, uint32_t minPushTime, uint32_t minReleaseTime,
                                        uint32_t timeSpan) {
         this->fnct           = fnct;
         this->minPushTime    = minPushTime;

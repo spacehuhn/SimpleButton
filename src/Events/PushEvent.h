@@ -6,7 +6,7 @@
 namespace simplebutton {
     class PushEvent : public Event {
         public:
-            PushEvent(void(*fnct)());
+            PushEvent(ButtonEventFunction);
             ~PushEvent();
 
             uint8_t getMode();

@@ -2,6 +2,9 @@
 #define SimpleButton_Event_h
 
 #include "Arduino.h"
+#include <functional>
+
+#define ButtonEventFunction std::function<void()>fnct
 
 namespace simplebutton {
     class Event {
@@ -20,7 +23,7 @@ namespace simplebutton {
             virtual uint32_t getInterval();
 
         protected:
-            void (*fnct)() = NULL;
+            ButtonEventFunction = NULL;
     };
 }
 

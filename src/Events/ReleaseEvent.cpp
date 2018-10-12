@@ -1,7 +1,7 @@
 #include "ReleaseEvent.h"
 
 namespace simplebutton {
-    ReleaseEvent::ReleaseEvent(void (*fnct)()) {
+    ReleaseEvent::ReleaseEvent(ButtonEventFunction) {
         this->fnct = fnct;
     }
 

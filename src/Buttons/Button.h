@@ -61,18 +61,18 @@ namespace simplebutton {
             virtual void setDefaultTimeSpan(uint32_t defaultTimeSpan);
             virtual void setDefaultHoldTime(uint32_t defaultHoldInterval);
 
-            virtual void setOnPushed(void (* fnct)());
-            virtual void setOnReleased(void (* fnct)());
-            virtual void setOnClicked(void (* fnct)());
-            virtual void setOnClicked(void (* fnct)(), uint32_t minPushTime);
-            virtual void setOnClicked(void (* fnct)(), uint32_t minPushTime, uint32_t minReleaseTime);
-            virtual void setOnDoubleClicked(void (* fnct)());
-            virtual void setOnDoubleClicked(void (* fnct)(), uint32_t minPushTime);
-            virtual void setOnDoubleClicked(void (* fnct)(), uint32_t minPushTime, uint32_t timeSpan);
+            virtual void setOnPushed(ButtonEventFunction);
+            virtual void setOnReleased(ButtonEventFunction);
+            virtual void setOnClicked(ButtonEventFunction);
+            virtual void setOnClicked(ButtonEventFunction, uint32_t minPushTime);
+            virtual void setOnClicked(ButtonEventFunction, uint32_t minPushTime, uint32_t minReleaseTime);
+            virtual void setOnDoubleClicked(ButtonEventFunction);
+            virtual void setOnDoubleClicked(ButtonEventFunction, uint32_t minPushTime);
+            virtual void setOnDoubleClicked(ButtonEventFunction, uint32_t minPushTime, uint32_t timeSpan);
             virtual void setOnDoubleClicked(
-                void (* fnct)(), uint32_t minPushTime, uint32_t minReleaseTime, uint32_t timeSpan);
-            virtual void setOnHolding(void (* fnct)());
-            virtual void setOnHolding(void (* fnct)(), uint32_t interval);
+                ButtonEventFunction, uint32_t minPushTime, uint32_t minReleaseTime, uint32_t timeSpan);
+            virtual void setOnHolding(ButtonEventFunction);
+            virtual void setOnHolding(ButtonEventFunction, uint32_t interval);
 
             virtual void clearEvents();
 

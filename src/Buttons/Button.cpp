@@ -258,47 +258,47 @@ namespace simplebutton {
         this->defaultHoldInterval = defaultHoldInterval;
     }
 
-    void Button::setOnPushed(void (*fnct)()) {
+    void Button::setOnPushed(ButtonEventFunction) {
         this->addEvent(new PushEvent(fnct));
     }
 
-    void Button::setOnReleased(void (*fnct)()) {
+    void Button::setOnReleased(ButtonEventFunction) {
         this->addEvent(new ReleaseEvent(fnct));
     }
 
-    void Button::setOnClicked(void (*fnct)()) {
+    void Button::setOnClicked(ButtonEventFunction) {
         setOnClicked(fnct, defaultMinPushTime, defaultMinReleaseTime);
     }
 
-    void Button::setOnClicked(void (*fnct)(), uint32_t minPushTime) {
+    void Button::setOnClicked(ButtonEventFunction, uint32_t minPushTime) {
         setOnClicked(fnct, minPushTime, defaultMinReleaseTime);
     }
 
-    void Button::setOnClicked(void (*fnct)(), uint32_t minPushTime, uint32_t minReleaseTime) {
+    void Button::setOnClicked(ButtonEventFunction, uint32_t minPushTime, uint32_t minReleaseTime) {
         this->addEvent(new ClickEvent(fnct, minPushTime, minReleaseTime));
     }
 
-    void Button::setOnDoubleClicked(void (*fnct)()) {
+    void Button::setOnDoubleClicked(ButtonEventFunction) {
         setOnDoubleClicked(fnct, defaultMinPushTime, defaultMinReleaseTime, defaultTimeSpan);
     }
 
-    void Button::setOnDoubleClicked(void (*fnct)(), uint32_t minPushTime) {
+    void Button::setOnDoubleClicked(ButtonEventFunction, uint32_t minPushTime) {
         setOnDoubleClicked(fnct, minPushTime, defaultMinReleaseTime, defaultTimeSpan);
     }
 
-    void Button::setOnDoubleClicked(void (*fnct)(), uint32_t minPushTime, uint32_t timeSpan) {
+    void Button::setOnDoubleClicked(ButtonEventFunction, uint32_t minPushTime, uint32_t timeSpan) {
         setOnDoubleClicked(fnct, minPushTime, defaultMinReleaseTime, timeSpan);
     }
 
-    void Button::setOnDoubleClicked(void (*fnct)(), uint32_t minPushTime, uint32_t minReleaseTime, uint32_t timeSpan) {
+    void Button::setOnDoubleClicked(ButtonEventFunction, uint32_t minPushTime, uint32_t minReleaseTime, uint32_t timeSpan) {
         this->addEvent(new DoubleclickEvent(fnct, minPushTime, minReleaseTime, timeSpan));
     }
 
-    void Button::setOnHolding(void (*fnct)()) {
+    void Button::setOnHolding(ButtonEventFunction) {
         setOnHolding(fnct, defaultHoldInterval);
     }
 
-    void Button::setOnHolding(void (*fnct)(), uint32_t interval) {
+    void Button::setOnHolding(ButtonEventFunction, uint32_t interval) {
         this->addEvent(new HoldEvent(fnct, interval));
     }
 

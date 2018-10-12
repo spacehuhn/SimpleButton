@@ -1,7 +1,7 @@
 #include "ClickEvent.h"
 
 namespace simplebutton {
-    ClickEvent::ClickEvent(void (*fnct)(), uint32_t minPushTime, uint32_t minReleaseTime) {
+    ClickEvent::ClickEvent(ButtonEventFunction, uint32_t minPushTime, uint32_t minReleaseTime) {
         this->fnct           = fnct;
         this->minPushTime    = minPushTime;
         this->minReleaseTime = minReleaseTime;

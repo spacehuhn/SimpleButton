@@ -5,7 +5,7 @@
 namespace simplebutton {
     class HoldEvent : public Event {
         public:
-            HoldEvent(void(*fnct)(), uint32_t interval);
+            HoldEvent(ButtonEventFunction, uint32_t interval);
             ~HoldEvent();
 
             uint8_t getMode();

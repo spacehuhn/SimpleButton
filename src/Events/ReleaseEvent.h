@@ -6,7 +6,7 @@
 namespace simplebutton {
     class ReleaseEvent : public Event {
         public:
-            ReleaseEvent(void(*fnct)());
+            ReleaseEvent(ButtonEventFunction);
             ~ReleaseEvent();
 
             uint8_t getMode();

@@ -2,10 +2,11 @@
 #define SimpleButton_ClickEvent_h
 
 #include "Event.h"
+
 namespace simplebutton {
     class ClickEvent : public Event {
         public:
-            ClickEvent(void(*fnct)(), uint32_t minPushTime, uint32_t minReleaseTime);
+            ClickEvent(ButtonEventFunction, uint32_t minPushTime, uint32_t minReleaseTime);
             ~ClickEvent();
 
             uint8_t getMode();
