@@ -3,7 +3,6 @@ A simple Arduino library to make interfacing and reacting on button events easie
 
 **Overview:**  
 - [Features](#features)
-- [To-Do](#to-do)
 - [Installation](#installation)
 - [Usage](#usage)
   - [Include the library](#include-the-library)
