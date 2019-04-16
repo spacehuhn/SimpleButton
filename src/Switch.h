@@ -4,8 +4,8 @@
 #include <stddef.h> // NULL
 
 typedef struct switch_config {
+    int           pin  : 14;
     unsigned int  mode : 2;
-    unsigned int  pin  : 14;
     unsigned long update_interval;
     unsigned long switch_delay;
 } switch_config;
@@ -33,7 +33,7 @@ typedef void (* switch_callback)();
 class Switch {
     private:
         switch_config config;
-        switch_state  state;
+        switch_state state;
 
         switch_callback onPushed      = NULL;
         switch_callback onReleased    = NULL;
@@ -43,7 +43,7 @@ class Switch {
 
     protected:
     public:
-        Switch(unsigned int pin, int mode = SWITCH_DEFAULT);
+        Switch(int pin, int mode = SWITCH_DEFAULT);
 
         // Getter
         int read() const;
@@ -79,8 +79,11 @@ class Switch {
         void update();
         void update(int newState);
 
-        void setPin(unsigned int pin, int mode = SWITCH_DEFAULT);
-        void setInverted(int mode              = SWITCH_INVERTED);
+        void setX(int xVal);
+        void setY(int yVal);
+
+        void setPin(int pin, int mode = SWITCH_DEFAULT);
+        void setInverted(int mode     = SWITCH_INVERTED);
         void setUpdateInterval(unsigned int interval);
         void setSwitchDelay(unsigned int switchDelay);
 

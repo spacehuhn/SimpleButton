@@ -2,7 +2,7 @@
 
 #include "Arduino.h" // pinMode, analogRead, ...
 
-AnalogButton::AnalogButton(unsigned int pin, int minValue, int maxValue) : Button(pin, false), minValue(minValue), maxValue(maxValue), value(0) {}
+AnalogButton::AnalogButton(int pin, int minValue, int maxValue) : Button(pin, BUTTON_DEFAULT), minValue(minValue), maxValue(maxValue), value(0) {}
 
 // Getter
 int AnalogButton::read() const {
@@ -35,8 +35,15 @@ void AnalogButton::update() {
 }
 
 void AnalogButton::update(int newState) {
-    this->value = newState;
-
+    this->value = newState; /*
+                               Serial.print(newState);
+                               Serial.print(" = ");
+                               Serial.print((newState >= minValue) && (newState <= maxValue));
+                               Serial.print("[");
+                               Serial.print(minValue);
+                               Serial.print(",");
+                               Serial.print(maxValue);
+                               Serial.println("]");*/
     Button::update((newState >= minValue) && (newState <= maxValue));
 }
 

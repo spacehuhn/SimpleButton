@@ -2,9 +2,9 @@
 
 #include "Arduino.h" // pinMode, digitalRead, ...
 
-Button::Button(unsigned int pin, int mode) {
-    config.mode            = mode;
+Button::Button(int pin, int mode) {
     config.pin             = pin;
+    config.mode            = mode;
     config.update_interval = 5;
     config.push_time       = 40;
     config.release_time    = 40;
@@ -108,24 +108,26 @@ button_config Button::getConfig() const {
 
 // Setter
 void Button::begin() {
-    pinMode(config.pin, config.mode == BUTTON_PULLUP ? INPUT_PULLUP : INPUT);
-    enable();
+    if (config.pin >= 0) {
+        pinMode(config.pin, config.mode == BUTTON_PULLUP ? INPUT_PULLUP : INPUT);
+        enable();
 
-    state.enabled        = true;
-    state.state          = read();
-    state.pushed         = false;
-    state.released       = false;
-    state.prev_released  = false;
-    state.clicked        = false;
-    state.double_clicked = false;
-    state.holding        = false;
-    // state.clicks            = 0;
-    state.push_time         = 0;
-    state.release_time      = 0;
-    state.prev_push_time    = 0;
-    state.prev_release_time = 0;
-    state.holding_time      = 0;
-    state.update_time       = 0;
+        state.enabled        = true;
+        state.state          = read();
+        state.pushed         = false;
+        state.released       = false;
+        state.prev_released  = false;
+        state.clicked        = false;
+        state.double_clicked = false;
+        state.holding        = false;
+        // state.clicks            = 0;
+        state.push_time         = 0;
+        state.release_time      = 0;
+        state.prev_push_time    = 0;
+        state.prev_release_time = 0;
+        state.holding_time      = 0;
+        state.update_time       = 0;
+    }
 }
 
 void Button::enable() {
@@ -241,7 +243,7 @@ void Button::update(int newState) {
     if (onHolding && holding()) onHolding();
 }
 
-void Button::setPin(unsigned int pin, int mode) {
+void Button::setPin(int pin, int mode) {
     config.pin  = pin;
     config.mode = mode;
 }

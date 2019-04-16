@@ -4,9 +4,9 @@
 #include "Button.h"
 #include "AnalogButton.h"
 #include "Switch.h"
+#include "AnalogStick.h"
 
 // Todo:
-// analogstick
 // RotaryEncoder
 // I2CRotary encoder(s)
 // GPIO expander(s)

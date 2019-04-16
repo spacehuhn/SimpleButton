@@ -4,8 +4,8 @@
 #include <stddef.h> // NULL
 
 typedef struct button_config {
+    int           pin  : 14;
     unsigned int  mode : 2;
-    unsigned int  pin  : 14;
     unsigned long update_interval;
     unsigned long push_time;
     unsigned long release_time;
@@ -50,7 +50,7 @@ class Button {
         struct button_state  state;
 
     public:
-        Button(unsigned int pin = 0, int mode = BUTTON_DEFAULT);
+        Button(int pin = -1, int mode = BUTTON_DEFAULT);
 
         // Getter
         virtual int read() const;
@@ -87,8 +87,8 @@ class Button {
         virtual void update();
         virtual void update(int newState);
 
-        void setPin(unsigned int pin, int mode = BUTTON_DEFAULT);
-        void setInverted(int mode              = BUTTON_INVERTED);
+        void setPin(int pin, int mode = BUTTON_DEFAULT);
+        void setInverted(int mode     = BUTTON_INVERTED);
         void setUpdateInterval(unsigned int interval);
         void setPushTime(unsigned int pushTime);
         void setReleaseTime(unsigned int releaseTime);

@@ -11,7 +11,7 @@ class AnalogButton : public Button {
 
     protected:
     public:
-        AnalogButton(unsigned int pin = 0, int minValue = 0, int maxValue = 1024);
+        AnalogButton(int pin = -1, int minValue = 0, int maxValue = 1024);
 
         // getter
         int read() const override;

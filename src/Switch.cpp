@@ -2,9 +2,9 @@
 
 #include "Arduino.h" // pinMode, digitalRead, millis, ...
 
-Switch::Switch(unsigned int pin, int mode) {
-    config.mode            = mode;
+Switch::Switch(int pin, int mode) {
     config.pin             = pin;
+    config.mode            = mode;
     config.update_interval = 5;
     config.switch_delay    = 40;
 
@@ -95,19 +95,21 @@ switch_config Switch::getConfig() const {
 
 // Setter
 void Switch::begin() {
-    pinMode(config.pin, config.mode == SWITCH_PULLUP ? INPUT_PULLUP : INPUT);
-    enable();
+    if (config.pin >= 0) {
+        pinMode(config.pin, config.mode == SWITCH_PULLUP ? INPUT_PULLUP : INPUT);
+        enable();
 
-    state.state        = read();
-    state.prev_state   = state.state;
-    state.pushed       = false;
-    state.released     = false;
-    state.switched     = false;
-    state.switched_on  = false;
-    state.switched_off = false;
-    // state.switches     = 0;
-    state.switch_time = 0;
-    state.update_time = 0;
+        state.state        = read();
+        state.prev_state   = state.state;
+        state.pushed       = false;
+        state.released     = false;
+        state.switched     = false;
+        state.switched_on  = false;
+        state.switched_off = false;
+        // state.switches     = 0;
+        state.switch_time = 0;
+        state.update_time = 0;
+    }
 }
 
 void Switch::enable() {
@@ -213,7 +215,7 @@ void Switch::update(int newState) {
     if (onSwitchedOff && switchedOff()) onSwitchedOff();
 }
 
-void Switch::setPin(unsigned int pin, int mode) {
+void Switch::setPin(int pin, int mode) {
     config.pin  = pin;
     config.mode = mode;
 }
